@@ -1,0 +1,73 @@
+
+.cards {
+    width: 300px;
+    height: 466px;
+ 
+}
+
+/* .a {
+    cursor: pointer;
+} */
+.productCard {
+    position: relative;
+}
+
+.product_discount {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 49px;
+    height: 24px;
+    background-color: rgba(250, 74, 105, 1);
+    border-radius: 20px;
+    font-size: 15px;
+    line-height: 18px;
+    color: white;
+    text-align: center;
+    padding: 3px 6px 3px 6px;
+}
+.card {
+    width: 300px;
+    height: 365px;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.cart {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border-color: #2D74FF;
+    background-color: #FFFFFF;
+    cursor: pointer;
+}
+
+.card_content {
+    padding: 0px 10px 0px 0px;
+}
+
+
+/* .star{
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+} */
+.id {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    color: rgba(0, 0, 0, 0.6);
+    margin-top: 10px;
+}
+
+.card_footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 40px;
+    margin-top: 4px;
+}

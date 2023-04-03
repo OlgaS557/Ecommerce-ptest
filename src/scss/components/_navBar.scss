@@ -1,0 +1,60 @@
+.navbar{
+    max-width: 1600px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    &__container{
+        height: 80px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 20px 31px 19px 30px;
+        &-menu{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        &-logo{
+            font-size: 24px;
+            padding: 5px 0 6px 0;
+            margin-right: 10px;
+        }
+        &-item{
+            font-size: 16px;
+            color: $grey;
+            cursor: pointer;
+            margin-left: 30px;
+            &:hover{
+                color: #2D74FF;
+            }
+        }
+        &-search{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            &-input{
+                position: relative;
+
+                    input{
+                        width: 250px;
+                        height: 40px;
+                        border-radius: 10px;
+                        border: 1px solid rgba(0, 0, 0, 0.1);
+                        padding: 11px 0 11px 36px;
+                    }
+                    svg{
+                        position: absolute;
+                        top: 12.5px;
+                        left: 12.5px;
+                    }
+            }
+            &-basket{
+               
+                margin-left: 28px;
+                cursor: pointer;
+            }
+            &-login{
+                margin-left: 30px;
+                cursor: pointer;
+            }
+        }
+    }
+}

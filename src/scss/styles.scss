@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+@import './variables';
+@import './libs/normalize';
+@import './mixins';
+
+//Components
+@import './components/footer';
+@import './components/subscribe';
+@import './components/navBar';
+@import './components/barMenu';
+
+
+
+
+
+// .container{
+//     max-width: 1600px;
+//     margin: 0 auto;
+// }
+
+.active{
+    display: flex;
+    // animation: eye 3s ease-in-out infinite;
+    // transition: all 0.6s;
+}
+// @keyframes eye {
+//     0% { transform: translateY(0)}
+//     100% { transform: translateY(1)}
+//    }
+.hidden{
+    display: none;
+}
+
+@keyframes eye {
+    90% { transform: none; }   
+    95% { transform: scaleY(0.1); }
+   }

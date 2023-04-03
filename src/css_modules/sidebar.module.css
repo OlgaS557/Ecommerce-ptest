@@ -1,0 +1,102 @@
+
+/* .sideBar {
+    display: flex;
+    position: absolute;
+    top: 264px;
+   
+} */
+
+
+.widget_wrapper {
+    max-width: 300px;
+    background-color: white;
+    /* margin-top: 51px; */
+   left:0px;
+  
+    
+}
+
+.title {
+    /* Width: 208px;
+    Height: 30px; */
+    display: flex;
+    margin-top: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    
+    /* margin-top: 35px; */
+    
+}
+.line {
+    display: flex;
+   
+/*   
+    margin-top: 40px; */
+ 
+    width:250px;
+   
+    height: 1px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+
+}
+
+.title_name {
+    position: absolute;
+    width: 208px;
+    height: 30px;
+   font-weight: 500;
+    font-size: 18px;
+    margin: 0px;
+   
+    letter-spacing: -0.3px;
+    line-height: 20px;
+    color: #000000;
+    /* padding: 6px 0px 6px 0px; */
+    /* margin-top: 10px; */
+    margin-right: 27.6px;
+    margin-bottom: 15px;
+
+}
+
+
+.title_icon::after {
+    content: "";
+    Width: 8.76px;
+    Height: 5.21px;
+    /* position: absolute; */
+    left: 28.14%;
+    right: 28.04%;
+    top: 36.98%;
+    bottom: 37%;
+    background: rgba(0, 0, 0, 0.3);
+    background-image: url('../Assets/Icons/Navigation/angle-up.svg');
+    background-repeat: no-repeat;
+    background-size: initial;
+    background-position: center;
+}
+/* .active{
+    display: flex;
+     animation: eye 3s ease-in-out infinite;
+     transition: all 0.6s;
+} */
+
+/* .title_icon--active::after {
+    transform: rotate(180deg);
+} */
+.widget_wrapper_items {
+    /* display: inline-block; */
+    margin-top: 15px;
+}
+/* .widget_wrapper_items--hidden {
+    display: none;
+} */
+.item {
+    padding-bottom: 15px;
+    font-weight: 400;
+    font-size: 16px;
+}
+.item:hover {
+    color: #2D74FF;
+    cursor: pointer;
+}

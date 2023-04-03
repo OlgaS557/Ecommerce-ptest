@@ -1,0 +1,77 @@
+.footer{
+    max-width: 1600px;
+    max-height: 478px;
+    padding: 60px 155px 0 155px;
+    background-color: $black;
+    color: $grey;
+    &__container{
+        &_info{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            &_logo{
+                font-size: 24px;
+                color: $white;
+                margin-right: 100px;
+            }
+            &_item{
+                &_title{
+                    font-size: 20px;
+                    color: $white;
+                    margin-bottom: 20px;
+                }
+                &_desc{
+                    width: 100%;
+                    font-size: 18px;
+                    color: $grey;
+                    margin-bottom: 16px;
+                    div{
+                        font-size: 15px;
+                    }
+                    p{
+                        margin-top: 5px;
+                        font-size: 17px;
+                        color: $white;
+                        &:hover{
+                            color: $blue;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+        &_line{
+            border: 1px solid $grey;
+            margin-top: 46px;
+        }
+        &_bottom{
+            max-width: 1290px;
+            height: 110px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        &_name{
+            font-size: 18px;
+            color: $grey;
+        }
+        &_social{
+            display: flex;
+            justify-content: space-between;
+            width: 170px;
+            &_item{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 50px;
+                height: 50px;
+                border-radius: 100%;
+                background-color: $grey;
+            }
+        }
+    }
+    }
+    
+}
+.last{
+    width: 94px;
+}
