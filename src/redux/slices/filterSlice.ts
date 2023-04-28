@@ -27,18 +27,9 @@ const filterSlice = createSlice ({
             state.priceItem = action.payload;
         },
         setSort(state, action: PayloadAction<any>) {
-            // let newSortData;
-            // let tempSortProduct = [...action.payload];
-            // if (state.sort === 'Price from down to up') {
-            //     const sortingProducts = (a, b) => {
-            //         return a.price - b.price;
-            //     };
-            //     newSortData = tempSortProduct.sort(sortingProducts);
-            // }
             console.log('action',action);
             state.sort = action.payload;
         },
-        
         setCurrentPage(state, action) {
             console.log('action',action);
             state.currentPage = action.payload;

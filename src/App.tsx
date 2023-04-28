@@ -25,13 +25,13 @@ import './css_modules/products.module.css';
 
 function App() {
   return (
-    <div className='container-fluid'>
+    <div className='container'>
       {/* <NavBar/> */}
       
         <Routes>
             <Route path="/" element={ <HomePage />}/>
             <Route path="/products" element={<ProductsPage />}/>
-            <Route path="/products/:id" element={<ProductPage />}/>
+            <Route path="/products/id" element={<ProductPage />}/>
             <Route path="/cart" element={<CartPage />}/>
             <Route path="/checkout" element={<CheckoutPage />}/>
             <Route path="/add-product" element={<AddProduct />}/>

@@ -1,0 +1,17 @@
+.emptyCart {
+    font-size: 48px;
+    line-height: 54px;
+    color: rgba(0, 0, 0, 0.3);
+    margin-top: 60px;
+}
+.btnToHome {
+    width: 192px;
+    height: 60px;
+    background: #000000;
+    color: #FFFFFF;
+    border-radius: 10px;
+    font-size: 20px;
+    align-items: center;
+    margin: 30px 48px;
+    cursor: pointer;
+}

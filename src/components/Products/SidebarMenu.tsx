@@ -1,5 +1,4 @@
 import { useState } from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
 import { useAppSelector, useAppDispatch } from '../../hook/redux';
 import { setCategoryItem, setPriceItem } from '../../redux/slices/filterSlice';
 import { menuProducts } from '../../Utils/Data';
@@ -12,7 +11,7 @@ import styles from "../../css_modules/sidebar.module.css";
 
 import CheckboxMui from '../Btn/CheckboxMui';
 import Line from '../../Assets/img/Line.jpg';
-// import NestedList from './NestedList';
+
 import { Box,FormGroup, FormControl, FormControlLabel, Radio, RadioGroup, Checkbox } from '@mui/material';
 
 
@@ -260,8 +259,8 @@ import { Box,FormGroup, FormControl, FormControlLabel, Radio, RadioGroup, Checkb
 
 function SidebarMenu() {
     const dispatch = useAppDispatch();
-    const categoryItem = useAppSelector((state) => state.filterReducer.categoryItem);
-    const priceItem = useAppSelector((state) => state.filterReducer.priceItem);
+    const {categoryItem, priceItem} = useAppSelector((state) => state.filterReducer);
+    
     console.log('categoryItem', categoryItem);
     console.log('priceItem', priceItem);
 
@@ -357,7 +356,6 @@ function SidebarMenu() {
             })}
             <ListItemButton onClick={handleClickPrice} >
                 <div className={styles.title}>
-
                     <div className={styles.line}><img src={Line} alt="Line" /></div>
                     <Typography sx={{ fontSize: 18, fontWeight: 'bold' }} className={styles.title_name}> {Object.keys(menuProducts)[1]} </Typography>
                     {isPriceOpen ?
@@ -368,23 +366,24 @@ function SidebarMenu() {
                             <path d="M17 9.16994C16.8126 8.98369 16.5592 8.87915 16.295 8.87915C16.0308 8.87915 15.7774 8.98369 15.59 9.16994L12 12.7099L8.46001 9.16994C8.27265 8.98369 8.0192 8.87915 7.75501 8.87915C7.49082 8.87915 7.23737 8.98369 7.05001 9.16994C6.95628 9.26291 6.88189 9.37351 6.83112 9.49537C6.78035 9.61723 6.75421 9.74793 6.75421 9.87994C6.75421 10.012 6.78035 10.1427 6.83112 10.2645C6.88189 10.3864 6.95628 10.497 7.05001 10.5899L11.29 14.8299C11.383 14.9237 11.4936 14.9981 11.6154 15.0488C11.7373 15.0996 11.868 15.1257 12 15.1257C12.132 15.1257 12.2627 15.0996 12.3846 15.0488C12.5064 14.9981 12.617 14.9237 12.71 14.8299L17 10.5899C17.0937 10.497 17.1681 10.3864 17.2189 10.2645C17.2697 10.1427 17.2958 10.012 17.2958 9.87994C17.2958 9.74793 17.2697 9.61723 17.2189 9.49537C17.1681 9.37351 17.0937 9.26291 17 9.16994Z" fill="black" />
                         </svg>
                     }
-
                 </div>
             </ListItemButton>
             <Collapse sx={{ pl: 2 }} in={isPriceOpen} timeout="auto" unmountOnExit>
-                <Box className={styles.widget_wrapper_items}>
-                        {menuProducts.Price.map((item, index) =>
-                            <FormControlLabel className={styles.item}
-                                key={index}
-                                label={item}
-                                control={<Checkbox onClick={() => onChangePriceItem(item)} />}
-                            />)
-                        }
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column'
+                }} className={styles.widget_wrapper_items}>
+                    {menuProducts.Price.map((item, index) =>
+                        <FormControlLabel className={styles.item}
+                            key={index}
+                            label={item}
+                            control={<Checkbox onClick={() => onChangePriceItem(item)} />}
+                        />)
+                    }
                 </Box>
             </Collapse>
             <ListItemButton onClick={handleClickSize} >
                 <div className={styles.title}>
-
                     <div className={styles.line}><img src={Line} alt="Line" /></div>
                     <Typography sx={{ fontSize: 18, fontWeight: 'bold' }} className={styles.title_name}> {Object.keys(menuProducts)[2]} </Typography>
                     {isSizeOpen ?
@@ -395,7 +394,6 @@ function SidebarMenu() {
                             <path d="M17 9.16994C16.8126 8.98369 16.5592 8.87915 16.295 8.87915C16.0308 8.87915 15.7774 8.98369 15.59 9.16994L12 12.7099L8.46001 9.16994C8.27265 8.98369 8.0192 8.87915 7.75501 8.87915C7.49082 8.87915 7.23737 8.98369 7.05001 9.16994C6.95628 9.26291 6.88189 9.37351 6.83112 9.49537C6.78035 9.61723 6.75421 9.74793 6.75421 9.87994C6.75421 10.012 6.78035 10.1427 6.83112 10.2645C6.88189 10.3864 6.95628 10.497 7.05001 10.5899L11.29 14.8299C11.383 14.9237 11.4936 14.9981 11.6154 15.0488C11.7373 15.0996 11.868 15.1257 12 15.1257C12.132 15.1257 12.2627 15.0996 12.3846 15.0488C12.5064 14.9981 12.617 14.9237 12.71 14.8299L17 10.5899C17.0937 10.497 17.1681 10.3864 17.2189 10.2645C17.2697 10.1427 17.2958 10.012 17.2958 9.87994C17.2958 9.74793 17.2697 9.61723 17.2189 9.49537C17.1681 9.37351 17.0937 9.26291 17 9.16994Z" fill="black" />
                         </svg>
                     }
-
                 </div>
             </ListItemButton>
             <div
@@ -415,7 +413,6 @@ function SidebarMenu() {
             </div>
             <ListItemButton onClick={handleClickCollection} >
                 <div className={styles.title}>
-
                     <div className={styles.line}><img src={Line} alt="Line" /></div>
                     <Typography sx={{ fontSize: 18, fontWeight: 'bold' }} className={styles.title_name}> {Object.keys(menuProducts)[3]} </Typography>
                     {isCollectionOpen ?
@@ -426,7 +423,6 @@ function SidebarMenu() {
                             <path d="M17 9.16994C16.8126 8.98369 16.5592 8.87915 16.295 8.87915C16.0308 8.87915 15.7774 8.98369 15.59 9.16994L12 12.7099L8.46001 9.16994C8.27265 8.98369 8.0192 8.87915 7.75501 8.87915C7.49082 8.87915 7.23737 8.98369 7.05001 9.16994C6.95628 9.26291 6.88189 9.37351 6.83112 9.49537C6.78035 9.61723 6.75421 9.74793 6.75421 9.87994C6.75421 10.012 6.78035 10.1427 6.83112 10.2645C6.88189 10.3864 6.95628 10.497 7.05001 10.5899L11.29 14.8299C11.383 14.9237 11.4936 14.9981 11.6154 15.0488C11.7373 15.0996 11.868 15.1257 12 15.1257C12.132 15.1257 12.2627 15.0996 12.3846 15.0488C12.5064 14.9981 12.617 14.9237 12.71 14.8299L17 10.5899C17.0937 10.497 17.1681 10.3864 17.2189 10.2645C17.2697 10.1427 17.2958 10.012 17.2958 9.87994C17.2958 9.74793 17.2697 9.61723 17.2189 9.49537C17.1681 9.37351 17.0937 9.26291 17 9.16994Z" fill="black" />
                         </svg>
                     }
-
                 </div>
             </ListItemButton>
             <Collapse in={isCollectionOpen} timeout="auto" unmountOnExit>
@@ -439,7 +435,6 @@ function SidebarMenu() {
             </Collapse>
             <ListItemButton onClick={handleClickBrand} >
                 <div className={styles.title}>
-
                     <div className={styles.line}><img src={Line} alt="Line" /></div>
                     <Typography sx={{ fontSize: 18, fontWeight: 'bold' }} className={styles.title_name}> {Object.keys(menuProducts)[4]} </Typography>
                     {isBrandOpen ?
@@ -450,7 +445,6 @@ function SidebarMenu() {
                             <path d="M17 9.16994C16.8126 8.98369 16.5592 8.87915 16.295 8.87915C16.0308 8.87915 15.7774 8.98369 15.59 9.16994L12 12.7099L8.46001 9.16994C8.27265 8.98369 8.0192 8.87915 7.75501 8.87915C7.49082 8.87915 7.23737 8.98369 7.05001 9.16994C6.95628 9.26291 6.88189 9.37351 6.83112 9.49537C6.78035 9.61723 6.75421 9.74793 6.75421 9.87994C6.75421 10.012 6.78035 10.1427 6.83112 10.2645C6.88189 10.3864 6.95628 10.497 7.05001 10.5899L11.29 14.8299C11.383 14.9237 11.4936 14.9981 11.6154 15.0488C11.7373 15.0996 11.868 15.1257 12 15.1257C12.132 15.1257 12.2627 15.0996 12.3846 15.0488C12.5064 14.9981 12.617 14.9237 12.71 14.8299L17 10.5899C17.0937 10.497 17.1681 10.3864 17.2189 10.2645C17.2697 10.1427 17.2958 10.012 17.2958 9.87994C17.2958 9.74793 17.2697 9.61723 17.2189 9.49537C17.1681 9.37351 17.0937 9.26291 17 9.16994Z" fill="black" />
                         </svg>
                     }
-
                 </div>
             </ListItemButton>
             <Collapse in={isBrandOpen} timeout="auto" unmountOnExit>
@@ -463,7 +457,6 @@ function SidebarMenu() {
             </Collapse>
             <ListItemButton onClick={handleClickStyle} >
                 <div className={styles.title}>
-
                     <div className={styles.line}><img src={Line} alt="Line" /></div>
                     <Typography sx={{ fontSize: 18, fontWeight: 'bold' }} className={styles.title_name}> {Object.keys(menuProducts)[5]} </Typography>
                     {isStyleOpen ?
@@ -474,7 +467,6 @@ function SidebarMenu() {
                             <path d="M17 9.16994C16.8126 8.98369 16.5592 8.87915 16.295 8.87915C16.0308 8.87915 15.7774 8.98369 15.59 9.16994L12 12.7099L8.46001 9.16994C8.27265 8.98369 8.0192 8.87915 7.75501 8.87915C7.49082 8.87915 7.23737 8.98369 7.05001 9.16994C6.95628 9.26291 6.88189 9.37351 6.83112 9.49537C6.78035 9.61723 6.75421 9.74793 6.75421 9.87994C6.75421 10.012 6.78035 10.1427 6.83112 10.2645C6.88189 10.3864 6.95628 10.497 7.05001 10.5899L11.29 14.8299C11.383 14.9237 11.4936 14.9981 11.6154 15.0488C11.7373 15.0996 11.868 15.1257 12 15.1257C12.132 15.1257 12.2627 15.0996 12.3846 15.0488C12.5064 14.9981 12.617 14.9237 12.71 14.8299L17 10.5899C17.0937 10.497 17.1681 10.3864 17.2189 10.2645C17.2697 10.1427 17.2958 10.012 17.2958 9.87994C17.2958 9.74793 17.2697 9.61723 17.2189 9.49537C17.1681 9.37351 17.0937 9.26291 17 9.16994Z" fill="black" />
                         </svg>
                     }
-
                 </div>
             </ListItemButton>
             <Collapse in={isStyleOpen} timeout="auto" unmountOnExit>

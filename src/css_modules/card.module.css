@@ -41,11 +41,12 @@
     width: 40px;
     height: 40px;
     border-radius: 10px;
-    border-color: #2D74FF;
-    background-color: #FFFFFF;
+    border-color: #2161e1;
     cursor: pointer;
 }
-
+.cart:active {
+    background-color:gray;
+}
 .card_content {
     padding: 0px 10px 0px 0px;
 }

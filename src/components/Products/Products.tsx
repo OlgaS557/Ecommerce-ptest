@@ -1,5 +1,6 @@
 import { FC, useState, useEffect } from 'react';
 import {useAppSelector, useAppDispatch} from '../../hook/redux';
+import { addItems } from '../../redux/slices/cartSlice';
 import { setCategoryItem, setCurrentPage } from '../../redux/slices/filterSlice';
 import { NavLink } from 'react-router-dom';
 import SidebarMenu from './SidebarMenu';
@@ -8,7 +9,7 @@ import {Item} from '../../types/index';
 import styles from "../../css_modules/products.module.css";
 import Card from './Card';
 import Skeleton from './Skeleton';
-import SortPopup from './SortPopup'
+import SortPopup from './SortPopup';
 import Pagination from './Pagination';
 import FilteredCards from './FilteredCards';
 
@@ -65,7 +66,7 @@ import FilteredCards from './FilteredCards';
 
 
 const Products: FC = () => {
-  // const dispatch = useDispatch();
+
   const {categoryItem, priceItem, sort, currentPage} = useAppSelector((state) => state.filterReducer);
   
   console.log('category Item',categoryItem);
@@ -76,27 +77,12 @@ const Products: FC = () => {
   // const [sidebarItem, setSidbarItem] = useState(0);
   // const [sortType, setSortType] = useState('By price');
 
-  
-
-  
-  // const onClickAddToCart = () => {
-  //   const item: Item = {
-  //     id,
-  //     name, 
-  //     price, 
-  //     discount, 
-  //     url
-
-  //   }
-  // };
-
   useEffect(() => {
     setIsLoading(true);
-    fetch(`https://63fe336d370fe830d9d040e7.mockapi.io/Items?
-    ${categoryItem === "All" ? `category=${''}` : categoryItem}`)
+    fetch(`https://63fe336d370fe830d9d040e7.mockapi.io/Items`)
       .then((response) => response.json())
-      // .then(arr => arr.filter((p: {category: string}) => p.category === categoryItem))
-    //  .then(arr => arr.filter((p: {price: number}) => p.price === priceItem))
+      .then(arr => categoryItem !== "All" ? arr.filter((p: {category: string}) => p.category === categoryItem)  : arr)
+     .then(arr => arr.filter((p: {price: number}) => p.price === priceItem))
       .then((arr) => {
         setItems(arr.slice((currentPage-1) * 9,(currentPage) * 9));
         setIsLoading(false);
@@ -104,7 +90,8 @@ const Products: FC = () => {
     window.scrollTo(0, 0);
   }, [categoryItem, priceItem, sort, currentPage]);
   console.log(items);
-  console.log(isLoading)
+  console.log(isLoading);
+
   return (
     <div className={styles.products_container}>
       <div className={styles.titlebox}>
@@ -125,8 +112,6 @@ const Products: FC = () => {
         {/* <SidebarMenu value={categoryItem} onClickCategoryItem={(i: number) => setCategoryItem(i)}/> */}
         <SidebarMenu />
       </div>
-
-
       <div className={styles.cards}>
         {/* {items.map((item, index) => (
               <Card item={item} key={index} />
@@ -134,9 +119,7 @@ const Products: FC = () => {
         {isLoading
           ? [...new Array(9)].map((_, index) => <Skeleton key={index} />)
           : <FilteredCards items={items} />}
-
       </div>
-
       <div className={styles.paginations}>
         <Pagination />
       </div>

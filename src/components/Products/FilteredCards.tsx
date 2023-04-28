@@ -4,12 +4,11 @@ import { Item } from '../../types';
 import Card from './Card';
 
 interface Props {
-    items: Item[]
+    items: Item[];    
 }
 
 const FilteredCards = ({ items }: Props) => {
     const sort = useAppSelector(state => state.filterReducer.sort);
-    
 
     switch (sort) {
         case "Price up":
@@ -30,6 +29,12 @@ const FilteredCards = ({ items }: Props) => {
                     {items.sort((item1, item2) => item2.discount - item1.discount).map((item: Item, index: number) => <Card item={item} key={index} />)}
                 </>
             )
+            case "By rating":
+                return (
+                    <>
+                        {items.sort((item1, item2) => item2.rating - item1.rating).map((item: Item, index: number) => <Card item={item} key={index} />)}
+                    </>
+                )
         default:
             return (
                 <>

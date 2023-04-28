@@ -1,17 +1,17 @@
 export interface Item {
-    index?: number,
-    name?: string,
-    img?: string,
-    url:string,
-    category?: string,
-    price:number,
-    discount:number,
-    id?: string, 
-    size: number
-    rating: {
-        totalRatingScore: number,
-        numberOfRated: number
-    }
+    index?: number;
+    name?: string;
+    img?: string;
+    url:string;
+    category?: string;
+    price:number;
+    discount:number;
+    id?: string; 
+    size: number;
+    count:number;
+    colorCart: string;
+    rating: number;
+    [x: string]: any;
 }
 
         // id: number,

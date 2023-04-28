@@ -3,8 +3,13 @@ import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 
-export default function BasicRating() {
-  const [value, setValue] = React.useState<number | null>(2);
+
+type propsType = {
+  stars: number
+}
+
+export default function BasicRating({stars}: propsType) {
+
 
   return (
     <Box
@@ -15,10 +20,7 @@ export default function BasicRating() {
       {/* <Typography component="legend">Controlled</Typography> */}
       <Rating
         name="simple-controlled"
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
+        value={stars}
       />
       {/* <Typography component="legend">Read only</Typography> */}
       {/* <Rating name="read-only" value={value} readOnly size="large"/> */}
