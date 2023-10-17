@@ -1,0 +1,53 @@
+* {
+    box-sizing: border-box;
+}
+
+.products_container {
+    display: grid;  
+    grid-auto-rows: 1fr auto;  
+    grid-template-areas:
+        "path path"
+        "profile orders";   
+    max-width: 1600px;
+    margin: 0 auto;
+}
+.path {
+    grid-area: path;
+    display: flex; /* Use flex display */
+    align-items: center; /* Vertically center the items */
+    max-width: 1600px;
+    margin-top: 20px;
+    margin-left: 50px;
+   
+}
+
+.path > * {
+    margin-right: 11px; /* Add margin between items */
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.to_home {
+    cursor: pointer;
+}
+
+.path_line {
+    width: 7px;
+    height: 20px;
+    letter-spacing: -0.3px;
+}
+
+.path_to {
+    letter-spacing: -0.3px;
+    height: 20px;
+    padding: 1px 0px;
+}
+.profile {
+    grid-area: profile;
+    width: 360px;
+    margin-top: 50px;
+    margin-left: 50px;
+    border-color: #000000;
+}
+
+

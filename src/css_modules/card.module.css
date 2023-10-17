@@ -1,13 +1,8 @@
-
 .cards {
     width: 300px;
     height: 466px;
- 
 }
 
-/* .a {
-    cursor: pointer;
-} */
 .productCard {
     position: relative;
 }
@@ -41,21 +36,16 @@
     width: 40px;
     height: 40px;
     border-radius: 10px;
-    border-color: #2D74FF;
-    background-color: #FFFFFF;
+    border-color: #2161e1;
     cursor: pointer;
 }
-
+.cart:active {
+    background-color:gray;
+}
 .card_content {
     padding: 0px 10px 0px 0px;
 }
 
-
-/* .star{
-    display: flex;
-    flex-direction: row;
-    margin-top: 10px;
-} */
 .id {
     font-weight: 400;
     font-size: 16px;

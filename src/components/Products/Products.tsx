@@ -1,146 +1,119 @@
-import { FC, useState, useEffect } from 'react';
-import {useAppSelector, useAppDispatch} from '../../hook/redux';
-import { setCategoryItem, setCurrentPage } from '../../redux/slices/filterSlice';
+import { FC, useState, useEffect, useRef } from 'react';
+import { useAppSelector } from '../../hook/redux';
 import { NavLink } from 'react-router-dom';
-import SidebarMenu from './SidebarMenu';
-
-import {Item} from '../../types/index';
+import {Link} from 'react-router-dom';
 import styles from "../../css_modules/products.module.css";
-import Card from './Card';
+import {Item} from '../../types/index';
+import SidebarMenu from './SideBar/SidebarMenu';
 import Skeleton from './Skeleton';
-import SortPopup from './SortPopup'
+import Card from './Card';
+import SortPopup from './SortPopup';
 import Pagination from './Pagination';
-import FilteredCards from './FilteredCards';
+import Subscribe from '../Subscribe';
 
+const filterItems = (items: Item[], categoryItems: Array<string>, priceItem: { valueFrom: number, valueTo: number}, searchQuery: string) : Item[] => {
+  return items
+  .filter(p => {
+    if(categoryItems.includes('All'))
+    return true;
+        return categoryItems.includes(p.category!);
+  })
+  .filter(p => p.price < priceItem.valueTo)
+  .filter(p => p.price >= priceItem.valueFrom && p.price <= priceItem.valueTo)
+  .filter(p => p.price > priceItem.valueFrom) 
+  .filter(p => p.name?.toLowerCase().includes(searchQuery.toLowerCase())); 
+}
 
-// const Products: FC = () => {
- 
-//   const [isLoading, setIsLoading] = useState(true);
-
-
-//   return (
-//       <div className={styles.products_container}>
-//         <div className={styles.titlebox}>
-//           <div className={styles.path}>
-//             <div className={styles.path_products_for}>Men</div>
-//             <div className={styles.path_products}>/</div>
-//             <div className={styles.path_products_name}>T-shirts</div>
-//           </div>
-//           <div className={styles.rowTitle}>
-//             <div className={styles.title}>Mens T-shirts</div>
-//             <div>
-//               <SortPopup />
-//               {/* <div className={styles.byPrice}>By price</div>
-//               <div className={styles.iconedown}>
-//                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-//                   <path d="M17 9.16994C16.8126 8.98369 16.5592 8.87915 16.295 8.87915C16.0308 8.87915 15.7774 8.98369 15.59 9.16994L12 12.7099L8.46001 9.16994C8.27265 8.98369 8.0192 8.87915 7.75501 8.87915C7.49082 8.87915 7.23737 8.98369 7.05001 9.16994C6.95628 9.26291 6.88189 9.37351 6.83112 9.49537C6.78035 9.61723 6.75421 9.74793 6.75421 9.87994C6.75421 10.012 6.78035 10.1427 6.83112 10.2645C6.88189 10.3864 6.95628 10.497 7.05001 10.5899L11.29 14.8299C11.383 14.9237 11.4936 14.9981 11.6154 15.0488C11.7373 15.0996 11.868 15.1257 12 15.1257C12.132 15.1257 12.2627 15.0996 12.3846 15.0488C12.5064 14.9981 12.617 14.9237 12.71 14.8299L17 10.5899C17.0937 10.497 17.1681 10.3864 17.2189 10.2645C17.2697 10.1427 17.2958 10.012 17.2958 9.87994C17.2958 9.74793 17.2697 9.61723 17.2189 9.49537C17.1681 9.37351 17.0937 9.26291 17 9.16994Z" fill="black" />
-//                 </svg>
-//               </div> */}
-//             </div>
-//           </div>
-//         </div>
-//         <div className={styles.sideBar}>
-//           <SidebarMenu />
-//         </div>
-//         <div className={styles.cards_holder}>
-
-//           <div className={styles.cards}> 
-//             {cardslist.map((item, index) => (
-//               <Card item={item} key={index} />
-//             ))}  
-//             {isLoading 
-//                ? [...new Array(9)].map((_, index) => <Skeleton key={index} />)
-//                : cardslist.map((item, index) => (
-//               <Card item={item} key={index} />
-//             ))}
-                         
-//           </div>
-//         </div>
-//         <div className={styles.paginations}>Pagionations</div>
-//       </div>
-//   )
-// };
-
-// export default Products;
-
+const sortItems = (items: Item[], sort: string): Item[] => {
+  if (sort === 'Price up') {
+    return items.sort((a, b) => a.price - b.price);
+  } else if (sort === 'Price down') {
+    return items.sort((a, b) => b.price - a.price);
+  } else if (sort === 'By discount') {
+    return items.sort((a, b) => b.discount - a.discount);
+  } else if (sort === 'By rating') {
+    return items.sort((a, b) => b.rating - a.rating);
+  } else {
+    return items;
+  }
+}
 
 const Products: FC = () => {
-  // const dispatch = useDispatch();
-  const {categoryItem, priceItem, sort, currentPage} = useAppSelector((state) => state.filterReducer);
+
+  const {categoryItems, priceItem, sort, currentPage, searchQuery} = useAppSelector((state) => state.filterReducer);
   
-  console.log('category Item',categoryItem);
+  console.log('category Item',categoryItems);
   console.log('priceItem',priceItem);
 
   const [items, setItems] = useState<Item[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  // const [sidebarItem, setSidbarItem] = useState(0);
-  // const [sortType, setSortType] = useState('By price');
 
-  
+  const isMounted = useRef(false); //позволяет сохранить значение переменной между рендерами компонента, чтобы можно было проверить, находится ли компонент на странице (не был ли он удален из DOM), перед тем как обновлять его состояние
 
-  
-  // const onClickAddToCart = () => {
-  //   const item: Item = {
-  //     id,
-  //     name, 
-  //     price, 
-  //     discount, 
-  //     url
-
-  //   }
-  // };
-
-  useEffect(() => {
+  useEffect (() => {
+    isMounted.current = true;
     setIsLoading(true);
-    fetch(`https://63fe336d370fe830d9d040e7.mockapi.io/Items?
-    ${categoryItem === "All" ? `category=${''}` : categoryItem}`)
-      .then((response) => response.json())
-      // .then(arr => arr.filter((p: {category: string}) => p.category === categoryItem))
-    //  .then(arr => arr.filter((p: {price: number}) => p.price === priceItem))
-      .then((arr) => {
-        setItems(arr.slice((currentPage-1) * 9,(currentPage) * 9));
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`https://63fe336d370fe830d9d040e7.mockapi.io/Items`);
+        const items = await response.json();
+        const filteredItems = filterItems(items, categoryItems, priceItem, searchQuery);
+        const sortedItems = sortItems(filteredItems, sort);
+        if (isMounted.current) {
+          setItems(sortedItems.slice((currentPage - 1) * 9, currentPage * 9));
+          setIsLoading(false);
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Error fetching items');
         setIsLoading(false);
-      })
-    window.scrollTo(0, 0);
-  }, [categoryItem, priceItem, sort, currentPage]);
-  console.log(items);
-  console.log(isLoading)
+      }
+    }
+
+    fetchData();
+
+    return () => {
+      isMounted.current = false;
+    }
+  }, [categoryItems, priceItem, sort, currentPage, searchQuery]);
+
   return (
-    <div className={styles.products_container}>
-      <div className={styles.titlebox}>
-        <div className={styles.path}>
-          <div className={styles.path_products_for}>Men</div>
-          <div className={styles.path_products}>/</div>
-          <NavLink to={`${categoryItem}`} className={styles.path_products_name}>{categoryItem}</NavLink>
-        </div>
-        <div className={styles.rowTitle}>
-          <div className={styles.title}>Mens T-shirts</div>
-          <div>
-            {/* <SortPopup value={sortType} onClickSortItem={(i) => setSortType(i)}/> */}
-            <SortPopup />
+    <>
+      <div className={styles.products_container}>
+        <div className={styles.titlebox}>
+          <div className={styles.path}>
+            <Link to='/'>
+              <button className={styles.to_home}>HOME</button>
+            </Link>
+            <div className={styles.path_products}>/</div>
+            <div className={styles.path_products_for}>Men</div>
+            {/* <NavLink to={`${categoryItems}`} className={styles.path_products_name}>{categoryItems}</NavLink> */}
+          </div>
+          <div className={styles.rowTitle}>
+            <div className={styles.title_category}>
+              <div className={styles.title}>Mens </div>
+              <div className={styles.path_products_name}>{categoryItems.join(' ')}</div>
+            </div>
+            <div>
+              <SortPopup />
+            </div>
           </div>
         </div>
+        <div className={styles.sideBar}>
+          <SidebarMenu />
+        </div>
+        <div className={styles.cards}>
+          {isLoading
+            ? [...new Array(9)].map((_, index) => <Skeleton key={index} />)
+            : items.map((item, index) => <Card item={item} key={index} />)}
+        </div>
+        <div className={styles.paginations}>
+          <Pagination />
+        </div>
       </div>
-      <div className={styles.sideBar}>
-        {/* <SidebarMenu value={categoryItem} onClickCategoryItem={(i: number) => setCategoryItem(i)}/> */}
-        <SidebarMenu />
-      </div>
-
-
-      <div className={styles.cards}>
-        {/* {items.map((item, index) => (
-              <Card item={item} key={index} />
-            ))}   */}
-        {isLoading
-          ? [...new Array(9)].map((_, index) => <Skeleton key={index} />)
-          : <FilteredCards items={items} />}
-
-      </div>
-
-      <div className={styles.paginations}>
-        <Pagination />
-      </div>
-    </div>
+      <Subscribe />
+    </>
   )
 };
 
@@ -150,14 +123,62 @@ export default Products;
 
 // .sort((i1, i2) => i1.price - i2.price )
 
+// .then((arr) => {
+      //   let filteredArr = arr;
+      //   if (categoryItem !== "All") {
+      //     filteredArr = filteredArr.filter((p: { category: string }) => p.category === categoryItem);
+      //   }
+      //   if (priceItem) {
+      //     filteredArr = filteredArr.filter((p: { price: number }) => p.price <= priceItem.valueTo && p.price >= priceItem.valueFrom);
+      //   }
 
-// <FormControlLabel
-// className={styles.item}
-// key={index}
-// label={item}
+      //   setItems(filteredArr.slice((currentPage - 1) * 9, currentPage * 9));
+      //   setIsLoading(false);
+      // })
 
-// control={<Checkbox onClick={() => onChangePriceItem(item)}
-// />}
-// />
+      // {isLoading
+      //   ? [...new Array(9)].map((_, index) => <Skeleton key={index} />)
+      //   : <FilteredCards items={items} />}
 
-// onClick={(event) => onChangePriceItem(event)}
+      // useEffect(() => {
+  //   setIsLoading(true);
+  //   fetch(`https://63fe336d370fe830d9d040e7.mockapi.io/Items`)
+  //     .then((response) => response.json())
+  //     .then(arr => arr.filter((p: {category: string}) => categoryItem === "All" || p.category === categoryItem))
+  //     .then(arr => arr.filter((p: {price: number}) => p.price < priceItem.valueTo))
+  //     .then(arr => arr.filter((p: {price: number}) => p.price >= priceItem.valueFrom && p.price <= priceItem.valueTo))
+  //     .then(arr => arr.filter((p: {price: number}) => p.price > priceItem.valueFrom))
+  //     .then((arr) => {
+  //       setItems(arr.slice((currentPage-1) * 9,(currentPage) * 9));
+  //       setIsLoading(false);
+  //     })
+  //   window.scrollTo(0, 0);
+  // }, [categoryItem, priceItem, sort, currentPage]);
+  // console.log(items);
+  // console.log(isLoading); 
+
+  // useEffect (() => {
+  //   isMounted.current = true; // компонент сейчас находится на странице
+  //   setIsLoading(true);
+  //   fetch(`https://63fe336d370fe830d9d040e7.mockapi.io/Items`)
+  //   .then(response => response.json())
+  //   .then(items => filterItems(items, categoryItem, priceItem))
+  //   .then(items =>  sortItems(items, sort))
+  //   .then(items => {
+  //     if (isMounted.current) {
+  //       setItems(items.slice((currentPage - 1) * 9, currentPage * 9));
+  //       setIsLoading(false);
+  //     }
+  //   })
+  //   .catch(error => {
+  //     console.error(error);
+  //     alert('Error fetching items');
+  //     setIsLoading(false);
+  //   });
+  //   return () => {
+  //     isMounted.current = false;
+  //   }//когда компонент удаляется из DOM
+  // }, [categoryItem, priceItem, sort, currentPage]);
+
+  // .filter(p => p.name.toLowerCase().includes(searchQuery.toLowerCase()));
+    

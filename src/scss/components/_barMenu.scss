@@ -1,35 +1,53 @@
-.menu{
+.menu {
     padding: 40px 0 27px 155px;
     max-width: 1600px;
     display: flex;
     flex-direction: row;
     background-color: $white;
-    &__wrapper{
-        max-width: 260px;
-        margin-right: 70px;
-        .title{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            padding-bottom: 22px;
-            &__name{
-                font-size: 24px;
-                text-transform: capitalize;
-                line-height: 30px;
-            }
-        }
-        &-items{
-            margin-top:20px;
-            .item{
-                padding-bottom: 10px;
-                font-size: 16px;
-                &:hover{
-                    color: $blue;
-                    cursor: pointer;
-                }
-            }
-        }
+  
+    &__wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: 70px;
     }
-}
+  
+    &__column {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      padding-bottom: 22px;
+  
+      .title {
+        font-size: 24px;
+        text-transform: capitalize;
+        line-height: 30px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        padding-bottom: 22px;
+  
+        &:hover {
+          color: black;
+          font-weight: bold;
+          cursor: pointer;
+        }
+      }
+  
+      &-items {
+        margin-top: 20px;
+  
+        .item {
+          padding-bottom: 10px;
+          font-size: 16px;
+          white-space: nowrap;
+  
+          &:hover {
+            color: $blue;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }

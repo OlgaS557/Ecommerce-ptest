@@ -1,0 +1,108 @@
+/* .container {
+    width: 1600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    opacity: 0.5;
+    background: var(--grey-dark-1, rgba(0, 0, 0, 0.05));
+
+}
+
+.block {
+    width: 410px;
+    height: 620px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: large;
+    border-radius: 10px;
+    background: var(--base-white, #FFF);
+} */
+
+* {
+    box-sizing: content-box;
+}
+.container {
+    display: grid;
+    max-width: 1600px;
+    place-items: center;
+    /* height: 910px; */
+    height: 100vmin;
+    opacity: 0.5;
+    background: var(--grey-dark-1, rgba(0, 0, 0, 0.05));
+}
+.block {
+    width: 410px;
+    /* height: 630px; */
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 10px; 
+    font-size: large;
+    border-radius: 10px;
+    background: var(--base-white, #FFF);
+}
+.header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    margin-top: 23px;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 34px;
+    letter-spacing: -0.8px;
+    margin-right: 52px;
+    
+}
+
+.question1 {
+    color: var(--grey-dark-3, rgba(0, 0, 0, 1));
+    text-align: right;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 15px;
+    letter-spacing: -0.2px;
+    padding-top: 8px;
+    margin-right: 5px;
+}
+
+.signin {
+    color: var(--accent-14, #2D74FF);
+    text-align: right;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 15px;
+    letter-spacing: -0.2px;
+    padding-top: 8px;
+}
+.text {
+    width: 410px;
+    color: var(--grey-dark-5, rgba(0, 0, 0, 1));
+    text-align: center;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: -0.2px;
+    margin-bottom: 10px;
+}
+
+/* @media (max-width: 768px) {
+    .container {
+        height: auto; 
+    }
+    
+    .block {
+        max-width: 100%; 
+    }
+    
+    .title {
+        font-size: 24px; 
+    }
+} */

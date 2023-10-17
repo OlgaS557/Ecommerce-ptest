@@ -53,18 +53,17 @@ export default function SortPopup() {
   return (
     <Box sx={{ minWidth: 130, minHeight: 20 }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Sort by</InputLabel>
+        <InputLabel >Sort by</InputLabel>
         <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
+          size='small'
           value={sort}
           label="Sort by"
           onChange={handleChange}
         >
           <MenuItem value={'Price up'}>Price from down to up</MenuItem>
-          <MenuItem value={'Price down'}>Price from down to down</MenuItem>
+          <MenuItem value={'Price down'}>Price from up to down</MenuItem>
           <MenuItem value={'By discont'}>By discount</MenuItem>
-          <MenuItem value={'By category'}>By raiting <Raiting /> </MenuItem>
+          <MenuItem value={'By rating'}>By rating</MenuItem>
         </Select>
       </FormControl>
     </Box>

@@ -1,19 +1,8 @@
-
-/* .sideBar {
-    display: flex;
-    position: absolute;
-    top: 264px;
-   
-} */
-
-
 .widget_wrapper {
     max-width: 300px;
     background-color: white;
     /* margin-top: 51px; */
-   left:0px;
-  
-    
+    left:0px;  
 }
 
 .title {
@@ -23,22 +12,13 @@
     margin-top: 10px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    
-    /* margin-top: 35px; */
-    
 }
 .line {
     display: flex;
-   
-/*   
-    margin-top: 40px; */
- 
     width:250px;
-   
     height: 1px;
     background: rgba(0, 0, 0, 0.1);
     border-radius: 2px;
-
 }
 
 .title_name {
@@ -48,7 +28,6 @@
    font-weight: 500;
     font-size: 18px;
     margin: 0px;
-   
     letter-spacing: -0.3px;
     line-height: 20px;
     color: #000000;
@@ -56,10 +35,7 @@
     /* margin-top: 10px; */
     margin-right: 27.6px;
     margin-bottom: 15px;
-
 }
-
-
 .title_icon::after {
     content: "";
     Width: 8.76px;
@@ -85,7 +61,8 @@
     transform: rotate(180deg);
 } */
 .widget_wrapper_items {
-    /* display: inline-block; */
+    display: flex;
+    flex-direction: column;
     margin-top: 15px;
 }
 /* .widget_wrapper_items--hidden {

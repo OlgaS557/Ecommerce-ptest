@@ -14,10 +14,10 @@ import Stack from '@mui/material/Stack';
 
 export default function PaginationRounded() {
   const dispatch = useAppDispatch();
-  const currentPage = useAppSelector((state: any) => state.filterReducer.currentPage);
+  const currentPage = useAppSelector((state) => state.filterReducer.currentPage);
 console.log('currentPage', currentPage)
 
-  const handleChange = (event: React.ChangeEvent<unknown>, currentPage: any) => {
+  const handleChange = (event: React.ChangeEvent<unknown>, currentPage: number) => {
    console.log(event, currentPage)
     dispatch(setCurrentPage(currentPage));
   };

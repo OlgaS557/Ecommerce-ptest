@@ -14,10 +14,12 @@
 
 
 
-// .container{
-//     max-width: 1600px;
-//     margin: 0 auto;
-// }
+.container{
+    max-width: 1600px;
+    height: 100vh;
+    margin: 0 auto;
+    position: relative;
+}
 
 .active{
     display: flex;

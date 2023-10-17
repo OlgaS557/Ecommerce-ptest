@@ -1,16 +1,42 @@
-import {FC} from 'react';
-import NavBar from '../components/NavBar/NavBar';
-import Cart from '../components/Cart/Cart';
+import React from 'react';
+import { useAppSelector } from '../hook/redux';
+import styles from '../css_modules/cart1.module.css';
+import CartItem from '../components/Cart/CartItem';
+import EmptyCart from '../components/Cart/EmptyCart';
 
+const CartPage = () => {
+  
+  const {items, totalPrice} = useAppSelector(state => state.cartReducer);
 
-const CartPage:FC = () => {
-
-    return (
-        <div >
-            <NavBar />
-            <Cart />
-            </div>
-    )
+  return (
+    <div className={styles.cart_container}>
+      <div className={styles.titlebox}>
+        <div className={styles.path}>
+          <div className={styles.path_products_for}>{}</div>
+          <div className={styles.path_products}>/</div>
+          <div className={styles.path_products_name}>Cart</div>
+        </div>
+        {!!items.length &&
+          <div className={styles.title}>Cart</div>
+        }
+      </div>
+      <div className={styles.cartCardItem}>
+        {
+          !!items.length ?
+          items.map(item => <CartItem key={item.id} {...item} />)
+          : <EmptyCart />
+        }
+      </div>
+      {!!items.length &&
+        <div className={styles.summaryBox}>
+          <div className={styles.summary}>Summary</div>
+          <div className={styles.priceBox}>
+            <div>Total</div>
+            <div>{totalPrice.toFixed(2)}$</div>
+          </div>
+        </div>
+      }
+    </div>
+  )
 }
-
 export default CartPage;

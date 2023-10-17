@@ -1,11 +1,40 @@
+.cardItem {
+    display: grid;
+    grid-template-columns: 195px auto;
+    grid-auto-rows: auto;
+    grid-row-gap: 0px;
+    grid-template-areas:
+       "img inf";
+    column-gap: 30px;
+    max-width: 934px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: #FFFFFF;
+    margin-top: 30px;
+}
+.productCard {
+    position: relative;
+}
 .cardCartImg {
-    grid-area: cd;
-    width: 200px;
-    height: 165px;
+    grid-area: img;
+    width: 165px;
+    height: 200px;
     align-self: center;
     justify-self: center;
 }
-
+.discount {
+    position: absolute;
+    Top: 3px;
+    Left:6px;
+    width: 49px;
+    height: 24px;
+    background-color: rgba(250, 74, 105, 1);
+    border-radius: 20px;
+    font-size: 15px;
+    line-height: 18px;
+    color: white;
+    text-align: center;
+    padding: 3px 6px 3px 6px;
+}
 .infoCard {
     grid-area: inf;
 }
@@ -76,6 +105,7 @@
 .countUp {
     border: 1px solid rgba(0, 0, 0, 0.1);
     background-color: transparent;
+    cursor: pointer;
 }
 
 .btn {

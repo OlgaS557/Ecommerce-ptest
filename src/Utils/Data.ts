@@ -7,25 +7,27 @@ import img5 from '../Assets/img/Cards/Image5.jpg';
 import img6 from '../Assets/img/Cards/Image6.jpg';
 import img7 from '../Assets/img/Cards/Image7.jpg';
 import img8 from '../Assets/img/Cards/Image8.jpg';
+import Products from '../components/Products/Products';
+
 
 export const cardslist = [
     {
         index: 0,
         name: 'Basic t-shirt',
         img: img0,
-        url: "https://ae04.alicdn.com/kf/HTB1CLLYXcnrK1RkHFrdq6xCoFXak/-.jpg_640x640.jpg", 
+        url: "https://ae04.alicdn.com/kf/HTB1CLLYXcnrK1RkHFrdq6xCoFXak/-.jpg_640x640.jpg",
         id: '#7142',
         sex: 'string',
         category: 't-shirt',
-        brand:'Levi`s',
+        brand: 'Levi`s',
         collection: 'string',
-        color:'white',
-        size:'S',
-        style:'A-Line',
-        season:'string',
-        rating:'Rating',
-        description:'string',
-        details:'string',
+        color: 'white',
+        size: 'S',
+        style: 'A-Line',
+        season: 'string',
+        rating: 'Rating',
+        description: 'string',
+        details: 'string',
         price: 35,
         discount: 25
     },
@@ -37,15 +39,15 @@ export const cardslist = [
         id: '#7141',
         sex: 'string',
         category: 'Tops',
-        brand:'Jungmaven',
-        collection:'string',
-        color:'white',
-        size:'M',
-        style:'Graphic',
-        season:'string',
-        rating:'Rating',
-        description:'string',
-        details:'string',
+        brand: 'Jungmaven',
+        collection: 'string',
+        color: 'white',
+        size: 'M',
+        style: 'Graphic',
+        season: 'string',
+        rating: 'Rating',
+        description: 'string',
+        details: 'string',
         price: 200,
         discount: 35
     },
@@ -57,15 +59,15 @@ export const cardslist = [
         id: '#7143',
         sex: 'string',
         category: 'Trousers',
-        brand:'Sunspel',
-        collection:'string',
-        color:'black',
-        size:'L',
-        style:'Graphic',
-        season:'string',
-        rating:'Rating',
-        description:'string',
-        details:'string',
+        brand: 'Sunspel',
+        collection: 'string',
+        color: 'black',
+        size: 'L',
+        style: 'Graphic',
+        season: 'string',
+        rating: 'Rating',
+        description: 'string',
+        details: 'string',
         price: 100,
         discount: 25
     },
@@ -77,15 +79,15 @@ export const cardslist = [
         id: '#7142',
         sex: 'string',
         category: 'Tops',
-        brand:'Sunspel',
-        collection:'string',
-        color:'black',
-        size:'L',
-        style:'Graphic',
-        season:'string',
-        rating:'Rating',
-        description:'string',
-        details:'string',
+        brand: 'Sunspel',
+        collection: 'string',
+        color: 'black',
+        size: 'L',
+        style: 'Graphic',
+        season: 'string',
+        rating: 'Rating',
+        description: 'string',
+        details: 'string',
         price: 400,
         discount: 40
     },
@@ -97,15 +99,15 @@ export const cardslist = [
         id: '#7142',
         sex: 'string',
         category: 't-shirt',
-        brand:'Levi`s',
-        collection:'string',
-        color:'black',
-        size:'XS',
-        style:'Graphic',
-        season:'string',
-        rating:'Rating',
-        description:'string',
-        details:'string',
+        brand: 'Levi`s',
+        collection: 'string',
+        color: 'black',
+        size: 'XS',
+        style: 'Graphic',
+        season: 'string',
+        rating: 'Rating',
+        description: 'string',
+        details: 'string',
         price: 50,
         discount: 25
     },
@@ -117,15 +119,15 @@ export const cardslist = [
         id: '#7142',
         sex: 'string',
         category: 'Trousers',
-        brand:'Sunspel',
-        collection:'string',
-        color:'black',
-        size:'L',
-        style:'Graphic',
-        season:'string',
-        rating:'Rating',
-        description:'string',
-        details:'string',
+        brand: 'Sunspel',
+        collection: 'string',
+        color: 'black',
+        size: 'L',
+        style: 'Graphic',
+        season: 'string',
+        rating: 'Rating',
+        description: 'string',
+        details: 'string',
         price: 400,
         discount: 40
     },
@@ -137,15 +139,15 @@ export const cardslist = [
         id: '#7142',
         sex: 'string',
         category: 'Tops',
-        brand:'Jungmaven',
-        collection:'string',
-        color:'black',
-        size:'L',
-        style:'Graphic',
-        season:'string',
-        rating:'Rating',
-        description:'string',
-        details:'string',
+        brand: 'Jungmaven',
+        collection: 'string',
+        color: 'black',
+        size: 'L',
+        style: 'Graphic',
+        season: 'string',
+        rating: 'Rating',
+        description: 'string',
+        details: 'string',
         price: 400,
         discount: 40
     },
@@ -157,15 +159,15 @@ export const cardslist = [
         id: '#7142',
         sex: 'string',
         category: 'T-shirts',
-        brand:'Sunspel',
-        collection:'string',
-        color:'black',
-        size:'L',
-        style:'Graphic',
-        season:'string',
-        rating:'Rating',
-        description:'string',
-        details:'string',
+        brand: 'Sunspel',
+        collection: 'string',
+        color: 'black',
+        size: 'L',
+        style: 'Graphic',
+        season: 'string',
+        rating: 'Rating',
+        description: 'string',
+        details: 'string',
         price: 400,
         discount: 40
     },
@@ -177,15 +179,15 @@ export const cardslist = [
         id: '#7142',
         sex: 'string',
         category: 'Trousers',
-        brand:'Jungmaven',
-        collection:'string',
-        color:'black',
-        size:'S',
-        style:'Graphic',
-        season:'string',
-        rating:'Rating',
-        description:'string',
-        details:'string',
+        brand: 'Jungmaven',
+        collection: 'string',
+        color: 'black',
+        size: 'S',
+        style: 'Graphic',
+        season: 'string',
+        rating: 'Rating',
+        description: 'string',
+        details: 'string',
         price: 150,
         discount: 35
     }
@@ -203,21 +205,210 @@ export const data = {
         'Address': '2464 Royal Ln. Mesa, New Jersey 4563'
     }
 }
+//['All', 'Coats & Jackets', 'T-shirts', 'Tops', 'Trousers', 'Jumpsuits & Rompers', 'Pants', 'Shorts', 'Sweaters', 'Shoes'],
+export const menuMen = {
+    Men: [
+      { label: 'All', value: 'All' },
+      { label: 'Collections', value: 'Collections' },
+      { label: 'Coats & Jackets', value: 'Coats & Jackets' },
+      { label: 'T-shirts', value: 'T-shirts' },
+      { label: 'Tops', value: 'Tops' },
+      { label: 'Trousers', value: 'Trousers' },
+    ],
+    Collections: [
+      { label: 'Our Favorites', value: 'Our Favorites' },
+      { label: 'New Arrivals', value: 'New Arrivals' },
+      { label: 'New Collections', value: 'New Collections' },
+      { label: 'Brands', value: 'Brands' },
+      { label: 'Trends', value: 'Trends' },
+      { label: 'Exclusives', value: 'Exclusives' },
+    ],
+    Brands: [
+      { label: 'Levi`s', value: 'Levi`s' },
+      { label: 'Jungmaven', value: 'Jungmaven' },
+      { label: 'Sunspel', value: 'Sunspel' },
+      { label: 'Uniqlo', value: 'Uniqlo' },
+      { label: 'Aime Leon Dore', value: 'Aime Leon Dore' },
+    ],
+  };
+//collections: ['Our Favorites', 'New Arrivals', 'New Collections', 'Brands', 'Trends', 'New Names at Neiman`s', 'Luxe Essentials', 'Exclusives'],
+//brands: ['Akris', 'Alice + Olivia', 'Brunello Cucinelli', 'CHANEL', 'Dolce & Gabbana', 'Eileen Fisher', 'Giorgio Armani', 'Gucci', 'Johnny Was', 'Lafayette 148 New York', 'Theory'],
+  export const menuWomen = {
+    Women: [
+      { label: 'All', value: 'All' },
+      { label: 'Collections', value: 'Collections' },
+      { label: 'Coats & Jackets', value: 'Coats & Jackets' },
+      { label: 'T-shirts', value: 'T-shirts' },
+      { label: 'Tops', value: 'Tops' },
+      { label: 'Trousers', value: 'Trousers' },
+    ],
+    Collections: [
+      { label: 'Our Favorites', value: 'Our Favorites' },
+      { label: 'New Arrivals', value: 'New Arrivals' },
+      { label: 'New Collections', value: 'New Collections' },
+      { label: 'Brands', value: 'Brands' },
+      { label: 'Trends', value: 'Trends' },
+      { label: 'New Names at Neiman`s', value: 'New Names at Neiman`s' },
+      { label: 'Luxe Essentials', value: 'Luxe Essentials' },
+      { label: 'Exclusives', value: 'Exclusives' },
+    ],
+    Brands: [
+      { label: 'Akris', value: 'Akris' },
+      { label: 'Alice + Olivia', value: 'Alice + Olivia' },
+      { label: 'Brunello Cucinelli', value: 'Brunello Cucinelli' },
+      { label: 'CHANEL', value: 'CHANEL' },
+      { label: 'Dolce & Gabbana', value: 'Dolce & Gabbana' },
+      { label: 'Eileen Fisher', value: 'Eileen Fisher' },
+    ],
+  };
+  
+  export const menuKids = {
+    Kids: [
+      { label: 'All', value: 'All' },
+      { label: 'Collections', value: 'Collections' },
+      { label: 'Coats & Jackets', value: 'Coats & Jackets' },
+    ],
+    Collections: [
+      { label: 'Our Favorites', value: 'Our Favorites' },
+      { label: 'New Arrivals', value: 'New Arrivals' },
+      { label: 'New Collections', value: 'New Collections' },
+    ],
+    Brands: [
+      { label: 'Akris', value: 'Akris' },
+      { label: 'Alice + Olivia', value: 'Alice + Olivia' },
+    ],
+  };
+export const categories = [
+    {
+        name: 'Men',
+        img: 'https://i.imgur.com/jiZDb8R.png',
+        url: 'products/Men'
+    },
+    {
+        name: 'Women',
+        img: 'https://i.imgur.com/tcP2oeY.png',
+        url: 'products/Women'
+    },
+    {
+        name: 'Kids',
+        img: 'https://i.imgur.com/9k0P8pc.png',
+        url: 'products/Kids'
+    },
+    {
+        name: 'Sale',
+        img: 'https://i.imgur.com/5XYnqhY.png',
+        url: 'products/Sale'
+    },
+    {
+        name: 'Collections',
+        img: 'https://i.imgur.com/WZdp4wE.png',
+        url: 'products/Collections'
+    },
+];
 
-export const menu = {
-    'women': ['All','Collections','Coats & Jackets','Dresses','Pants','Jumpsuits & Rompers','Shorts','Skirts','Sweaters','Swimwear','Tops','Shoes'],
-    'collections': ['Our Favorites','New Arrivals','New Collections','Brands','Trends','New Names at Neiman`s','Luxe Essentials','Exclusives'],
-    'Brands': ['Akris','Alice + Olivia','Brunello Cucinelli','CHANEL','Dolce & Gabbana','Eileen Fisher','Giorgio Armani','Gucci','Johnny Was','Lafayette 148 New York','Theory'],
-}
+export const navMenu = [
+    {
+        name: 'Men',
+        url: 'products/men'
+    },
+    {
+        name: 'Women',
+        url: 'products/women'
+    },
+    {
+        name: 'Kids',
+        url: 'products/kids'
+    },
+    {
+        name: 'Sale',
+        url: 'products/sale'
+    },
+    {
+        name: 'Collections',
+        url: 'products/collections'
+    },
+    {
+        name: 'Blog',
+        url: 'blogs'
+    }
+];
+export const advertisingPictures = [
+    {
+        "url": 'https://img2.freepng.ru/20180727/xuf/kisspng-sneakers-shoe-mockup-converse-adidas-wordpress-mockup-5b5af53ec14374.6370622815326876787916.jpg',
+        "title": 'sfasdfasfdaf',
+    },
+    {
+        "url": 'https://img1.freepng.ru/20180507/she/kisspng-adidas-yeezy-adidas-originals-shoe-sneakers-5af11d487ff9a7.2337222215257511125242.jpg',
+        "title": "sdfsfsf"
+    },
+    {
+        "url": 'https://w7.pngwing.com/pngs/502/693/png-transparent-neon-silver-pic-miscellaneous-cdr-angle-thumbnail.png',
+        "title": "sdfsfsfsf"
+    },
+    {
+        "url": 'https://w7.pngwing.com/pngs/4/558/png-transparent-cartoon-scissors-drawing-carpentry-pics-animation-line-haircutting-shears-thumbnail.png',
+        "title": "sdfsfsfdsfsf"
+    },
+    {
+        "url": 'https://s00.yaplakal.com/pics/pics_original/2/7/5/17247572.jpg',
+        "title": "sdfsfsfdsfsf"
+    },
+    {
+        "url": 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjvMkWo0Z9-vsKSZHA10ZISlOWZku_Psx9Wg&usqp=CAU',
+        "title": "sdfsfsfdsfsf"
+    },
+    {
+        "url": 'https://images.prom.ua/2454966258_w600_h600_2454966258.jpg',
+        "title": 'dsfafdfdf'
+    }
+]
 
 export const menuProducts = {
-    'Category' : ['All','Coats & Jackets','T-shirts','Tops','Trousers','Jumpsuits & Rompers','Pants','Shorts','Sweaters','Shoes'],
-    'Price' : [35,200,'200 - 400$','400 - 600$','Over 600$'],
-    'Size' : ['XS','L','S','XL','M','XXL'],
-    'Collection' : [],
-    'Brand' : ['Levi`s','Jungmaven','Sunspel','Uniqlo','Aime Leon Dore'],
-    'Style' : ['All styles','A-Line','Graphic T-Shirts'],
-    'Season' : []
+    'Category': ['All', 'Coats & Jackets', 'T-shirts', 'Tops', 'Trousers', 'Jumpsuits & Rompers', 'Pants', 'Shorts', 'Sweaters', 'Shoes'],
+    'Price': [
+        {
+            Label: 'Under 100$',
+            valueFrom: 0,
+            valueTo: 100
+        },
+        {
+            Label: '100 - 200$',
+            valueFrom: 100,
+            valueTo: 200
+        },
+        {
+            Label: '200 - 400$',
+            valueFrom: 200,
+            valueTo: 400
+        },
+        {
+            Label: '400 - 600$',
+            valueFrom: 400,
+            valueTo: 600
+        },
+        {
+            Label: 'Over 600$',
+            valueFrom: 600,
+            valueTo: 100000
+        }
+    ],
+    'Size': ['XS', 'L', 'S', 'XL', 'M', 'XXL'],
+    'Collection': ['Our Favorites','New Arrivals','New Collections','Brands','Trends','New Names at Neiman`s','Luxe Essentials','Exclusives'],
+    'Brand': ['Levi`s', 'Jungmaven', 'Sunspel', 'Uniqlo', 'Aime Leon Dore'],
+    'Style': ['All styles', 'A-Line', 'Graphic T-Shirts'],
+    'Season': []
 }
 
-// Under 100$
+// export const routes = [
+//     {
+//         path: '/products',
+//         element: <Products />
+//     },
+//     {
+//         path: '/cart',
+//         element: <Cart />
+//     }   
+
+// ] as const;
+
+export const base_url = 'https://ecommerce2.fly.dev'
