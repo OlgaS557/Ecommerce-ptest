@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hook/redux';
 import { UserAddress, UserPhone, GetState } from '../../../types';
-import { refreshTokens, updateUser } from '../../../redux/slices/userSlice';
+import { updateUser } from '../../../redux/slices/userSlice';
 
 
 interface Props {
@@ -46,20 +46,22 @@ const EditProfile: React.FC<Props> = ({ close }) => {
         updateNumberPhoneFromPhone(phone);
     }, [phone]);
 
-
     const handleClickSave = () => {
         const userProfile = {
             firstName,
             lastName,
             numberPhone,
             address,
+            meta: {
+                requireToken: true,
+            }
         };
-
-        dispatch(updateUser(userProfile))
+        console.log('userProfile:', userProfile);
+        dispatch(updateUser(userProfile));
 
         close();
+       
     };
-
 
     const handleClickReset = () => {
         setFirstName('');

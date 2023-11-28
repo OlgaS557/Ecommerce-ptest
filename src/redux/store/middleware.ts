@@ -1,48 +1,119 @@
-import { AppDispatch } from './configureStore';
-import { Middleware } from '@reduxjs/toolkit';
+import { Middleware, AnyAction } from '@reduxjs/toolkit';
+import { AppDispatch, RootState } from './configureStore';
 import jwtDecode from "jwt-decode";
-import { refreshTokens, setLogout, setRefreshing } from '../slices/userSlice';
+import { refreshTokens, setLogout, setRefreshing, setAccessToken } from '../slices/userSlice';
 
-
-const tokenRefreshMiddleware: Middleware = ({ dispatch, getState }) => (next) => async (action) => {
-    const appDispatch = dispatch as AppDispatch; // Явно указываем тип dispatch
-    const state = getState(); // Получаем текущее состояние
-    //const jwtToken = state.userReducer.jwtToken; // Получаем аксесс токен из состояния
-
-    console.log('action.type', action.type);
-    console.log('action.payload', action.payload);
-
-    if (action.type.endsWith('/rejected')) {
-      const error = action.error;
-      // Проверяем, является ли ошибка 403
-      if (error.message === 'Rejected' && !state.userReducer.isRefreshing) {
-        // Устанавливаем флаг isRefreshing в true перед началом обновления токенов
-        appDispatch(setRefreshing(true));
-        try { 
-          await appDispatch(refreshTokens());
-          console.log('After await appDispatch(refreshTokens());');
-          console.log('jwtToken after refreshTokens call:', state.jwtToken);
-          // Если обновление токенов прошло успешно, повторяем оригинальное действие
-          // Сбрасываем флаг isRefreshing обратно в false
-          appDispatch(setRefreshing(false));
-          console.log('Action payload2:', action.payload);
-          
-        } catch (error) {
-          console.error('Ошибка обновления токенов:', error);
-          // Выход из аккаунта или другая обработка ошибки
-          appDispatch(setLogout());
-          // Сбрасываем флаг isRefreshing обратно в false
-          appDispatch(setRefreshing(false));
-        }
-      }
+// const tokenRefreshMiddleware: Middleware = (store) => (next) => async(action) => {
+//     console.log('Middleware is called for action:', action);
+    
+//     if (action.meta && action.meta.arg && action.meta.arg.meta && action.meta.arg.meta.requireToken) {
+//       console.log('Middleware is called for action with requireToken', action.meta.arg.meta.requireToken);
+//       const appDispatch = store.dispatch as AppDispatch; 
+//       const state = store.getState();
+//       console.log('state', state);
       
-    } else {
-        return next(action); // Добавьте эту строку для остальных типов действий
-    }
-    return next(action);
-};
+//       const jwtToken = state.userReducer.jwtToken;
+//       console.log('jwtToken-Middleware', jwtToken);
+//       console.log('action.type', action.type);
+//       console.log('action.payload', action.payload);
+//       try {
+//         if(jwtToken){
+//             const decodedToken = jwtDecode(jwtToken) as {
+//                 exp: number;
+//               };
+              
+//               console.log('Decoded Token:', decodedToken);
+              
+//               const expirationTime = decodedToken.exp * 1000;
+//               const currentTime = Date.now();
+              
+//               console.log('currentTime:', currentTime);
+//               console.log('expirationTime:', expirationTime);
+//               console.log('decodedToken:', decodedToken);
 
-export default tokenRefreshMiddleware;
+              
+//               // Проверяем, действителен ли токен
+//               if (currentTime < expirationTime) {
+//                 // Токен действителен
+//                 console.log('Token is valid.', jwtToken);
+//                 await next(action);
+//               } else {
+//                 // Токен истек, нужно обновить токены или выполнить другие действия
+//                 console.log('Token has expired. Handle accordingly.');
+//                 console.log('Before refreshing tokens...');
+//                 await appDispatch(refreshTokens());
+//                 await next(action);
+//                 const updatedToken = state.userReducer.jwtToken;
+//                 console.log('After refreshing tokens...', updatedToken);
+//                 action.meta.jwtToken = updatedToken;
+//                 console.log('action.meta.jwtToken', action.meta.jwtToken);
+//               }
+//         } else {
+//             console.log('No JWT token found.');          
+//         }   
+       
+//       } catch (error) {
+//         console.error('Error decoding token:', error);
+//         throw error;
+//         // Можно диспатчить экшен об ошибке декодирования токена
+//       }
+      
+//     } else {
+//       // Если action не требует валидный токен, продолжаем выполнение оригинального action
+//       console.log('No action.meta or action.meta.requireToken found. Continuing with the original action.');
+//       console.log('next action:', action);
+ 
+//       return next(action);
+//     }
+//   };
+  
+//   export default tokenRefreshMiddleware;
+//--------------------------------------------------
+// const tokenRefreshMiddleware: Middleware = ({ dispatch, getState }) => (next) => async (action) => {
+//     const appDispatch = dispatch as AppDispatch; // Явно указываем тип dispatch
+//     const state = getState(); // Получаем текущее состояние
+//     const jwtToken = state.userReducer.jwtToken; // Получаем аксесс токен из состояния
+//     // console.log('jwtToken-Middleware', jwtToken);
+
+//     // console.log('action.type', action.type);
+//     // console.log('action.payload', action.payload);
+
+//     // if (action.type.endsWith('/rejected')) {
+//     //   const error = action.error;
+//     //   // Проверяем, является ли ошибка 403
+//     //   if (error.message === 'Rejected' && !state.userReducer.isRefreshing) {
+//     //     // Устанавливаем флаг isRefreshing в true перед началом обновления токенов
+//     //     appDispatch(setRefreshing(true));
+//     //     try { 
+//     //       console.log('Before refreshTokens()');
+//     //       await appDispatch(refreshTokens());
+//     //       const newJwtToken = state.userReducer.jwtToken;
+//     //       console.log('After appDispatch(refreshTokens()):');
+//     //       console.log('jwtToken after refreshTokens call:', newJwtToken);
+//     //       // Если обновление токенов прошло успешно, повторяем оригинальное действие
+//     //       // Сбрасываем флаг isRefreshing обратно в false
+//     //       appDispatch(setRefreshing(false));
+//     //       console.log('Action payload2:', action.payload);
+//     //       console.log('next action', next(action));
+//     //       return next(action);
+//     //     } catch (error) {
+//     //       console.error('Ошибка обновления токенов:', error);
+//     //       // Выход из аккаунта или другая обработка ошибки
+//     //       appDispatch(setLogout());
+//     //       // Сбрасываем флаг isRefreshing обратно в false
+//     //       appDispatch(setRefreshing(false));
+//     //     }
+//     //   }
+//     // }  
+    
+//     //return next(action);
+// };
+
+// export default tokenRefreshMiddleware;
+
+//=============================================
+
+// export default tokenRefreshMiddleware;
  
 //  const tokenRefreshMiddleware: Middleware = ({dispatch, getState}) => (next) => (action) => {
 //     const appDispatch = dispatch as AppDispatch; // Явно указываем тип dispatch
@@ -83,7 +154,7 @@ export default tokenRefreshMiddleware;
 //     }
 // };
 // export default tokenRefreshMiddleware;
-
+//-------------------------------------------------------------------------
 // const tokenRefreshMiddleware: Middleware = ({ getState, dispatch }) => (next) => (action) => {
 //     const appDispatch = dispatch as AppDispatch; // Явно указываем тип dispatch
 //     const state = getState(); // Получаем текущее состояние
@@ -218,4 +289,3 @@ export default tokenRefreshMiddleware;
   
 //   export default tokenRefreshMiddleware;
 
-// || action.type === 'user/refreshTokens/rejected'

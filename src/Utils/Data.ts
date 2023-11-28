@@ -7,8 +7,8 @@ import img5 from '../Assets/img/Cards/Image5.jpg';
 import img6 from '../Assets/img/Cards/Image6.jpg';
 import img7 from '../Assets/img/Cards/Image7.jpg';
 import img8 from '../Assets/img/Cards/Image8.jpg';
-import Products from '../components/Products/Products';
 
+export const base_url = 'https://ecommerce2.fly.dev'
 
 export const cardslist = [
     {
@@ -205,7 +205,7 @@ export const data = {
         'Address': '2464 Royal Ln. Mesa, New Jersey 4563'
     }
 }
-//['All', 'Coats & Jackets', 'T-shirts', 'Tops', 'Trousers', 'Jumpsuits & Rompers', 'Pants', 'Shorts', 'Sweaters', 'Shoes'],
+//Выпадающее окно NavBar:
 export const menuMen = {
     Men: [
       { label: 'All', value: 'All' },
@@ -231,9 +231,8 @@ export const menuMen = {
       { label: 'Aime Leon Dore', value: 'Aime Leon Dore' },
     ],
   };
-//collections: ['Our Favorites', 'New Arrivals', 'New Collections', 'Brands', 'Trends', 'New Names at Neiman`s', 'Luxe Essentials', 'Exclusives'],
-//brands: ['Akris', 'Alice + Olivia', 'Brunello Cucinelli', 'CHANEL', 'Dolce & Gabbana', 'Eileen Fisher', 'Giorgio Armani', 'Gucci', 'Johnny Was', 'Lafayette 148 New York', 'Theory'],
-  export const menuWomen = {
+
+export const menuWomen = {
     Women: [
       { label: 'All', value: 'All' },
       { label: 'Collections', value: 'Collections' },
@@ -305,7 +304,7 @@ export const categories = [
         url: 'products/Collections'
     },
 ];
-
+//NavBar
 export const navMenu = [
     {
         name: 'Men',
@@ -362,7 +361,7 @@ export const advertisingPictures = [
         "title": 'dsfafdfdf'
     }
 ]
-
+//SideBar
 export const menuProducts = {
     'Category': ['All', 'Coats & Jackets', 'T-shirts', 'Tops', 'Trousers', 'Jumpsuits & Rompers', 'Pants', 'Shorts', 'Sweaters', 'Shoes'],
     'Price': [
@@ -399,16 +398,4 @@ export const menuProducts = {
     'Season': []
 }
 
-// export const routes = [
-//     {
-//         path: '/products',
-//         element: <Products />
-//     },
-//     {
-//         path: '/cart',
-//         element: <Cart />
-//     }   
 
-// ] as const;
-
-export const base_url = 'https://ecommerce2.fly.dev'

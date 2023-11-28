@@ -1,32 +1,46 @@
 @import '../../scss/variables';
 
 .navbar{
-    max-width: 1600px;
+    //max-width: 1600px;
     border-bottom: 1px solid rgba(220, 220, 220, 1);
     // background-color: $white;
     // background-color: #17181F;
     // position: fixed;
     z-index: 10;
     &__container{
-        height: 80px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 20px 31px 19px 30px;
-        &-menu, &_block{
-            display: flex;
-            flex-direction: row;
-            align-items: center;
+        height: 100px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 'menu search';
+        grid-column-gap: 10px;
+        //place-items: center;
+        padding: 0 31px 0 30px;
+        @media (max-width: 760px) {
+            grid-template-columns: 1fr;
+            grid-template-areas: 
+                "menu"
+                "search";
+          }
+        &-menu, &_block, &-logo{
+            //grid-area: menu;
+            justify-self: start;
+            display: grid;
+            grid-template-columns: repeat(6, auto);
+            grid-column-gap: 20px;
+            place-items: center;
         }
         &-logo{
             font-size: 24px;
+            justify-self: start;
             padding: 5px 0 6px 0;
-            margin-right: 10px;
-            // color: $black;
         }
         &-search{
+            //grid-area: search;
+
             display: flex;
             flex-direction: row;
+            justify-self: end;
+            column-gap: 20px;
             align-items: center;
             &-input {
                     position: relative;
@@ -46,11 +60,9 @@
                     }
                 }
             &-basket{
-                margin-left: 28px;
                 cursor: pointer;
             }
             &-login{
-                margin-left: 30px;
                 cursor: pointer;
                 fill: inherit;
             }
@@ -59,7 +71,6 @@
             font-size: 16px;
             color: $grey;
             cursor: pointer;
-            margin-left: 30px;
             &:hover{
                 color: $black;
             }
@@ -68,7 +79,7 @@
             font-size: 16px;
             color: $grey;
             cursor: pointer;
-            margin-left: 30px;
+            //margin-left: 30px;
             &:hover{
                 color: $white;
             }

@@ -2,7 +2,7 @@ import {FC, useState, useEffect} from 'react';
 import { useAppDispatch, useAppSelector } from '../../hook/redux';
 import { addItems } from '../../redux/slices/cartSlice';
 import styles from "../../css_modules/card.module.css";
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {Item} from '../../types/index';
 import Raiting from './Rating'
 
@@ -13,8 +13,9 @@ interface ProductItem {
 const Card: FC<ProductItem> = ({ item }: ProductItem) => {
   const dispatch = useAppDispatch();
   
+  const {menu} = useParams();
   const navigate = useNavigate();
-  const clickHandler = () => navigate(`/products/:${item.id}`);
+  const clickHandler = () => navigate(`/products/${menu}/${item.id}`);
   const [colorCart, setColorCart] = useState('#FFFFFF');
 
 //восстанавливать состояние цвета корзины при загрузке страницы

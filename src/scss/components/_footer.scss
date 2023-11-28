@@ -1,20 +1,24 @@
 .footer{
-    max-width: 1600px;
-    max-height: 478px;
+    //max-width: 1600px;
+    //max-height: 478px;
+    display: grid;
+    grid-template-rows: auto;
     padding: 60px 155px 0 155px;
     background-color: $black;
     color: $grey;
     &__container{
+       
         &_info{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-column-gap: 20px;
             &_logo{
                 font-size: 24px;
                 color: $white;
                 margin-right: 100px;
             }
             &_item{
+                flex-direction: column;
                 &_title{
                     font-size: 20px;
                     color: $white;
@@ -41,12 +45,13 @@
             }
         }
         &_line{
+            grid-area: line;
             border: 1px solid $grey;
             margin-top: 46px;
         }
         &_bottom{
-            max-width: 1290px;
             height: 110px;
+            //margin-top: 20p;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -57,7 +62,7 @@
         &_social{
             display: flex;
             justify-content: space-between;
-            width: 170px;
+            //width: 170px;
             &_item{
                 display: flex;
                 justify-content: center;

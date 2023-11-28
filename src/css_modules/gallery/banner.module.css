@@ -1,0 +1,43 @@
+/* banner.module.css */
+
+.conteiner {
+    position: relative; /* Добавлено относительное позиционирование */
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    /* height: 100vh; */
+    background-color: #17181F;
+  }
+  
+  .nike {
+    font-size: 35vw; /* Использование vw для респонсивного размера шрифта */
+    font-weight: 500;
+    letter-spacing: -0.5vw; /* Использование vw для респонсивного расстояния между символами */
+    color: #EEEDF01A;
+    margin-bottom: 20px;
+  }
+  
+  .conteiner_gallery {
+    position: absolute; /* Добавлено абсолютное позиционирование */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-row-gap: 20px;
+    padding: 40px;
+  }
+  
+  .title {
+    margin: 0;
+    font-weight: 500;
+    font-size: 72px;
+    line-height: 80px;
+    letter-spacing: -4.5px;
+    color: #EEEDF0D9;
+    text-align: center;
+  }
+  

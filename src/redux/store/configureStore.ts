@@ -1,8 +1,9 @@
-import { applyMiddleware, configureStore } from '@reduxjs/toolkit';
+import { configureStore, Middleware } from '@reduxjs/toolkit';
 import cartReducer  from '../slices/cartSlice';
 import filterReducer from '../slices/filterSlice';
 import userReducer from '../slices/userSlice';
-import tokenRefreshMiddleware from './middleware';
+//import tokenRefreshMiddleware from './middleware';
+
 
 
 export const store = configureStore ({
@@ -11,8 +12,9 @@ export const store = configureStore ({
         cartReducer, 
         userReducer
     },
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(tokenRefreshMiddleware),
+    // middleware: (getDefaultMiddleware) =>
+    //     getDefaultMiddleware().concat(tokenRefreshMiddleware as Middleware),
+    
 });
 
 export type RootState = ReturnType<typeof store.getState>;

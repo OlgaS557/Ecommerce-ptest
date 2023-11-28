@@ -1,12 +1,10 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import jwtDecode from "jwt-decode";
-import { UserAddress, UserPhone, GetState } from '../../types/index';
+import { UserAddress, UserPhone } from '../../types/index';
 import { RootState } from "../store/configureStore";
-import { log } from "console";
-
-type TokenPayload = {
-  jwtRefreshToken: string
-}
+import { base_url } from "../../Utils/Data";
+import { handleTokenRefresh } from '../../Utils/refreshTokens';
+import { ThunkDispatch } from 'redux-thunk';
 
 type UserState = {
   firstName: string,
@@ -52,7 +50,6 @@ const initialState: UserState = {
   isRefreshing: false,
 }
 
-
 export const registerUser = createAsyncThunk<
   // Тип успешного ответа от сервера
   UserState,
@@ -64,7 +61,7 @@ export const registerUser = createAsyncThunk<
   'user/register',
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await fetch('https://ecommerce2.fly.dev/profile/signup', {
+      const response = await fetch(`${base_url}/profile/signup`, {
         method: 'POST',
         body: JSON.stringify(userData),
         headers: {
@@ -92,7 +89,7 @@ export const loginUser = createAsyncThunk<UserState,
   'user/login',
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await fetch('https://ecommerce2.fly.dev/profile/signin', {
+      const response = await fetch(`${base_url}/profile/signin`, {
         method: 'POST',
         body: JSON.stringify(userData),
         headers: {
@@ -117,21 +114,24 @@ export const loginUser = createAsyncThunk<UserState,
 
 export const updateUser = createAsyncThunk<UserState,
   {
+    jwtToken?: string,
     firstName: string,
     lastName: string,
     numberPhone: UserPhone,
-    address: UserAddress
+    address: UserAddress,
+    meta?: {
+      requireToken?: boolean,
+  }
   }, { rejectValue: string }
 >(
   'user/updateUser',
-  async (userProfile, { rejectWithValue, getState }) => {
+  async (userProfile, { rejectWithValue, getState, dispatch }) => {
     try {
       const state = getState() as RootState; // Приводим состояние к типу RootState
       const jwtToken = state.userReducer.jwtToken;
       const userId = state.userReducer.userId;
-      // const jwtToken = 'eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJTYXJhMyIsImxhc3ROYW1lIjoiQnJhdW4iLCJlbWFpbCI6IndAYS5hYWEiLCJzdWIiOiJ3QGEuYWFhIiwiaWF0IjoxNjkzNTYyNTgxLCJleHAiOjE2OTM1NjM0ODF9.61MLPm0Up4pXgP2iDabUfDcz8bLD8hnEn7WzELiUums'
-      // console.log('jwtToken', jwtToken);
-      const response = await fetch(`https://ecommerce2.fly.dev/profile/${userId}`, {
+
+      const response = await fetch(`${base_url}/profile/${userId}`, {
         method: 'PUT',
         body: JSON.stringify(userProfile),
         headers: {
@@ -139,19 +139,32 @@ export const updateUser = createAsyncThunk<UserState,
           'Authorization': `Bearer ${jwtToken}`
         }
       });
-      if (!response.ok) {
-        // if (response.status === 403) {
-        //   // Если получена ошибка 403, вызываем обновление токенов
-        //   dispatch(refreshTokens());
-        // }
-          throw new Error('Server error');
-      }
+      console.log('response: ', response);
 
+      if (!response.ok) {
+        if (response.status === 403) {
+          await handleTokenRefresh(
+            dispatch as ThunkDispatch<RootState, void, any>,
+            getState as () => RootState,
+            async (): Promise<void> => {
+              const updatedState = getState() as RootState;
+              const updatedJwtToken = updatedState.userReducer.jwtToken;
+              await dispatch(updateUser({ ...userProfile, jwtToken: updatedJwtToken }));
+              console.log('userProfile after 403', userProfile);
+            }
+          );
+          return;
+        }
+        throw new Error('Server error');
+      }
+      //await dispatch(refreshTokens());
       const data = await response.json();
+      console.log('data', data);
 
       return data;
 
     } catch (error: any) {
+      console.error('Error in createAsyncThunk:', error);
       return rejectWithValue(error.message);
     }
   }
@@ -160,19 +173,18 @@ export const updateUser = createAsyncThunk<UserState,
 export const changePassword = createAsyncThunk<
   UserState,
   {
+    jwtToken?: string,
     currentPassword: string,
     newPassword: string,
   }, { rejectValue: string }
 >(
   'user/changePassword',
-  async (userPasswords, { rejectWithValue, getState }) => {
+  async (userPasswords, { rejectWithValue, getState, dispatch }) => {
     try {
       const state = getState() as RootState; // Приводим состояние к типу RootState
       const jwtToken = state.userReducer.jwtToken;
       const userId = state.userReducer.userId;
-      // const jwtToken = 'eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJTYXJhMyIsImxhc3ROYW1lIjoiQnJhdW4iLCJlbWFpbCI6IndAYS5hYWEiLCJzdWIiOiJ3QGEuYWFhIiwiaWF0IjoxNjkzNTYyNTgxLCJleHAiOjE2OTM1NjM0ODF9.61MLPm0Up4pXgP2iDabUfDcz8bLD8hnEn7WzELiUums'
-      // console.log('jwtToken', jwtToken);
-      const response = await fetch(`https://ecommerce2.fly.dev/profile/${userId}/password`, {
+      const response = await fetch(`${base_url}/profile/${userId}/password`, {
         method: 'PUT',
         body: JSON.stringify(userPasswords),
         headers: {
@@ -181,6 +193,19 @@ export const changePassword = createAsyncThunk<
         }
       });
       if (!response.ok) {
+        if (response.status === 403) {
+          await handleTokenRefresh(
+            dispatch as ThunkDispatch<RootState, void, any>,
+            getState as () => RootState,
+            async (): Promise<void> => {
+              const updatedState = getState() as RootState;
+              const updatedJwtToken = updatedState.userReducer.jwtToken;
+              await dispatch(changePassword({ ...userPasswords, jwtToken: updatedJwtToken }));
+              console.log('userPasswords after 403', userPasswords);
+            }
+          );
+          return;
+        }
         throw new Error('Server error');
       }
       console.log(response.status);
@@ -211,7 +236,7 @@ export const refreshTokens = createAsyncThunk<
       
       const jwtRefreshToken = localStorage.getItem('refreshToken');
 
-      const response = await fetch(`https://ecommerce2.fly.dev/profile/${userId}/refresh`, {
+      const response = await fetch(`${base_url}/profile/${userId}/refresh`, {
         method: 'POST',
         // body: JSON.stringify({ userId, email }),
         headers: {
@@ -226,8 +251,6 @@ export const refreshTokens = createAsyncThunk<
 
       const newAccessToken = response.headers.get('Authorization');
       const newRefreshToken = response.headers.get('X-Refresh-Token');
-      console.log('Новый Access Token:', newAccessToken);
-      console.log('Новый Refresh Token:', newRefreshToken);
 
       if (newAccessToken && newRefreshToken) {
         let updatedAccessToken = newAccessToken;
@@ -241,28 +264,19 @@ export const refreshTokens = createAsyncThunk<
           updatedRefreshToken = newRefreshToken.substring(7);
         }
     
-        console.log('Данные после обработки:');
         console.log('Новый Access Token (после обработки):', updatedAccessToken);
         console.log('Новый Refresh Token (после обработки):', updatedRefreshToken);
         
         localStorage.setItem('accessToken', updatedAccessToken);
         localStorage.setItem('refreshToken', updatedRefreshToken);
-        //dispatch(setAccessToken(updatedAccessToken));
-        //console.log('Новый Access Token в State:', updatedAccessToken);
+        dispatch(setAccessToken(updatedAccessToken));
+        console.log('Новый Access Token в State:', updatedAccessToken);
         console.log('Обновленные значения в localStorage:');
         console.log('Новый Access Token в localStorage:', updatedAccessToken);
         console.log('Новый Refresh Token (в localStorage):', localStorage.getItem('refreshToken'));
-        
       }
-
-
+      
       const data = await response.json();
-      // if (data.updatedAccessToken && data.updatedRefreshToken) {
-      //   //dispatch(setAccessToken(data.updatedAccessToken));
-      //   localStorage.setItem('refreshToken', data.updatedRefreshToken);
-      // }
-      //localStorage.setItem('refreshToken', data.updatedRefreshToken);
-      // console.log('Новый Refresh Token (в localStorage):', data.updatedRefreshToken);
       return data;
 
     } catch (error: any) {
@@ -292,8 +306,6 @@ const userSlice = createSlice({
     setAccessToken(state, action: PayloadAction<string>) {
       state.jwtToken = action.payload;
       console.log('jwtToken в setAccessToken: ', state.jwtToken);
-      
-      localStorage.setItem('accessToken', action.payload);
     },
 
   },
@@ -335,9 +347,7 @@ const userSlice = createSlice({
     });
     builder.addCase(registerUser.rejected, (state, action) => {
       state.status = 'rejected';
-      console.log('state.error', state.error);
       state.error = action.payload;
-      console.log('state.isError', state.isError);
       state.isError = true;
       state.isLoading = false;
       state.isError = false;
@@ -356,16 +366,13 @@ const userSlice = createSlice({
         const decodedTokenData = jwtDecode(jwtToken) as {
           email: string;
         };
-        // Обновляем состояние (state) с помощью полученных данных
-        console.log('Updated state:', state);
-
+       
         return {
           ...state,
           firstName,
           lastName,
           email: decodedTokenData.email,
           jwtToken,
-          // jwtRefreshToken,
           userId,
           numberPhone,
           phone,
@@ -393,27 +400,30 @@ const userSlice = createSlice({
       }
     });
     builder.addCase(updateUser.fulfilled, (state, action) => {
-      // const updatedUserData = action.payload;
-      const { firstName, lastName, address, phone, jwtToken } = action.payload;
+      console.log('Reducer is called for updateUser.fulfilled');
+      if(action.payload){
+        const { firstName, lastName, address, phone } = action.payload;
+        console.log('updateUser.fulfilled payload:', action.payload);
 
-      // Обновляем состояние (state) с помощью полученных данных
-      console.log('Updated state:', state);
-      console.log('phone', state.numberPhone?.countryCode, state.numberPhone?.phoneNumber);
-
-      return {
-        ...state,
-        jwtToken,
-        firstName,
-        lastName,
-        address,
-        phone,
-        // roles,
-        status: 'fulfilled',
-        isError: false,
-        isLoading: false,
+        return {
+          ...state,
+          firstName,
+          lastName,
+          address,
+          phone,
+          // roles,
+          status: 'fulfilled',
+          isError: false,
+          isLoading: false,
+        }
       }
+      
     });
     builder.addCase(updateUser.rejected, (state, action) => {
+      // if(action.payload === 'Server error' && (action.error as MyError)?.status === 403) {
+      //   const dispatch:AppThunk = store.dispatch;
+      //   dispatch(refreshTokens());
+      // }
       state.error = action.payload;
       state.isError = true;
       state.status = 'rejected';
@@ -457,22 +467,6 @@ const userSlice = createSlice({
       }
     });
     builder.addCase(refreshTokens.fulfilled, (state, action) => {
-      //const { updatedAccessToken } = action.payload as { updatedAccessToken?: string };
-
-      //const { updatedAccessToken, updatedRefreshToken } = action.payload as { updatedAccessToken?: string, updatedRefreshToken?: string };
-      //console.log('jwtToken before update:', state.jwtToken);
-      //const { jwtToken } = action.payload
-      // if (updatedRefreshToken !== undefined) {
-      //   localStorage.setItem('refreshToken', updatedRefreshToken);
-      //   console.log('builder Новый Refresh Token (в localStorage):', updatedRefreshToken);
-      // }
-    
-      // if (updatedAccessToken !== undefined) {
-      //   localStorage.setItem('accessToken', updatedAccessToken);
-      //   state.jwtToken = updatedAccessToken;
-      //   console.log('builder Новый Access Token:', state.jwtToken);
-      // }
-
       //Обновляем состояние Redux с использованием данных из localStorage
       const accessTokenFromLocalStorage = localStorage.getItem('accessToken');
       localStorage.removeItem('accessToken');
@@ -480,7 +474,6 @@ const userSlice = createSlice({
         state.jwtToken = accessTokenFromLocalStorage;
       }
       
-      //state.jwtToken = jwtToken;
       console.log('jwtToken after update:', state.jwtToken);
       state.status = 'OK';
       state.isRefreshing = false;
@@ -499,6 +492,7 @@ const userSlice = createSlice({
       console.error('Ошибка обновления токенов:', action.error);
     });
 
+    
   }
 });
 
@@ -506,6 +500,64 @@ export const { setLogout, setRefreshing, setAccessToken } = userSlice.actions;
 
 export default userSlice.reducer;
 
+//-------------------------------------------------------
+//Вариант updateUser с логикой обновления токенов при ошибке 403 и повторного вызова экшена:
+// export const updateUser = createAsyncThunk<UserState,
+//   {
+//     jwtToken?: string,
+//     firstName: string,
+//     lastName: string,
+//     numberPhone: UserPhone,
+//     address: UserAddress,
+//   }, { rejectValue: string }
+// >(
+//   'user/updateUser',
+//   async (userProfile, { rejectWithValue, getState, dispatch }) => {
+//     try {
+//       const state = getState() as RootState; // Приводим состояние к типу RootState
+//       const jwtToken = state.userReducer.jwtToken;
+//       const userId = state.userReducer.userId;
+
+//       const response = await fetch(`${base_url}/profile/${userId}`, {
+//         method: 'PUT',
+//         body: JSON.stringify(userProfile),
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'Authorization': `Bearer ${jwtToken}`
+//         }
+//       });
+//       console.log('response: ', response);
+
+//       if (!response.ok) {
+//         if (response.status === 403) {
+//           try {
+//             await dispatch(refreshTokens());
+//       //     // Дождитесь окончания обновления токенов
+//       //     await new Promise(resolve => setTimeout(resolve, 1000));
+//             const updatedState = getState() as RootState;
+//             const updatedJwtToken = updatedState.userReducer.jwtToken;
+//             await dispatch(updateUser({ ...userProfile, jwtToken: updatedJwtToken }));
+//           } catch (refreshError) {
+//             console.error('Ошибка обновления токенов:', refreshError);
+//             // Здесь можно принять решение, как обрабатывать ошибку обновления токенов
+//             throw new Error('Ошибка обновления токенов');
+//           }
+//           return;
+//         }
+//         throw new Error('Server error');
+//       }
+
+//       const data = await response.json();
+//       console.log('data', data);
+
+//       return data;
+
+//     } catch (error: any) {
+//       return rejectWithValue(error.message);
+//     }
+//   }
+// );
+//------------------------------------------------------
 // const shouldRefreshToken = () => {
 //   const accessToken = userSlice.getState().jwtToken; // Получаем токен из состояния
 //   if (accessToken) {
@@ -521,112 +573,17 @@ export default userSlice.reducer;
 //   }
 // };
 
- // if (newAccessToken && newRefreshToken && newAccessToken.startsWith('Bearer ') 
-      // && newRefreshToken.startsWith('Bearer ')) {
-      //   const updatedAccessToken = newAccessToken.substring(7);// Удалить "Bearer " из начала
-      //   const updatedRefreshToken = newRefreshToken.substring(7);
-      //   console.log('Новый Access Token:', newAccessToken);
-      //   console.log('Новый Refresh Token:', newRefreshToken);
-
-      //   state.jwtToken = updatedAccessToken; // Обновляем jwtToken в текущем состоянии
-      //   localStorage.setItem('refreshToken', updatedRefreshToken); // Обновляем refreshToken в localStorage
-        
-      //   console.log('Новый Access Token:', state.jwtToken);
-      //   console.log('Новый Refresh Token:', updatedRefreshToken);
-        
-      // }
-
-// const parts = phone.split(')');
-        // let updatedNumberPhone;
-
-        // // Проверка на корректное разделение
-        // if (parts.length === 2) {
-        // // Удаление открывающей скобки и преобразование кода страны в число
-        //   const countryCode: number = parseInt(parts[0].replace('(', ''), 10) || 0;
-        //   const phoneNumber = parts[1].trim() || ''; // Телефон остается строкой
-        //   updatedNumberPhone = {
-        //         countryCode, // Просто используйте значение countryCode
-        //         phoneNumber, // Преобразуйте phoneNumber в строку, если это необходимо
-        //   };
-
-        // if (updatedAccessToken) {
-      //   console.log('New Access Token:', updatedAccessToken);
-      //   state.jwtToken = updatedAccessToken;
-      // }
-
-      // // Обновите Local Storage с новым jwtRefreshToken
-      // if (updatedRefreshToken) {
-      //   console.log('New refresh Token:', updatedRefreshToken);
-      //   localStorage.setItem('refreshToken', updatedRefreshToken);
-      // }
-
-      // const {jwtRefreshToken} = action.payload as TokenPayload;
-
-      // localStorage.setItem('refreshToken', jwtRefreshToken);
-
-      // if (newAccessToken && newRefreshToken) {
-      //   let updatedAccessToken = newAccessToken;
-      //   let updatedRefreshToken = newRefreshToken;
-    
-      //   if (newAccessToken.startsWith('Bearer ')) {
-      //     updatedAccessToken = newAccessToken.substring(7);
-      //   }
-    
-      //   if (newRefreshToken.startsWith('Bearer ')) {
-      //     updatedRefreshToken = newRefreshToken.substring(7);
-      //   }
-    
-      //   console.log('Данные после обработки:');
-      //   console.log('Новый Access Token (после обработки):', updatedAccessToken);
-      //   console.log('Новый Refresh Token (после обработки):', updatedRefreshToken);
-
-      //   state.jwtToken = updatedAccessToken;
-      //   localStorage.setItem('refreshToken', updatedRefreshToken);
-
-      //   console.log('Обновленные значения в состоянии:');
-      //   console.log('Новый Access Token (в состоянии):', state.jwtToken);
-      //   console.log('Новый Refresh Token (в localStorage):', localStorage.getItem('refreshToken'));
-      // }
-
+//----------------------------------------------------------
+      //const { updatedAccessToken, updatedRefreshToken } = action.payload as { updatedAccessToken?: string, updatedRefreshToken?: string };
+      //console.log('jwtToken before update:', state.jwtToken);
+      //const { jwtToken } = action.payload
       // if (updatedRefreshToken !== undefined) {
       //   localStorage.setItem('refreshToken', updatedRefreshToken);
-      //   console.log('Новый Refresh Token(in Local storage):', updatedRefreshToken);
+      //   console.log('builder Новый Refresh Token (в localStorage):', updatedRefreshToken);
       // }
-
-      
-// export const refreshTokens =async (getState: () => RootState) => {
-//   try {
-//           const state = getState() as RootState; // Приводим состояние к типу RootState
     
-//           const userId = state.userReducer.userId;
-//           const jwtRefreshToken = localStorage.getItem('refreshToken');
-    
-//           const response = await fetch(`https://ecommerce2.fly.dev/profile/${userId}/refresh`, {
-//             method: 'POST',
-//             // body: JSON.stringify({ userId, email }),
-//             headers: {
-//               'Content-Type': 'application/json',
-//               'X-Refresh-Token': `${jwtRefreshToken}`,
-//             },
-//           });
-    
-//           if (!response.ok) {
-//             throw new Error('Server error');
-//           }
-    
-//           const newAccessToken = response.headers.get('Authorization');
-//           const newRefreshToken = response.headers.get('Refresh-Token');
-    
-//           if (newAccessToken && newRefreshToken) {
-//             localStorage.setItem('refreshToken', newRefreshToken);
-//           }
-    
-//           const data = await response.json();
-//           localStorage.setItem('refreshToken', data.newRefreshToken);
-    
-//           return data;
-    
-//         } catch (error: any) {
-//           return console.log(error.message);
-//         }
-// }
+      // if (updatedAccessToken !== undefined) {
+      //   localStorage.setItem('accessToken', updatedAccessToken);
+      //   state.jwtToken = updatedAccessToken;
+      //   console.log('builder Новый Access Token:', state.jwtToken);
+      // }

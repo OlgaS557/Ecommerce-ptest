@@ -125,7 +125,7 @@
 
 .sideBar {
     grid-area: sd;
-    width: 300px;
+    /* width: 300px; */
     margin-right: 32px;
 }
 

@@ -1,11 +1,15 @@
 import {FC} from 'react';
 import Subscribe from '../components/Subscribe';
+import Banner from '../components/gallery/Banner';
+
+
 
 const HomePage:FC = () => {
 
     return (
         <div>
             HomePage
+            <Banner />
             <Subscribe />
         </div>
     )

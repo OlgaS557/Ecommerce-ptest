@@ -14,7 +14,7 @@ const UpdateUser = () => {
             return (
                 <>
                     <div style={{ marginLeft: '50px', marginTop: '30px', marginBottom: '30px' }}>
-                        <button onClick={() => setUpdateActive('changePassword')}>Change password</button>
+                        <button style={{marginRight: '20px'}} onClick={() => setUpdateActive('changePassword')}>Change password</button>
                         <button onClick={() => setUpdateActive('editProfile')}>Edit user profile</button>
                     </div>
                 </>

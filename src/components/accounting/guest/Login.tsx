@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../../hook/redux';
 import { loginUser, setLogout,refreshTokens } from '../../../redux/slices/userSlice';
 import { useNavigate, NavLink } from 'react-router-dom';
+import { AuthContext } from '../../../context';
 import styles from '../../../css_modules/auth/input.module.css';
 
 
@@ -12,6 +13,7 @@ interface Login {
 }
 
 const Login = () => {
+  //  const {isAuth, setIsAuth} = useContext(AuthContext);
     const dispatch = useAppDispatch();
     const user = useAppSelector(state => state.userReducer);
     const {isError, error, status} = useAppSelector(state => state.userReducer);
@@ -34,6 +36,7 @@ const Login = () => {
         .then((resultAction) => {
             // if (resultAction.type === loginUser.fulfilled.type) {
             if (loginUser.fulfilled.match(resultAction)) {
+              //setIsAuth(true);
               navigate('/');
             } else {
               console.error('Login error:', error);

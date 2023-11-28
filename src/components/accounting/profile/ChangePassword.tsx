@@ -49,21 +49,24 @@ const ChangePassword: React.FC<Props> = ({close}) => {
             <input
             onChange={(e) => setCurrentPassword(e.target.value.trim())}
             value={currentPassword}
-            type='password'
+            placeholder='Current password'
+            //type='password'
             /> 
         </label>
         <label> New password:
             <input
             onChange={(e) => setNewPassword(e.target.value.trim())}
             value={newPassword}
-            type='password'
+            placeholder='New password'
+            //type='password'
             /> 
         </label>
         <label> Confirm password:
             <input
             onChange={(e) => setNewPassword2(e.target.value.trim())}
             value={newPassword2}
-            type='password'
+            placeholder='Confirm password'
+            //type='password'
             /> 
         </label>
         <button onClick={handleClickSave}>Save</button>
