@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from '../../css_modules/gallery/gallery.module.css';
+import gradient1 from '../../Assets/img/homePage/gallery/gradient/Vector1.png';
+import gradient2 from '../../Assets/img/homePage/gallery/gradient/Vector2.png';
 
 // type GalleryProps = {
 //     url: string;
@@ -28,7 +30,10 @@ const Gallery = ({images}: GalleryProps) => {
                         src={image.url}
                         alt={image.description} 
                     />
-
+                    <div className={styles.gradientContainer}>
+                        <div className={`${styles.gradient} ${styles.lower_gradient}`}></div>
+                        <div className={`${styles.gradient} ${styles.upper_gradient}`}></div>
+                    </div>
                 </div>
             ) )}
         </div>

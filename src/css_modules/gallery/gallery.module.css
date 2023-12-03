@@ -1,36 +1,73 @@
-
+/* gallery with scrolling */
 
 .gallery {
     width: 100%;
-    max-height: 100%;
+    max-height: 100%; 
 }
 
 .gallery_conteiner {
-    width: 100%;
-    height: 100%;
+    display: flex;
+    margin-right: 10px;
     overflow-x: auto;
     position: relative;
     scrollbar-width: none;
     scroll-snap-type: x mandatory;
-    display: flex;
-    white-space: nowrap; /* Это важное свойство для горизонтального скроллинга */
-/* 
-    &::-webkit-scrollbar {
+    white-space: nowrap;  
+
+    /* &::-webkit-scrollbar {
         display: none;
     } */
 }
 
 .conteiner_item {
-    flex-shrink: 0; 
-    /* flex: 0 0 auto; */
+    flex: 0 0 auto;
+    position: relative;
+    max-width: 100%;
+    height: 100%; 
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+  .conteiner_item img{
+    
+    
+    position: relative;
+    z-index: 2;
+    max-width: 100%; 
+    /* max-height: 100%; */
+    height: auto;
+    object-fit: fill;
+    /* width: 500px;
+    height: 320px; */
+    background-color: transparent;
+}
+  .gradientContainer {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .gradient {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    /* backdrop-filter: blur(10px); */
+     /* Устанавливаем размытие границ градиента */
+  }
+  .lower_gradient {
+    /* color: rgba(203, 105, 193, 0.50); */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(203, 105, 193, 0.15));
+    /* background: url('../../Assets/img/homePage/gallery/gradient/Vector1.png') center/cover; */
+    top: 0;
+    background-color: transparent;
+  } 
+  .upper_gradient {
+    /* background: url('../../Assets/img/homePage/gallery/gradient/Vector2.png') center/cover; */
+    bottom: 0;
+    background-color: transparent;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(108, 114, 203, 0.15));
   }
 
-  .conteiner_item img{
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: fill;
-    width: 508.51px;
-    height: 316.81px;
-    
-    /* transform: rotate(29.75deg); */
-}
+  
