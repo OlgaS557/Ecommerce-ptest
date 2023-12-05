@@ -1,0 +1,18 @@
+
+.icon {
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    background-color: grey;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.arrow-left {
+    background-image: url('../../Assets/Icons/Navigation/angle-left.svg');
+    
+}
+.arrow-right {
+    background-image: url('../../Assets/Icons/Navigation/angle-right.svg');
+}
