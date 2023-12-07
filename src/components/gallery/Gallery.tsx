@@ -5,7 +5,7 @@ import gradient2 from '../../Assets/img/homePage/gallery/gradient/Vector2.png';
 import Button from './button';
 import Counter from './counter';
 import { useUpdateActiveIndex } from '../../hook/useUpdateActiveIndex';
-
+import { useKeyEvents } from '../../hook/useKeyEvents';
 
 // type GalleryProps = {
 //     url: string;
@@ -38,13 +38,22 @@ const Gallery = ({images}: GalleryProps) => {
             return
         }
         const dataConteiner = currentNode.getBoundingClientRect();
-        setActiveIndex(newActiveIndex);
+        //setActiveIndex(newActiveIndex);
 
         currentNode.scrollTo({
             left: newActiveIndex * dataConteiner.width,
             behavior: 'smooth',
         })
     }
+    // hook for scrolling with a keys of keyboard
+    useKeyEvents((key) => {
+        if (key === 'Arrow-left') {
+            buttonScroll(decreaseIndex(activeIndex));
+        }
+        if (key === 'Arrow-right') {
+            buttonScroll(increaseIndex(activeIndex, images.length));
+        }
+    })
 
   return (
     <div className={ styles.gallery}>
