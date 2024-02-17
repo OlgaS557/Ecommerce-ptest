@@ -3,10 +3,8 @@
 .conteiner {
     position: relative; /* Добавлено относительное позиционирование */
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 10px;
     /* min-height: 100vh; */
     min-height: 750px;
     background-color: #17181F;
@@ -15,10 +13,8 @@
   .nike {
     font-size: 32vw; /* Использование vw для респонсивного размера шрифта */
     font-weight: 500;
-    letter-spacing: -0.5vw; /* Использование vw для респонсивного расстояния между символами */
+    letter-spacing: -1vw; /* Использование vw для респонсивного расстояния между символами */
     color: #EEEDF01A;
-    margin-bottom: 20px;
-    
   }
   
   .conteiner_gallery {
@@ -26,30 +22,26 @@
     top: 0;
     left: 0;
     width: 100%;
-    /* max-height: 300px; */
-    /* height: 100%; */
+    height: 100%;
     display: grid;
-    grid-template-rows: 1fr 2fr;
-    gap: 30px;
-    padding: 40px;
+    grid-template-rows: 1fr 5fr;
     justify-items: center;
   }
   
   .title {
-    margin: 0;
+    margin-top: 20px;
     font-weight: 500;
     font-size: 72px;
     line-height: 80px;
     letter-spacing: -4.5px;
     color: #EEEDF0D9;
     text-align: center;
-    /* grid-column: span 2; */
   }
   .gallery {
       display: flex;
       max-width: 500px;
       max-height: 100px;
-     height: 100%;
-     
+      height: 100%;
+      align-self:flex-start;
   }
   

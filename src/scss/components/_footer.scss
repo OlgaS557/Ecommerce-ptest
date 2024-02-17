@@ -1,42 +1,50 @@
-.footer{
+.footer {
     //max-width: 1600px;
     //max-height: 478px;
     display: grid;
     grid-template-rows: auto;
-    padding: 60px 155px 0 155px;
+    padding: 60px 40px 0 40px;
     background-color: $black;
     color: $grey;
-    &__container{
-       
-        &_info{
+
+    &__container {
+
+        &_info {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             grid-column-gap: 20px;
-            &_logo{
+
+            &_logo {
                 font-size: 24px;
                 color: $white;
-                margin-right: 100px;
+                // margin-right: 100px;
             }
-            &_item{
+
+            &_item {
                 flex-direction: column;
-                &_title{
+
+                &_title {
                     font-size: 20px;
                     color: $white;
                     margin-bottom: 20px;
                 }
-                &_desc{
+
+                &_desc {
                     width: 100%;
                     font-size: 18px;
                     color: $grey;
                     margin-bottom: 16px;
-                    div{
+
+                    div {
                         font-size: 15px;
                     }
-                    p{
+
+                    p {
                         margin-top: 5px;
                         font-size: 17px;
                         color: $white;
-                        &:hover{
+
+                        &:hover {
                             color: $blue;
                             cursor: pointer;
                         }
@@ -44,39 +52,45 @@
                 }
             }
         }
-        &_line{
+
+        &_line {
             grid-area: line;
             border: 1px solid $grey;
             margin-top: 46px;
         }
-        &_bottom{
+
+        &_bottom {
             height: 110px;
             //margin-top: 20p;
             display: flex;
             justify-content: space-between;
             align-items: center;
-        &_name{
-            font-size: 18px;
-            color: $grey;
-        }
-        &_social{
-            display: flex;
-            justify-content: space-between;
-            //width: 170px;
-            &_item{
+
+            &_name {
+                font-size: 18px;
+                color: $grey;
+            }
+
+            &_social {
                 display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 50px;
-                height: 50px;
-                border-radius: 100%;
-                background-color: $grey;
+                justify-content: space-between;
+
+                //width: 170px;
+                &_item {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 100%;
+                    background-color: $grey;
+                }
             }
         }
     }
-    }
-    
+
 }
-.last{
+
+.last {
     width: 94px;
 }
