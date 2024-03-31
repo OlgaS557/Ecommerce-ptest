@@ -3,7 +3,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from './hook/redux';
 import { refreshTokens } from './redux/slices/userSlice';
 import { routes } from './routes';
-import { AuthContext } from './context';
+//import { AuthContext } from './context';
 
 import NavBar from './components/NavBar/NavBar';
 import Footer from './components/Footer/Footer';
@@ -16,7 +16,7 @@ function App() {
   const dispatch = useAppDispatch();
   const jwtToken = useAppSelector(state => state.userReducer.jwtToken)
   //const {isAuth, setIsAuth} = useContext(AuthContext);
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   
   useEffect(() => {
     if (jwtToken) {
