@@ -1,3 +1,9 @@
+[build]
+base = "C:\\Java45\\Ecommerce-ptest"
+publish = "build/"
+node_version = "16.x"
+npm_version = "8.x"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
