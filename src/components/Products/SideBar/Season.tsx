@@ -27,7 +27,7 @@ const Season = () => {
     // };
 
   return (
-    <List className={styles.widget_wrapper}>
+    <List>
         <ListItemButton onClick={handleClickSeason} >
                 <div className={styles.title}>
                     <div className={styles.line}><img src={Line} alt="Line" /></div>

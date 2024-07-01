@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import { useAppSelector, useAppDispatch } from '../../../hook/redux';
 import Category from './Category';
 import Price from './Price';
 import Size from './Size';
@@ -10,10 +8,14 @@ import Season from './Season';
 import List from '@mui/material/List';
 import styles from "../../../css_modules/sidebar.module.css";
 
-function SidebarMenu() {  
 
+interface SidebarMenuProps {
+    menuActive: boolean;
+}
+
+const SidebarMenu: React.FC<SidebarMenuProps> = ({ menuActive }) => {
     return (
-        <List className={styles.widget_wrapper}>
+        <List className={`${menuActive ? styles.widget_wrapper__active : styles.widget_wrapper}`}>
             <Category />
             <Price />
             <Size />
@@ -22,6 +24,7 @@ function SidebarMenu() {
             <Style />
             <Season />
         </List >
+
     )
 }
 

@@ -1,8 +1,6 @@
 import { FC, useState, useEffect, useRef } from 'react';
-import { useAppSelector, useAppDispatch } from '../hook/redux';
+import { useAppSelector } from '../hook/redux';
 import {Link, useParams} from 'react-router-dom';
-import styles from "../css_modules/products.module.css";
-import { setCategoryItem, setPriceItem, setSort, setGender } from '../redux/slices/filterSlice';
 import {Item} from '../types/index';
 import SidebarMenu from '../components/Products/SideBar/SidebarMenu';
 import Skeleton from '../components/Products/Skeleton';
@@ -10,6 +8,9 @@ import Card from '../components/Products/Card';
 import SortPopup from '../components/Products/SortPopup';
 import Pagination from '../components/Products/Pagination';
 import Subscribe from '../components/Subscribe';
+import { Box, IconButton } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import styles from "../css_modules/products.module.css";
 
 const filterItems = (items: Item[], categoryItems: Array<string>, priceItem: { valueFrom: number, valueTo: number},
      brandItem: Array<string>, searchQuery: string, gender: string) : Item[] => {
@@ -60,14 +61,7 @@ const ProductsPage: FC = () => {
   const {menu} = useParams();   //позволяет получить параметры маршрута в функциональном компоненте React.
   const {categoryItems, priceItem, brandItem, sort, currentPage, searchQuery, gender} = useAppSelector((state) => 
   state.filterReducer);
-  
-  console.log('categoryItems', categoryItems);
-  console.log('priceItem', priceItem);
-  console.log('brandItem', brandItem);
-  console.log('sort', sort);
-  console.log('currentPage', currentPage);
-  console.log('searchQuery', searchQuery);
-  console.log('gender', gender);
+
   const [items, setItems] = useState<Item[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -102,6 +96,12 @@ const ProductsPage: FC = () => {
     }
   }, [categoryItems, priceItem, brandItem, sort, currentPage, searchQuery, gender]);
 
+  const [menuActive, setMenuActive] = useState<boolean>(false);
+
+  const handleMenuToggle = () => {
+    setMenuActive(!menuActive);
+  }
+
   return (
     <>
       <div className={styles.products_container}>
@@ -125,8 +125,18 @@ const ProductsPage: FC = () => {
             </div>
           </div>
         </div>
+        <Box sx={{display: {xs: 'flex', md: 'none'}}}>
+                <IconButton 
+                 size='large'
+                 edge='start' 
+                 color='inherit'
+                 onClick={handleMenuToggle}
+                >
+                    <MenuIcon sx={{width: 40, height: 40}}/>
+                </IconButton>
+            </Box>
         <div className={styles.sideBar}>
-          <SidebarMenu />
+          <SidebarMenu menuActive={menuActive}/>
         </div>
         <div className={styles.cards}>
           {isLoading

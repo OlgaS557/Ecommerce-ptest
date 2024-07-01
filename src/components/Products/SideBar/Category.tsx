@@ -27,16 +27,16 @@ const Category = () => {
           dispatch(setCategoryItem(selectedCategory));
       };  
 
-  return (
-    <List className={styles.widget_wrapper} 
-    sx={{ paddingTop: 0, paddingBottom: 0 }}>
-        <ListItemButton onClick={handleClickCategory} >
+    return (
+        <List
+            sx={{ paddingTop: 0, paddingBottom: 0 }}>
+            <ListItemButton onClick={handleClickCategory} >
                 <div className={styles.title}>
                     <div className={styles.line}><img src={Line} alt="Line" /></div>
                     <Typography sx={{ fontSize: 18, fontWeight: 'bold' }} className={styles.title_name}> {Object.keys(menuProducts)[0]} </Typography>
                     {isCategoryOpen ?
-                        <img src={IconAngleUp} alt=''/> :
-                        <img src={IconAngleDown} alt=''/>
+                        <img src={IconAngleUp} alt='' /> :
+                        <img src={IconAngleDown} alt='' />
                     }
                 </div>
             </ListItemButton>
@@ -58,8 +58,8 @@ const Category = () => {
                     </Collapse>
                 );
             })}
-    </List>
-  )
+        </List>
+    )
 }
 
 export default Category;

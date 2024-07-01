@@ -44,8 +44,7 @@ const NavBar: FC = () => {
                 <div className={style.navbar__container}>
                     <div className={style['navbar__container-menu']} >
                         <Link to='/' className={style['navbar__container-logo']} style={{ color: match ? 'white' : 'black' }}>LOGO</Link>
-                        <div className={style.navbar__container_block} 
-                        >
+                        <div className={style.navbar__container_block}>
                             {navMenu.map((item) => (
                                 <NavLink to={item.url} key={item.name}
                                     className={match ? style.navbar__container_itemWhite : style.navbar__container_itemBlack}

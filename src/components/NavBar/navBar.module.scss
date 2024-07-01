@@ -1,20 +1,17 @@
 @import '../../scss/variables';
 
 .navbar{
-    //max-width: 1600px;
     border-bottom: 1px solid rgba(220, 220, 220, 1);
-    // background-color: $white;
-    // background-color: #17181F;
-    // position: fixed;
-    z-index: 10;
+    // z-index: 10;
     &__container{
-        height: 100px;
+        min-height: 100px;
+        max-width: 1600px;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-areas: 'menu search';
-        grid-column-gap: 10px;
-        //place-items: center;
-        padding: 0 31px 0 30px;
+        grid-template-areas: "menu search";
+        grid-row-gap: 2px;
+        
+        padding: 0 30px 0 30px;
         @media (max-width: 760px) {
             grid-template-columns: 1fr;
             grid-template-areas: 
@@ -22,26 +19,34 @@
                 "search";
           }
         &-menu, &_block, &-logo{
-            //grid-area: menu;
-            justify-self: start;
-            display: grid;
-            grid-template-columns: repeat(6, auto);
-            grid-column-gap: 20px;
-            place-items: center;
+            grid-area: menu;
+            //justify-self: start;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            column-gap: 20px;
+            row-gap: 5px;
+            flex-wrap: wrap;
+            padding-bottom: 5px;
+            // display: grid;
+            // grid-template-columns: repeat(6, auto);
+            // grid-column-gap: 20px;
+            // place-items: center;
         }
         &-logo{
             font-size: 24px;
-            justify-self: start;
+            //justify-self: start;
             padding: 5px 0 6px 0;
+            
         }
         &-search{
-            //grid-area: search;
-
+            grid-area: search;
             display: flex;
             flex-direction: row;
             justify-self: end;
             column-gap: 20px;
             align-items: center;
+            padding-bottom: 5px;
             &-input {
                     position: relative;
             

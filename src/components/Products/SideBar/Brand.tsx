@@ -14,6 +14,7 @@ const Brand = () => {
     const dispatch = useAppDispatch();    
     const [isBrandOpen, setIsBrandOpen] = useState(false);
     const brandItem = useAppSelector((state) => state.filterReducer.brandItem); 
+    
     const handleClickBrand = () => {
         setIsBrandOpen(!isBrandOpen);
     };
@@ -30,7 +31,7 @@ const Brand = () => {
       };
 
   return (
-    <List className={styles.widget_wrapper}>
+    <List>
         <ListItemButton onClick={handleClickBrand} >
                 <div className={styles.title}>
                     <div className={styles.line}><img src={Line} alt="Line" /></div>
