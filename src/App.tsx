@@ -1,5 +1,5 @@
-import React, { useEffect, useContext } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from './hook/redux';
 import { refreshTokens } from './redux/slices/userSlice';
 import { routes } from './routes';
