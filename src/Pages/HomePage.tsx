@@ -5,8 +5,7 @@ import Banner from '../components/gallery/Banner';
 const HomePage:FC = () => {
 
     return (
-        <div>
-            HomePage
+        <div>            
             <Banner />
             <Subscribe />
         </div>

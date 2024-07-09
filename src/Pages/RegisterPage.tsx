@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Register from '../components/accounting/guest/Register';
 import styles from '../css_modules/auth/guestPage.module.css';

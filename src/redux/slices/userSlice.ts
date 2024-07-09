@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import jwtDecode from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 import { UserAddress, UserPhone } from '../../types/index';
 import { RootState } from "../store/configureStore";
 import { base_url } from "../../Utils/Data";

@@ -64,6 +64,11 @@ const ProductsPage: FC = () => {
 
   const [items, setItems] = useState<Item[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [menuActive, setMenuActive] = useState<boolean>(false);
+
+  const handleMenuToggle = () => {
+    setMenuActive(!menuActive);
+  }
 
   const isMounted = useRef(false); //позволяет сохранить значение переменной между рендерами компонента, чтобы можно было проверить, находится ли компонент на странице (не был ли он удален из DOM), перед тем как обновлять его состояние
 
@@ -96,12 +101,6 @@ const ProductsPage: FC = () => {
     }
   }, [categoryItems, priceItem, brandItem, sort, currentPage, searchQuery, gender]);
 
-  const [menuActive, setMenuActive] = useState<boolean>(false);
-
-  const handleMenuToggle = () => {
-    setMenuActive(!menuActive);
-  }
-
   return (
     <>
       <div className={styles.products_container}>
@@ -118,23 +117,24 @@ const ProductsPage: FC = () => {
             <div className={styles.title_category}>
               <div className={styles.title}>{menu} </div>
               <div className={styles.path_products_name}>{categoryItems.join(' ')}</div>
-              
+
             </div>
             <div>
               <SortPopup />
             </div>
           </div>
+          <Box sx={{ display: { xs: 'flex', md: 'none' } }} className={styles.burgerMenu}>
+            <IconButton
+              size='large'
+              edge='start'
+              color='inherit'
+              onClick={handleMenuToggle}
+            >
+              <MenuIcon sx={{ width: 40, height: 40 }} />
+            </IconButton>
+          </Box>
         </div>
-        <Box sx={{display: {xs: 'flex', md: 'none'}}}>
-                <IconButton 
-                 size='large'
-                 edge='start' 
-                 color='inherit'
-                 onClick={handleMenuToggle}
-                >
-                    <MenuIcon sx={{width: 40, height: 40}}/>
-                </IconButton>
-            </Box>
+        
         <div className={styles.sideBar}>
           <SidebarMenu menuActive={menuActive}/>
         </div>

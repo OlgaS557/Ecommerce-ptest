@@ -1,6 +1,6 @@
 import { Middleware, AnyAction } from '@reduxjs/toolkit';
 import { AppDispatch, RootState } from './configureStore';
-import jwtDecode from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 import { refreshTokens, setLogout, setRefreshing, setAccessToken } from '../slices/userSlice';
 
 // const tokenRefreshMiddleware: Middleware = (store) => (next) => async(action) => {
