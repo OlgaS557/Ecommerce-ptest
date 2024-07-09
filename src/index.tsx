@@ -21,7 +21,7 @@ function MyRoot() {
     }}>
       <React.StrictMode>
         <Provider store={store}>
-          <BrowserRouter>
+          <BrowserRouter basename='/Ecommerce-ptest'>
             <App />
           </BrowserRouter>
         </Provider>
