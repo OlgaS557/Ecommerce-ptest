@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.d3fcbf6f.css",
-    "main.js": "/static/js/main.5d5a22fc.js",
+    "main.js": "/static/js/main.8204d6e2.js",
     "static/media/Base.png": "/static/media/Base.0149017a06b881fd8ba1.png",
     "static/media/running-shoes1.png": "/static/media/running-shoes1.09580c9f66a8098d17a5.png",
     "static/media/running-shoes2.png": "/static/media/running-shoes2.09580c9f66a8098d17a5.png",
@@ -25,10 +25,10 @@
     "static/media/angle-down.svg": "/static/media/angle-down.670b15bd2b6058aad896305618ff5391.svg",
     "index.html": "/index.html",
     "main.d3fcbf6f.css.map": "/static/css/main.d3fcbf6f.css.map",
-    "main.5d5a22fc.js.map": "/static/js/main.5d5a22fc.js.map"
+    "main.8204d6e2.js.map": "/static/js/main.8204d6e2.js.map"
   },
   "entrypoints": [
     "static/css/main.d3fcbf6f.css",
-    "static/js/main.5d5a22fc.js"
+    "static/js/main.8204d6e2.js"
   ]
 }
