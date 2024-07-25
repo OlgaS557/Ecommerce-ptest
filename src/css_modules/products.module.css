@@ -3,32 +3,41 @@
 }
 
 .products_container {
+    max-width: 1350px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: auto;
-    /* grid-column-gap: 32px; */
-    grid-row-gap: 0px;
+    grid-template-columns: 300px 1fr;
+    grid-auto-rows: auto 1fr auto;
+    grid-column-gap: 30px;
     grid-template-areas:
-        "hd hd hd hd "
-        "sd  main main main "
-        "sd pg pg pg";
-    /* position: relative; */
-    max-width: 1294px;
-    /* max-height: 2171px; */
+        "hd hd"
+        "sd main"
+        "pg pg";
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     background-color: #FFFFFF;
-    margin: 0 auto;
-    /* padding: 0 30px; */
-  
+    margin: 0 auto;    
+    padding: 0 30px;  
+}
+
+@media (max-width: 900px) {
+    .products_container {        
+        grid-template-columns: 1fr;               
+        grid-template-areas:
+            "hd"
+            "main"
+            "pg";
+        
+        justify-content: center;       
+    }
+    
 }
 
 .titlebox {
     grid-area: hd;
+    /* position: fixed; */
     flex-direction: column;
     max-width: 1294px;
-    margin-top: 30px;
+    margin: 30px 0 50px 0;
 }
-
 .path {
     display: flex;
     width: 100%;
@@ -95,41 +104,68 @@
     padding: 1px 0px 1px 0px;   
 }
 
-.burgerMenu {
+.burgerMenu { 
+    position: fixed;
+    top: 60px;
+    left: 30px;
     
-    
-    left: 20px;
-    margin-bottom: 5px;
-    z-index: 1001; /* Положим над сайдбаром */
-}
+    z-index: 2000; 
+} 
 
 .sideBar {
     grid-area: sd;
-    /* width: 300px; */
-    margin-right: 32px;
+    display: flex;
+    width: 300px;
+    min-width: 250px;
+    
+    /* transform: translateX(0);  */
+       
+}
+.sideBar + .cards {
+    margin-right: 30px;
 }
 
-.cards {
-    /* width: 994px;
-    height: 1398px; */
+@media (max-width: 900px) {
+    .sideBar {
+      display: none; 
+    }
+}
+
+/* @media (max-width: 900px) {
+    .sideBar {
+        transform: translateX(-105%);
+        transition: transform 0.3s ease-in-out;
+        
+    }
+} */
+
+/* .sideBarActive {
+    transform: translateX(0) !important;
+} */
+
+.cards {   
     grid-area: main;
-    display: grid;
+    /* display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     grid-row-gap: 20px;
-    grid-column-gap: 32px;
-    /* display: flex;
-    flex-wrap: wrap; */
-    /* justify-content: space-between; */
+    grid-column-gap: 30px; */
+    margin-top: 10px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap; 
+    justify-content: center;
+    
 }
-@media (max-width: 1310px) {
+/* @media (max-width: 1345px) {
     .cards {
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(2, 1fr);
         grid-row-gap: 10px;
-        grid-column-gap: 15px;
+        grid-column-gap: 15px;  
+        justify-content: center;      
     }
-}
+} */
 @media (min-width: 960px) {
     .cards{
         z-index: 9;

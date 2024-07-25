@@ -1,7 +1,9 @@
 .cards {
-    width: 300px;
-    height: 466px;
+    max-width: 300px;
+    max-height: 466px;
 }
+
+
 
 .productCard {
     position: relative;
@@ -22,12 +24,23 @@
     padding: 3px 6px 3px 6px;
 }
 .card {
-    width: 300px;
-    height: 365px;
+    max-width: 300px;
+    max-height: 365px;
     object-fit: cover;
     border-radius: 10px;
     cursor: pointer;
 }
+
+@media (max-width: 1034px) {
+    .cards {
+        max-width: 200px;
+        max-height: 350px;
+    }
+    .card {
+        max-width: 200px;
+        max-height: 290px;
+    }
+} 
 
 .cart {
     position: absolute;

@@ -2,8 +2,10 @@
 
 .navbar{
     border-bottom: 1px solid rgba(220, 220, 220, 1);
+    
     // z-index: 10;
     &__container{
+        // position: fixed;
         min-height: 100px;
         max-width: 1600px;
         display: grid;
@@ -12,50 +14,57 @@
         grid-row-gap: 2px;
         
         padding: 0 30px 0 30px;
-        @media (max-width: 760px) {
+        @media (max-width: 900px) {
             grid-template-columns: 1fr;
             grid-template-areas: 
                 "menu"
                 "search";
-          }
+        }
         &-menu, &_block, &-logo{
             grid-area: menu;
             //justify-self: start;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            justify-content:space-between;
+            
             column-gap: 20px;
             row-gap: 5px;
-            flex-wrap: wrap;
-            padding-bottom: 5px;
+            // flex-wrap: wrap;
+            padding: 5px 0 6px 0;
             // display: grid;
             // grid-template-columns: repeat(6, auto);
             // grid-column-gap: 20px;
             // place-items: center;
         }
+       
         &-logo{
-            font-size: 24px;
-            //justify-self: start;
-            padding: 5px 0 6px 0;
             
+            font-size: 24px;            
+        }
+        &_block{ 
+            flex-wrap: wrap; 
         }
         &-search{
             grid-area: search;
             display: flex;
             flex-direction: row;
             justify-self: end;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-left: 10px;
             column-gap: 20px;
+            row-gap: 5px;
             align-items: center;
             padding-bottom: 5px;
             &-input {
                     position: relative;
-            
+                    margin-left: 20px;
                     input {
-                        width: 250px;
-                        height: 40px;
+                        max-width: 250px;
+                        max-height: 40px;
                         border-radius: 10px;
                         border: 1px solid rgba(0, 0, 0, 0.1);
                         padding: 11px 0 11px 36px;
+                        
                     }
             
                     svg {

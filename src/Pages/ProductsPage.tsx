@@ -2,14 +2,22 @@ import { FC, useState, useEffect, useRef } from 'react';
 import { useAppSelector } from '../hook/redux';
 import {Link, useParams} from 'react-router-dom';
 import {Item} from '../types/index';
+import { Box, IconButton, Drawer, List } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import Category from '../components/Products/SideBar/Category';
+import Price from '../components/Products/SideBar/Price';
+import Size from '../components/Products/SideBar/Size';
+import Collection from '../components/Products/SideBar/Collection';
+import Brand from '../components/Products/SideBar/Brand';
+import Style from '../components/Products/SideBar/Style';
+import Season from '../components/Products/SideBar/Season';
 import SidebarMenu from '../components/Products/SideBar/SidebarMenu';
 import Skeleton from '../components/Products/Skeleton';
 import Card from '../components/Products/Card';
 import SortPopup from '../components/Products/SortPopup';
 import Pagination from '../components/Products/Pagination';
 import Subscribe from '../components/Subscribe';
-import { Box, IconButton } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+
 import styles from "../css_modules/products.module.css";
 
 const filterItems = (items: Item[], categoryItems: Array<string>, priceItem: { valueFrom: number, valueTo: number},
@@ -117,26 +125,48 @@ const ProductsPage: FC = () => {
             <div className={styles.title_category}>
               <div className={styles.title}>{menu} </div>
               <div className={styles.path_products_name}>{categoryItems.join(' ')}</div>
-
             </div>
             <div>
               <SortPopup />
             </div>
           </div>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }} className={styles.burgerMenu}>
-            <IconButton
-              size='large'
-              edge='start'
-              color='inherit'
-              onClick={handleMenuToggle}
-            >
-              <MenuIcon sx={{ width: 40, height: 40 }} />
-            </IconButton>
-          </Box>
         </div>
-        
+        {/* Кнопка бургер-меню */}
+        <Box
+          sx={{
+            display: { xs: 'flex', md: 'none' }          
+          }}
+          className={styles.burgerMenu}
+        >
+          <IconButton
+            size='large'
+            edge='start'
+            color='inherit'
+            onClick={handleMenuToggle}
+          >
+            <MenuIcon sx={{ width: 40, height: 40 }} />
+          </IconButton>
+        </Box>
+
+        <Drawer
+          anchor='left'
+          open={menuActive}
+          onClose={handleMenuToggle}
+          sx={{ '& .MuiDrawer-paper': { width: 300 } }}
+        >
+          <List sx={{ mt: 12}}>
+            <Category />
+            <Price />
+            <Size />
+            <Collection />
+            <Brand />
+            <Style />
+            <Season />
+          </List>
+        </Drawer>
+        {/* Сайдбар для больших экранов */}
         <div className={styles.sideBar}>
-          <SidebarMenu menuActive={menuActive}/>
+          <SidebarMenu />
         </div>
         <div className={styles.cards}>
           {isLoading
@@ -148,6 +178,7 @@ const ProductsPage: FC = () => {
         </div>
       </div>
       <Subscribe />
+
     </>
   )
 };

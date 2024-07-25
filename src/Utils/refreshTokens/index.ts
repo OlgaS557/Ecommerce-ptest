@@ -16,6 +16,22 @@ export const handleTokenRefresh = async (
     }
 };
 
+// export const handleTokenRefresh = (next, action) => {
+//     if (action.payload instanceof Promise) {
+//         action.payload.then(v => next({...action, payload: v}));
+        
+//     } else {
+//         next(action);
+//     }   
+// };
+
+// export default function () {
+//     const res = next = handleTokenRefresh.bind(null, next);
+
+//     return res;
+// }
+
+
 
 
 

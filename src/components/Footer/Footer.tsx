@@ -69,7 +69,7 @@ const Footer:FC = () =>{
                     </div>
                     <div className='footer__container_line'></div>
                     <div className='footer__container_bottom'>
-                        <div className='footer__container_bottom_name'>Tel Ran 2022</div>
+                        <div className='footer__container_bottom_name'>... 2022</div>
                         <div className='footer__container_bottom_social'>
                             <div className='footer__container_bottom_social_item'>
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
