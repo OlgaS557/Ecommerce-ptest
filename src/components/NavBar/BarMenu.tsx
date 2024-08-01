@@ -1,9 +1,11 @@
 import React from 'react';
 import {menuMen, menuWomen, menuKids} from '../../Utils/Data';
+
   interface MenuItem {
     label: string;
     value: string;
   }
+  
   interface Menu {
     [key: string]: MenuItem[] | string;
   }
