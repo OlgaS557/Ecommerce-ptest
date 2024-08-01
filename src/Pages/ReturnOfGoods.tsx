@@ -1,11 +1,6 @@
 import {FC} from 'react';
 
-
-
-
 const ReturnOfGoods:FC = () => {
-
-
 
     return (
         <div>
@@ -13,6 +8,5 @@ const ReturnOfGoods:FC = () => {
         </div>
     )
 }
-
 
 export default ReturnOfGoods;
