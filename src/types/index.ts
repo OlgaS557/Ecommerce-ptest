@@ -53,8 +53,13 @@ export interface UserAddress {
 }
 export  interface UserPhone {
     countryCode: number,
-    phoneNumber: string,
-   
+    phoneNumber: string,   
+}
+export interface UserInfo {
+    firstName: string,
+    lastName: string,
+    address: UserAddress,
+    numberPhone: UserPhone
 }
 
 export type GetState = () => State;

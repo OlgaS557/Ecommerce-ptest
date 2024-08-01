@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Login from '../components/accounting/guest/Login';
 import styles from '../css_modules/auth/guestPage.module.css';
+import Login from '../components/accounting/guest/Login';
+
 
 const LogInPage = () => {
-
 
     return (
         <div className={styles.container}>

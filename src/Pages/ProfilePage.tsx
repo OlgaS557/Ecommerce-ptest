@@ -28,3 +28,5 @@ const ProfilePage = () => {
 }
 
 export default ProfilePage;
+
+// "homepage": "https://olgas557.github.io/Ecommerce-ptest",

@@ -53,7 +53,7 @@ const {
     }
    
     return (
-        <div className={styles.container}>
+        <div>
             <form className={styles.form} onSubmit={handleSubmit(handleClickRegister)}>
                 <label className={styles.data}>FirstName:
                     <input className={styles.field} {...register("firstName",

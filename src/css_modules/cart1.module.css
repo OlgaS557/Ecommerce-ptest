@@ -10,11 +10,20 @@
     grid-template-areas:
         "hd hd hd"
         "cd cd sum";
-    column-gap: 30px;
+    
     max-width: 1294px;
     border-bottom: 1px solid rgba(0, 0, 0, 1);
     background-color: #FFFFFF;
-    margin: 0 auto;
+    padding: 0 30px;
+}
+
+@media (max-width: 420px) {
+    .cart_container {
+        grid-template-areas:
+        "hd hd"
+        "cd cd"
+        "sum sum";
+    }
 }
 
 .titlebox {
@@ -83,31 +92,35 @@
 
 .cartCardItem {
     grid-area: cd;
+   
 }    
 
 .summaryBox {
     grid-area: sum;
-
+    display: flex;
+    flex-direction: column;
 }
 
-.summary {
-    display: flex;
+.summary {    
     height: 34px;
     font-size: 28px;
-    margin-left: 60px;
-    margin-top: 23px;
-    margin-bottom: 26px;
+    
 }
 
 .priceBox {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-left: 60px;
-    margin-right: 60px;
+    /* margin-left: 60px;
+    margin-right: 60px; */
     /* width: 300px; */
-    height: 78px;
-    padding-top: 30px;
+    font-size: 20px;
+    /* height: 78px; */
+    padding: 30px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.09);
     border-top: 1px solid rgba(0, 0, 0, 0.09);
+}
+
+.totalPrice {
+    margin-right: 10px;
 }

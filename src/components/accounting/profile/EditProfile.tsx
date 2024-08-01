@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hook/redux';
-import { UserAddress, UserPhone, GetState } from '../../../types';
+import { UserAddress, UserPhone } from '../../../types';
 import { updateUser } from '../../../redux/slices/userSlice';
-
+import styles from '../../../css_modules/auth/input.module.css';
 
 interface Props {
     close: () => void;
@@ -82,24 +82,23 @@ const EditProfile: React.FC<Props> = ({ close }) => {
     };
 
     return (
-        <div>
-            <label> First name:
-                <input
+        <div className={styles.box}>            
+            <label className={styles.data}> First name:
+                <input className={styles.field}
                     type='text'
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value.trim())}
                 />
             </label>
-            <label> Last name:
-                <input
+            <label className={styles.data}> Last name:
+                <input className={styles.field}
                     type='text'
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value.trim())}
                 />
             </label>
-            <label>
-                Phone Country Code:
-                <input
+            <label className={styles.data}> Phone Country Code:
+                <input className={styles.field}
                     type='text'
                     value={numberPhone.countryCode}
                     onChange={(e) =>
@@ -107,13 +106,11 @@ const EditProfile: React.FC<Props> = ({ close }) => {
                             ...numberPhone,
                             countryCode: parseInt(e.target.value),
                         })
-
                     }
                 />
             </label>
-            <label>
-                Phone Number:
-                <input
+            <label className={styles.data}> Phone Number:
+                <input className={styles.field}
                     type='phone'
                     value={numberPhone.phoneNumber}
                     // value={phoneNumber}
@@ -125,9 +122,8 @@ const EditProfile: React.FC<Props> = ({ close }) => {
                     }
                 />
             </label>
-            <label>
-                Country:
-                <input
+            <label className={styles.data}> Country:
+                <input className={styles.field}
                     type='text'
                     value={address.country}
                     onChange={(e) =>
@@ -138,9 +134,8 @@ const EditProfile: React.FC<Props> = ({ close }) => {
                     }
                 />
             </label>
-            <label>
-                City:
-                <input
+            <label className={styles.data}> City:
+                <input className={styles.field}
                     type='text'
                     value={address.city}
                     onChange={(e) =>
@@ -151,9 +146,8 @@ const EditProfile: React.FC<Props> = ({ close }) => {
                     }
                 />
             </label>
-            <label>
-                Zip Code:
-                <input
+            <label className={styles.data}> Zip Code:
+                <input className={styles.field}
                     type='text'
                     value={address.zipCode}
                     onChange={(e) =>
@@ -164,9 +158,8 @@ const EditProfile: React.FC<Props> = ({ close }) => {
                     }
                 />
             </label>
-            <label>
-                Street:
-                <input
+            <label className={styles.data}> Street:
+                <input className={styles.field}
                     type='text'
                     value={address.street}
                     onChange={(e) =>
@@ -177,9 +170,8 @@ const EditProfile: React.FC<Props> = ({ close }) => {
                     }
                 />
             </label>
-            <label>
-                House:
-                <input
+            <label className={styles.data}> House:
+                <input className={styles.field}
                     type='text'
                     value={address.house}
                     onChange={(e) =>
@@ -190,14 +182,177 @@ const EditProfile: React.FC<Props> = ({ close }) => {
                     }
                 />
             </label>
-            <button onClick={handleClickSave}>Save</button>
-            <button onClick={handleClickReset}>Reset</button>
-            <button onClick={close}>Close</button>
+            <div>
+                <button className={styles.button} onClick={handleClickSave}>Save</button>
+                <button className={styles.button} onClick={handleClickReset}>Reset</button>
+                <button className={styles.button} onClick={close}>Close</button>
+            </div>
+            
         </div>
     )
 };
 
 export default EditProfile;
+
+//-------------------------------react-hook-form--------------
+// import React, { useEffect } from 'react';
+// import { useForm, Controller } from 'react-hook-form';
+// import { useAppDispatch, useAppSelector } from '../../../hook/redux';
+// import { UserInfo } from '../../../types';
+// import { updateUser } from '../../../redux/slices/userSlice';
+// import styles from '../../../css_modules/auth/input.module.css';
+
+// interface Props {
+//     close: () => void;
+// }
+
+// const EditProfile: React.FC<Props> = ({ close }) => {
+//     const dispatch = useAppDispatch();
+//     const user = useAppSelector(state => state.userReducer);
+
+//     const { register, handleSubmit, reset, control, setValue } = useForm({
+//         defaultValues: {
+//             firstName: user.firstName,
+//             lastName: user.lastName,
+//             numberPhone: {
+//                 countryCode: user?.numberPhone?.countryCode || 0,
+//                 phoneNumber: user?.numberPhone?.phoneNumber || '',
+//             },
+//             address: user.address || {
+//                 country: '',
+//                 city: '',
+//                 zipCode: 0,
+//                 street: '',
+//                 house: '',
+//             }
+//         }
+//     });
+
+//     const phone = user.phone;
+
+//     const updateNumberPhoneFromPhone = (phone: string) => {
+//         if (phone) {
+//             const parts = phone.split(')');
+//             if (parts.length === 2) {
+//                 const countryCode = parseInt(parts[0].replace('(', ''), 10);
+//                 const phoneNumber = parts[1].trim();
+//                 setValue('numberPhone.countryCode', isNaN(countryCode) ? 0 : countryCode);
+//                 setValue('numberPhone.phoneNumber', phoneNumber);
+//             } else {
+//                 console.log("Строка не соответствует формату");
+//             }
+//         } else {
+//             console.log("Номер телефона не задан");
+//         }
+//     };
+
+//     useEffect(() => {
+//         updateNumberPhoneFromPhone(phone);
+//     }, [phone]);
+
+//     const onSubmit = (data: UserInfo) => {
+//         const userProfile = {
+//             ...data,
+//             meta: {
+//                 requireToken: true,
+//             }
+//         };
+//         console.log('userProfile:', userProfile);
+//         dispatch(updateUser(userProfile));
+//         close();
+//     };
+
+//     const handleClickReset = () => {
+//         reset({
+//             firstName: '',
+//             lastName: '',
+//             numberPhone: {
+//                 countryCode: 0,
+//                 phoneNumber: '',
+//             },
+//             address: {
+//                 country: '',
+//                 city: '',
+//                 zipCode: 0,
+//                 street: '',
+//                 house: '',
+//             }
+//         });
+//     };
+
+//     return (
+//         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+//             <label className={styles.data}> First name:
+//                 <input className={styles.field}
+//                     type='text'
+//                     {...register('firstName')}
+//                 />
+//             </label>
+//             <label className={styles.data}> Last name:
+//                 <input className={styles.field}
+//                     type='text'
+//                     {...register('lastName')}
+//                 />
+//             </label>
+//             <label className={styles.data}>
+//                 Phone Country Code:
+//                 <input className={styles.field}
+//                     type='text'
+//                     {...register('numberPhone.countryCode')}
+//                 />
+//             </label>
+//             <label className={styles.data}>
+//                 Phone Number:
+//                 <input className={styles.field}
+//                     type='text'
+//                     {...register('numberPhone.phoneNumber')}
+//                 />
+//             </label>
+//             <label className={styles.data}>
+//                 Country:
+//                 <input className={styles.field}
+//                     type='text'
+//                     {...register('address.country')}
+//                 />
+//             </label>
+//             <label className={styles.data}>
+//                 City:
+//                 <input className={styles.field}
+//                     type='text'
+//                     {...register('address.city')}
+//                 />
+//             </label>
+//             <label className={styles.data}>
+//                 Zip Code:
+//                 <input className={styles.field}
+//                     type='text'
+//                     {...register('address.zipCode')}
+//                 />
+//             </label>
+//             <label className={styles.data}>
+//                 Street:
+//                 <input className={styles.field}
+//                     type='text'
+//                     {...register('address.street')}
+//                 />
+//             </label>
+//             <label className={styles.data}>
+//                 House:
+//                 <input className={styles.field}
+//                     type='text'
+//                     {...register('address.house')}
+//                 />
+//             </label>
+//             <button className={styles.button} type="submit">Save</button>
+//             <button className={styles.button} type="button" onClick={handleClickReset}>Reset</button>
+//             <button className={styles.button} type="button" onClick={close}>Close</button>
+//         </form>
+//     );
+// };
+
+// export default EditProfile;
+
+//------------------------------------------------------
 
 // const phone = user.phone;
 // const parts = phone.split(')');

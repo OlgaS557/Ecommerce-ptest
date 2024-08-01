@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hook/redux';
 import { changePassword } from '../../../redux/slices/userSlice';
+import styles from '../../../css_modules/auth/input.module.css';
 
 interface Props {
     close: () => void;
@@ -44,34 +45,36 @@ const ChangePassword: React.FC<Props> = ({close}) => {
     }
 
   return (
-    <div>
-        <label> Current password:
-            <input
+    <div className={styles.box}>
+        <label className={styles.data}> Current password:
+            <input className={styles.field}
             onChange={(e) => setCurrentPassword(e.target.value.trim())}
             value={currentPassword}
             placeholder='Current password'
             //type='password'
             /> 
         </label>
-        <label> New password:
-            <input
+        <label className={styles.data}> New password:
+            <input className={styles.field}
             onChange={(e) => setNewPassword(e.target.value.trim())}
             value={newPassword}
             placeholder='New password'
             //type='password'
             /> 
         </label>
-        <label> Confirm password:
-            <input
+        <label className={styles.data}> Confirm password:
+            <input className={styles.field}
             onChange={(e) => setNewPassword2(e.target.value.trim())}
             value={newPassword2}
             placeholder='Confirm password'
             //type='password'
             /> 
         </label>
-        <button onClick={handleClickSave}>Save</button>
-        <button onClick={handleClickReset}>Reset</button>
-        <button onClick={close}>Close</button>
+        <div>
+            <button className={styles.button} onClick={handleClickSave}>Save</button>
+            <button className={styles.button} onClick={handleClickReset}>Reset</button>
+            <button className={styles.button} onClick={close}>Close</button>
+        </div>
     </div>
   )
 }

@@ -31,8 +31,8 @@ const CartPage = () => {
         <div className={styles.summaryBox}>
           <div className={styles.summary}>Summary</div>
           <div className={styles.priceBox}>
-            <div>Total</div>
-            <div>{totalPrice.toFixed(2)}$</div>
+            <p><span className={styles.totalPrice}>Total: </span></p>
+            <p>{totalPrice.toFixed(2)}$</p>
           </div>
         </div>
       }

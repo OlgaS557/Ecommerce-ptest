@@ -16,16 +16,16 @@ const Profile = () => {
   return (
     <div className={styles.profile_box}>
       <div className={styles.user_name}>
-        <p>Welcome, {user.firstName} {user.lastName}</p>
+        <h3>Welcome, {user.firstName} {user.lastName}</h3>
       </div>
-      <Link to='/' className={styles.logout}>
-        <button onClick={hadleClickLogout}>Logout</button>
+      <Link to='/' >
+        <button className={styles.logout} onClick={hadleClickLogout}>Logout</button>
       </Link>
-      <p>Email</p>
+      <h3>Email:</h3>
       <p>{user.email} </p>
-      <p>Phone</p>
+      <h3>Phone:</h3>
       <p>{user?.phone}</p>
-      <p>Address</p>
+      <h3>Address:</h3>
       <p>{user.address?.fullAddress}</p>
       <ul>
         {user.roles.map((r) => <li key={r}>{r}</li>)}

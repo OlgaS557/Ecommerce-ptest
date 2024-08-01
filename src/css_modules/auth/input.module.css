@@ -1,5 +1,11 @@
+/* .box - for EditProfile.tsx */
+.box {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .form {
-    width: 410px;
+    /* width: 410px; */
     
     /* height: 500px; */
     display: flex;
@@ -10,7 +16,7 @@
 
 .data {
    font-weight: 900;
-   margin-bottom: 8px;
+   margin: 0 20px 8px 0;
 }
 
 .field {
@@ -20,8 +26,8 @@
     width: 350px;
     height: 40px;
     border-radius: 10px;
-    border: 1px solid var(--grey-dark-2, rgba(0, 0, 0, 0.10));
-    background: var(--base-white, #FFF);
+    border: 1px solid rgba(0, 0, 0, 0.10);
+    background: #FFF;
     margin-bottom: 10px;
     font-size: 0.9em;    
 }
@@ -44,15 +50,15 @@ textarea:focus:valid{
     width: 350px;
     height: 50px;
     border-radius: 10px;
-    background: var(--accent-14, #2D74FF);
+    background: #2D74FF;
     color: white;
     font-size: large;
-    margin-top: 15px;
+    margin: 15px 20px 0 0;
     cursor: pointer;
 }
 .error {
     color: red;
     font-size: 0.8em;
     text-align: left;
-margin-left: 18px;
+    margin-left: 18px;
 }

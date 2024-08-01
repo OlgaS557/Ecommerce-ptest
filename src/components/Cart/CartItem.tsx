@@ -45,25 +45,23 @@ const CartItem = (item:Item) => {
                 <img className={styles.cardCartImg} src={item?.url} alt={item.name} />
             </div>
             <div className={styles.infoCard}>
-                <div className={styles.infoId}>{item?.id}</div>
+                <div className={styles.infoId}><span>{item?.id}</span></div>
                 <div className={styles.info1}>
-                    <p className={styles.infoName}>{item?.name}</p>
-                    <p>Price: {item.price * item.count}</p>
+                    <p className={styles.infoRow}><span>{item?.name}</span></p>
+                    <p className={styles.infoRow}><span>Price: </span>{item.price * item.count}$</p>
                     {item.discount !== null && (
-                        <p className={styles.discountedPrice}>Discount price: {discountedPrice.toFixed(2)}$</p>
+                        <p className={styles.infoRow}><span>Discount price: </span>{discountedPrice.toFixed(2)}$</p>
                     )}
                 </div>
-                <div className={styles.info2}>
-                    <div className={styles.infoSize}>
-                        <div>{item?.size}</div>
-                        {/* <SortSizePopup /> */}
-                    </div>
+                <div className={styles.info2}>                    
+                    <p><span>{item?.size}</span></p>
+                    {/* <SortSizePopup /> */}                   
                     <div className={styles.infoQuantity}>
-                        <div className={styles.count}>
-                            <div className={styles.countBox}>
-                                <input onChange={changeValue} type='number' className={styles.countInput} min='1' max='100' value={item.count} />
-                            </div>
+                        
+                        <div className={styles.countBox}>
+                            <input className={styles.countInput}  onChange={changeValue} type='number' min='1' max='100' value={item.count} />
                         </div>
+                        
                         <div className={styles.countControls}>
                             <button onClick={onClickPlus} type='button' className={styles.countUp}>
                                 <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">

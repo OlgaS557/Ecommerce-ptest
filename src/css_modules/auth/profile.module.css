@@ -8,11 +8,23 @@
 }
 
 .user_name,
-.logout,
-p {
-   font-size: 1.2em;
+
+h3 {
+    font-size: 1.2em;
+    font-weight: 600;
     line-height: 24px;
-    margin-bottom: 12px; /* Add margin between elements */
+    margin: 12px 0 12px 0; /* Add margin between elements */
+}
+
+.logout {
+    color: var(--accent-14, #2D74FF);
+    text-align: right;
+    font-size: 14px;
+    
+    
+    line-height: 15px;
+    letter-spacing: -0.2px;
+    
 }
 
 ul {

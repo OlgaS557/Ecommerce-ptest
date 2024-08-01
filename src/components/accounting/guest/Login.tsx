@@ -48,7 +48,7 @@ const Login = () => {
     }      
 
   return (
-       <div className={styles.container}>
+       <div>
         <form className={styles.form} onSubmit={handleSubmit(handleClickLogin)}>
             <label className={styles.data}>Email:
                 <input className={styles.field} {...register("email", 

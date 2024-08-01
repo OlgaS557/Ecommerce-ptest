@@ -1,10 +1,14 @@
 .cardItem {
-    display: grid;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    /* display: grid;
     grid-template-columns: 195px auto;
     grid-auto-rows: auto;
     grid-row-gap: 0px;
     grid-template-areas:
-       "img inf";
+       "img inf"; */
     column-gap: 30px;
     max-width: 934px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -13,13 +17,6 @@
 }
 .productCard {
     position: relative;
-}
-.cardCartImg {
-    grid-area: img;
-    width: 165px;
-    height: 200px;
-    align-self: center;
-    justify-self: center;
 }
 .discount {
     position: absolute;
@@ -35,8 +32,19 @@
     text-align: center;
     padding: 3px 6px 3px 6px;
 }
+.cardCartImg {
+    /* grid-area: img; */
+    width: 165px;
+    height: 200px;
+    align-self: center;
+    justify-self: center;
+}
+
 .infoCard {
-    grid-area: inf;
+    /* grid-area: inf; */
+    display: flex;
+    flex-direction: column;  
+    font-size: 20px;
 }
 
 .infoId {
@@ -49,11 +57,12 @@
 .info1 {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    height: 24px;
-    font-size: 20px;
-    margin-right: 77px;
+    justify-content: space-between;   
     margin-bottom: 20px;
+}
+
+.infoRow {
+    margin-right: 20px;
 }
 
 .info2 {
@@ -61,25 +70,28 @@
     flex-direction: row;
     justify-content: space-between;
     height: 40px;
-    margin-right: 77px;
+    margin-right: 20px;
     margin-bottom: 20px;
 }
 
 .infoQuantity {
     display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .countBox {
-    width: 63px;
-    height: 40px;
+    max-width: 63px;
+    max-height: 42px;
     background: #FFFFFF;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 }
 
 .countInput {
+    max-height: 100%;
     max-width: 100%;
-    padding-top: 10px;
+    padding: 10px 0 10px 0;
     text-align: center;
     font-size: 16px;
     background-color: transparent;

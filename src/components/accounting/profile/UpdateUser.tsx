@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ChangePassword from './ChangePassword';
 import EditProfile from './EditProfile';
+import styles from '../../../css_modules/auth/input.module.css';
 
 const UpdateUser = () => {
     const [updateActive, setUpdateActive] = useState('');
@@ -13,8 +14,8 @@ const UpdateUser = () => {
             return (
                 <>
                     <div style={{ marginLeft: '50px', marginTop: '30px', marginBottom: '30px' }}>
-                        <button style={{marginRight: '20px'}} onClick={() => setUpdateActive('changePassword')}>Change password</button>
-                        <button onClick={() => setUpdateActive('editProfile')}>Edit user profile</button>
+                        <button className={styles.button} style={{marginRight: '20px'}} onClick={() => setUpdateActive('changePassword')}>Change password</button>
+                        <button className={styles.button} onClick={() => setUpdateActive('editProfile')}>Edit user profile</button>
                     </div>
                 </>
             )

@@ -9,7 +9,7 @@ import NavBar from './components/NavBar/NavBar';
 import Footer from './components/Footer/Footer';
 
 import './scss/styles.scss';
-import './css_modules/products.module.css';
+
 
 
 function App() {
