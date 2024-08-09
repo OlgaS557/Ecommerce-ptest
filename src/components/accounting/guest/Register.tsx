@@ -35,7 +35,7 @@ const {
         console.log('Before dispatching registerUser', userData);
         dispatch(registerUser(userData))
 
-        // .unwrap()
+        .unwrap()
         .then((resultAction) => {
             // Проверяем, нет ли ошибок в регистрации
             console.log('Проверка перед переходом в случае успеха',isError);

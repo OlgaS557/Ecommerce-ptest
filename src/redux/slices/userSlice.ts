@@ -70,7 +70,7 @@ export const registerUser = createAsyncThunk<
       });
 
       if (!response.ok) {
-        throw new Error('Server error');
+        throw new Error(`Status: ${response.status}`);
       }
 
       const data = await response.json();
@@ -97,7 +97,7 @@ export const loginUser = createAsyncThunk<UserState,
         }
       });
       if (!response.ok) {
-        throw new Error('Server error');
+        throw new Error(`Status: ${response.status}`);
       }
 
       const data = await response.json();
@@ -155,7 +155,7 @@ export const updateUser = createAsyncThunk<UserState,
           );
           return;
         }
-        throw new Error('Server error');
+        throw new Error(`Status: ${response.status}`);
       }
       //await dispatch(refreshTokens());
       const data = await response.json();
@@ -206,7 +206,7 @@ export const changePassword = createAsyncThunk<
           );
           return;
         }
-        throw new Error('Server error');
+        throw new Error(`Status: ${response.status}`);
       }
       console.log(response.status);
       console.log(response.statusText);
@@ -217,6 +217,7 @@ export const changePassword = createAsyncThunk<
 
     } catch (error: any) {
       return rejectWithValue(error.message);
+      
     }
   }
 );
@@ -246,7 +247,7 @@ export const refreshTokens = createAsyncThunk<
       });
 
       if (!response.ok) {
-        throw new Error('Server error');
+        throw new Error(`Status: ${response.status}`);
       }
 
       const newAccessToken = response.headers.get('Authorization');

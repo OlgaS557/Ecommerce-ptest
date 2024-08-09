@@ -14,76 +14,91 @@ interface Login {
 
 const Login = () => {
   //  const {isAuth, setIsAuth} = useContext(AuthContext);
-    const dispatch = useAppDispatch();
-    const user = useAppSelector(state => state.userReducer);
-    const {isError, error, status} = useAppSelector(state => state.userReducer);
-    const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(state => state.userReducer);
+  const { isError, error, status } = useAppSelector(state => state.userReducer);
+  const navigate = useNavigate();
 
-    const { register,
-        formState: { errors, isValid },
-         handleSubmit,
-        reset} = useForm({
-        defaultValues: {
-            email: "",
-            password: "",
-        },
-        mode: 'onBlur'
+  const { register,
+    formState: { errors, isValid },
+    handleSubmit,
+    reset } = useForm({
+      defaultValues: {
+        email: "",
+        password: "",
+      },
+      mode: 'onBlur'
     })
 
-    const handleClickLogin = (userData: Login) => {
-        dispatch(loginUser(userData))
-        
-        .then((resultAction) => {
-            // if (resultAction.type === loginUser.fulfilled.type) {
-            if (loginUser.fulfilled.match(resultAction)) {
-              //setIsAuth(true);
-              navigate('/');
-            } else {
-              console.error('Login error:', error);
-            }
-        })
-        .catch(error => {
-            console.error('Error in login process: ', error);
-        }); 
-    }      
+  const handleClickLogin = (userData: Login) => {
+    dispatch(loginUser(userData))
+      .unwrap()
+      .then((resultAction) => {
+        // if (resultAction.type === loginUser.fulfilled.type) {
+        if (loginUser.fulfilled.match(resultAction)) {
+          //setIsAuth(true);
+          navigate('/');
+        } else {
+          console.error('Login error:', error);
+        }
+      })
+      .catch(error => {
+        console.error('Error in login process: ', error);
+      });
+
+  }
+
+  // const handleClickLogin = async (userData: Login) => {
+  //   try {
+  //     // Ожидаем завершения выполнения action и получаем payload
+  //     await dispatch(loginUser(userData)).unwrap();
+      
+  //     // Действие выполнено успешно, выполняем переход на главную страницу
+  //     navigate('/');
+  //   } catch (error) {
+  //     // Обработка ошибок
+  //     console.error('Error in login process: ', error);
+  //   }
+  // };
 
   return (
-       <div>
-        <form className={styles.form} onSubmit={handleSubmit(handleClickLogin)}>
-            <label className={styles.data}>Email:
-                <input className={styles.field} {...register("email", 
-                { required: "Email address is required",
-                  pattern: {
-                    value: /\S+@\S+\.\S+/,
-                    message: 'email is not valid'
-                 }
-                })} 
-                 aria-invalid={errors.email ? "true" : "false"} placeholder='email'
-                />
-            </label>
-              <div>
-                  {errors.email && <p className={styles.error} role="alert">{errors.email.message}</p>}
-              </div>
-            <label className={styles.data}>Password:
-                <input className={styles.field} {...register("password", { required: 'Password is required',  })} 
-                aria-invalid={errors.password ? "true" : "false"} placeholder='password' 
-                />
-            </label>
-            <div>
-              {errors.password && <p className={styles.error} role="alert">{errors.password.message}</p>}
-            </div>
-            {/* <NavLink 
+    <div>
+      <form className={styles.form} onSubmit={handleSubmit(handleClickLogin)}>
+        <label className={styles.data}>Email:
+          <input className={styles.field} {...register("email",
+            {
+              required: "Email address is required",
+              pattern: {
+                value: /\S+@\S+\.\S+/,
+                message: 'email is not valid'
+              }
+            })}
+            aria-invalid={errors.email ? "true" : "false"} placeholder='email'
+          />
+        </label>
+        <div>
+          {errors.email && <p className={styles.error} role="alert">{errors.email.message}</p>}
+        </div>
+        <label className={styles.data}>Password:
+          <input className={styles.field} {...register("password", { required: 'Password is required', })}
+            aria-invalid={errors.password ? "true" : "false"} placeholder='password'
+          />
+        </label>
+        <div>
+          {errors.password && <p className={styles.error} role="alert">{errors.password.message}</p>}
+        </div>
+        {/* <NavLink 
               to={user.status === 'fulfilled' ? '/' : ''}
             >  */}
-              <button className={styles.button} type='submit' disabled={!isValid}>Login</button>
-            {/* </NavLink> */}
-           
-           
-            {/* {user.status === 'pending' && <h2>Loading...</h2>} */}
-            {user.error && <h2>Login error. Try again</h2>} 
-        </form>
-   </div>
-  )        
+        <button className={styles.button} type='submit' disabled={!isValid}>Login</button>
+        {/* </NavLink> */}
+
+
+        {/* {user.status === 'pending' && <h2>Loading...</h2>} */}
+        {user.error && <h2>Login error. Try again</h2>}
+      </form>
+    </div>
+  )
 }
 
 export default Login;

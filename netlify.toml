@@ -1,8 +1,8 @@
 [build]
-base = "C:\\Java45\\Ecommerce-ptest"
-publish = "build/"
-node_version = "20.x"
-npm_version = "10.x"
+  base = "C:\\Java45\\Ecommerce-ptest"
+  publish = "build"
+  node_version = "20.x"
+  npm_version = "10.x"
 
 [[redirects]]
   from = "/*"
