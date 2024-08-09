@@ -21,7 +21,7 @@ function MyRoot() {
     }}>
       <React.StrictMode>
         <Provider store={store}>
-          <BrowserRouter basename='/Ecommerce-ptest'>
+          <BrowserRouter>
             <App />
           </BrowserRouter>
         </Provider>
@@ -31,3 +31,19 @@ function MyRoot() {
 }
 
 root.render(<MyRoot />)
+
+// <BrowserRouter basename='/Ecommerce-ptest'>
+// {
+//   "name": "ecommerce-ptest",
+//   "version": "0.1.0",
+//   "private": true,
+//   "homepage": "https://olgas557.github.io/Ecommerce-ptest",
+
+// "scripts": {
+//   "predeploy": "npm run build",
+//   "deploy": "gh-pages -d build",
+//   "start": "react-scripts start",
+//   "build": "react-scripts build",
+//   "test": "react-scripts test",
+//   "eject": "react-scripts eject"
+// },

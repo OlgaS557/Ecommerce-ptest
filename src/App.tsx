@@ -11,7 +11,6 @@ import Footer from './components/Footer/Footer';
 import './scss/styles.scss';
 
 
-
 function App() {
   const dispatch = useAppDispatch();
   const jwtToken = useAppSelector(state => state.userReducer.jwtToken)
