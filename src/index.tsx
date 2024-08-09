@@ -47,3 +47,7 @@ root.render(<MyRoot />)
 //   "test": "react-scripts test",
 //   "eject": "react-scripts eject"
 // },
+
+
+//netlify.toml
+// base = "C:\\Java45\\Ecommerce-ptest"
