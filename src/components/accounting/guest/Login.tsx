@@ -30,21 +30,28 @@ const Login = () => {
       mode: 'onBlur'
     })
 
-  const handleClickLogin = (userData: Login) => {
-    dispatch(loginUser(userData))
-      .unwrap()
-      .then((resultAction) => {
-        // if (resultAction.type === loginUser.fulfilled.type) {
-        if (loginUser.fulfilled.match(resultAction)) {
-          //setIsAuth(true);
-          navigate('/');
-        } else {
-          console.error('Login error:', error);
-        }
-      })
-      .catch(error => {
-        console.error('Error in login process: ', error);
-      });
+  const handleClickLogin = async (userData: Login) => {
+    try{
+      await dispatch(loginUser(userData)).unwrap();
+      navigate('/');
+    } catch (error) {
+      console.error('Error in login process: ', error);
+    }
+    //--------------------------------
+    // await dispatch(loginUser(userData))
+    //   .unwrap()
+    //   .then((resultAction) => {
+    //     // if (resultAction.type === loginUser.fulfilled.type) {
+    //     if (loginUser.fulfilled.match(resultAction)) {
+    //       //setIsAuth(true);
+    //       navigate('/');
+    //     } else {
+    //       console.error('Login error:', error);
+    //     }
+    //   })
+    //   .catch(error => {
+    //     console.error('Error in login process: ', error);
+    //   });
 
   }
 

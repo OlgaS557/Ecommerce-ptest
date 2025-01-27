@@ -22,18 +22,29 @@ const ChangePassword: React.FC<Props> = ({close}) => {
         }
         
         if (newPassword === newPassword2) {
-            dispatch(changePassword(userPasswords))
-
-                .then(() => {
-                    if (!isError && status === 'OK') {
-                        close();
-                    } else {
-                        console.log('Login error: ', error);
-                    }
-                })
-                .catch(error => {
+            try {
+                dispatch(changePassword(userPasswords)).unwrap(); 
+                // if (!isError && status === 'OK') {
+                //     close();
+                // } else {
+                //     console.log('Login error: ', error);
+                // }
+                close();
+            } catch(error) {
                     console.error('Unhandled error: ', error);
-                });
+            };
+            
+
+                // .then(() => {
+                //     if (!isError && status === 'OK') {
+                //         close();
+                //     } else {
+                //         console.log('Login error: ', error);
+                //     }
+                // })
+                // .catch(error => {
+                //     console.error('Unhandled error: ', error);
+                // });
 
         }
     }

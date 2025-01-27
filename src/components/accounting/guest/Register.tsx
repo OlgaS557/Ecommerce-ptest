@@ -30,25 +30,32 @@ const {
    mode: 'onBlur'
 })
 
-    const handleClickRegister = (userData: UserRegister) => {
+    const handleClickRegister = async(userData: UserRegister) => {
        
         console.log('Before dispatching registerUser', userData);
-        dispatch(registerUser(userData))
-
-        .unwrap()
-        .then((resultAction) => {
-            // Проверяем, нет ли ошибок в регистрации
-            console.log('Проверка перед переходом в случае успеха',isError);
-            if (registerUser.fulfilled.match(resultAction)) {
-                navigate('/profile'); 
-            } else {
+        try {
+            await dispatch(registerUser(userData)).unwrap();
+            navigate('/profile');
+        } catch (error) {
+                // Обработка ошибок
                 console.error('Registration error:', error);
-                alert('Failed to register');
-            }
-        })
-        .catch((error) => {
-            console.error('Unhandled error:', error);
-        });
+        }
+        //-------------------------
+        // await dispatch(registerUser(userData))
+        // .unwrap()
+        // .then((resultAction) => {
+        //     // Проверяем, нет ли ошибок в регистрации
+        //     console.log('Проверка перед переходом в случае успеха',isError);
+        //     if (registerUser.fulfilled.match(resultAction)) {
+        //         navigate('/profile'); 
+        //     } else {
+        //         console.error('Registration error:', error);
+        //         alert('Failed to register');
+        //     }
+        // })
+        // .catch((error) => {
+        //     console.error('Unhandled error:', error);
+        // });
         // reset();
     }
    

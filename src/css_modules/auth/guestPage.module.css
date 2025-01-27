@@ -27,14 +27,17 @@
 .container {
     display: grid;
     max-width: 1600px;
+    padding: 100px;
     place-items: center;
-    /* height: 910px; */
-    height: 100vmin;
+    /* max-height:1000px; */
+   
     /* opacity: 0.5; */
     background: rgba(0, 0, 0, 0.05);
 }
 .block {
-    width: 410px;
+    max-width: 410px;
+
+    
     /* height: 630px; */
     display: grid;
     grid-template-rows: auto 1fr auto;

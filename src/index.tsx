@@ -32,7 +32,9 @@ function MyRoot() {
 
 root.render(<MyRoot />)
 
+// При диплое на GitHub
 // <BrowserRouter basename='/Ecommerce-ptest'>
+// package.json:
 // {
 //   "name": "ecommerce-ptest",
 //   "version": "0.1.0",

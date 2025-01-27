@@ -1,22 +1,22 @@
 import React from 'react';
-import {menuMen, menuWomen, menuKids} from '../../Utils/Data';
+import { menuMen, menuWomen, menuKids } from '../../Utils/Data';
 
-  interface MenuItem {
-    label: string;
-    value: string;
-  }
-  
-  interface Menu {
-    [key: string]: MenuItem[] | string;
-  }
- 
-  interface Props {
-    handleBarMenuMouseLeave: () => void;
-    currentMenu: string | null;
-  }
+interface MenuItem {
+  label: string;
+  value: string;
+}
 
-  const BarMenu: React.FC<Props> = ({ handleBarMenuMouseLeave, currentMenu }) => {
-    let menuObj: Menu | undefined;
+interface Menu {
+  [key: string]: MenuItem[] | string;
+}
+
+interface Props {
+  handleBarMenuMouseLeave: () => void;
+  currentMenu: string | null;
+}
+
+const BarMenu: React.FC<Props> = ({ handleBarMenuMouseLeave, currentMenu }) => {
+  let menuObj: Menu | undefined;
 
   if (currentMenu === 'Men') {
     menuObj = menuMen;
@@ -36,32 +36,32 @@ import {menuMen, menuWomen, menuKids} from '../../Utils/Data';
     return [];
   };
   const menuItems: MenuItem[] = getMenuItems();
-  
-    return (
-      <div className='menu' onMouseLeave={handleBarMenuMouseLeave}>
-        <div className='menu__wrapper'>
-          {menuItems.map((item: MenuItem, index: number) => (
-            <div key={index} className='menu__column'>
-              {menuObj && Array.isArray(menuObj[item.label]) ? (
-                <>
-                  <div className='title'>{item.label}</div>
-                  <ul className='menu__column-items'>
-                    {(menuObj[item.label] as MenuItem[]).map((subItem: MenuItem, subIndex: number) => (
-                      <li key={subIndex} className='item'>
-                        {subItem.label}
-                      </li>
-                    ))}
-                  </ul>
-                </>
-              ) : null}
-            </div>
-          ))}
-        </div>
+
+  return (
+    <div className='menu' onMouseLeave={handleBarMenuMouseLeave}>
+      <div className='menu__wrapper'>
+        {menuItems.map((item: MenuItem, index: number) => (
+          <div key={index} className='menu__column'>
+            {menuObj && Array.isArray(menuObj[item.label]) ? (
+              <>
+                <div className='title'>{item.label}</div>
+                <ul className='menu__column-items'>
+                  {(menuObj[item.label] as MenuItem[]).map((subItem: MenuItem, subIndex: number) => (
+                    <li key={subIndex} className='item'>
+                      {subItem.label}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : null}
+          </div>
+        ))}
       </div>
-    );
-  };
-  
-  export default BarMenu;
+    </div>
+  );
+};
+
+export default BarMenu;
   
   
 

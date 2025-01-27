@@ -19,11 +19,23 @@ const EditProfile: React.FC<Props> = ({ close }) => {
         countryCode: user?.numberPhone?.countryCode || 0,  // Устанавливаем значение по умолчанию
         phoneNumber: user?.numberPhone?.phoneNumber || '',
     });
-    const [address, setAddress] = useState<UserAddress>(user.address);
+    const [address, setAddress] = useState<UserAddress>(user.address || {
+        country: '',
+        city: '',
+        zipCode: 0,
+        street: '',
+        house: '',
+        fullAddress: ''
+    });
     console.log('setFirstName', 'setLastName', 'setPhone', 'setAddress', setFirstName, setLastName, setNumberPhone, setAddress);
 
     const phone = user.phone;
+    console.log('Redux user.phone:', user.phone);
     const updateNumberPhoneFromPhone = (phone: string) => {
+        if(!phone) {
+            console.warn('Phone is undefined or empty');
+            return;
+        }
         const parts = phone.split(')');
         // Проверка на корректное разделение
         if (parts.length === 2) {
