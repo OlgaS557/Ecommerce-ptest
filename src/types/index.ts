@@ -46,7 +46,7 @@ export interface UserRegister {
 export interface UserAddress {
     country: string,
     city: string,
-    zipCode: number,
+    zipCode: number | string,
     street: string,
     house: string,
     fullAddress: string

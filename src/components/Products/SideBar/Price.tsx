@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useAppDispatch } from '../../../hook/redux';
+import { useAppDispatch, useAppSelector } from '../../../hook/redux';
 import { setPriceItem } from '../../../redux/slices/filterSlice';
 import { menuProducts } from '../../../Utils/Data';
 import styles from "../../../css_modules/sidebar.module.css";
@@ -12,21 +12,41 @@ import Line from '../../../Assets/img/Line.jpg';
 import IconAngleUp from '../../../Assets/Icons/Navigation/angle-up.svg';
 import IconAngleDown from '../../../Assets/Icons/Navigation/angle-down.svg';
 
+interface PriceItem {
+    Label: string;
+    valueFrom: number;
+    valueTo: number;
+}
 const Price = () => {
 
     const dispatch = useAppDispatch();
     const [isPriceOpen, setIsPriceOpen] = useState(false);
-
+    const priceItem = useAppSelector((state) => state.filterReducer.priceItem as PriceItem[]);
+    
     const handleClickPrice = () => {
         setIsPriceOpen(!isPriceOpen);
     };
 
-    const onChangePriceItem = (item: any) => {
-        setPriceItem(item);
-        console.log(item);
-        dispatch(setPriceItem(item));
-    };
+    // const onChangePriceItem = (item: typeof priceItem) => {  
+    //     setPriceItem(item);
+    //     console.log('FilteredPriceItem', item);
+    //     dispatch(setPriceItem(item));
+    // };
 
+    const onChangePriceItem = (item: PriceItem) => {
+        let updatedPriceItems: PriceItem[];
+
+        if (priceItem.some((price) => price.valueFrom === item.valueFrom && price.valueTo === item.valueTo)) {
+            // Если диапазон уже выбран, убираем его
+            updatedPriceItems = priceItem.filter(price => price.valueFrom !== item.valueFrom || price.valueTo !== item.valueTo);
+        } else {
+            // Добавляем новый диапазон
+            updatedPriceItems = [...priceItem, item];
+        }
+
+        console.log("FilteredPriceItem", updatedPriceItems);
+        dispatch(setPriceItem(updatedPriceItems));
+    };
   return (
     <List>
         <ListItemButton onClick={handleClickPrice} >
@@ -45,7 +65,13 @@ const Price = () => {
                         <FormControlLabel className={styles.item}
                             key={index}
                             label={<span>{item.Label}</span>}
-                            control={<Checkbox onClick={() => onChangePriceItem(item)} />}
+                            // control={<Checkbox onClick={() => onChangePriceItem(item)} />}
+                            control={
+                                <Checkbox
+                                    checked={priceItem.some(price => price.valueFrom === item.valueFrom && price.valueTo === item.valueTo)}
+                                    onChange={() => onChangePriceItem(item)}
+                                />
+                            }
                         />)
                     }
                 </Box>

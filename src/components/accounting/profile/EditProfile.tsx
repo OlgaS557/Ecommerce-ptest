@@ -26,8 +26,7 @@ const EditProfile: React.FC<Props> = ({ close }) => {
         street: '',
         house: '',
         fullAddress: ''
-    });
-    console.log('setFirstName', 'setLastName', 'setPhone', 'setAddress', setFirstName, setLastName, setNumberPhone, setAddress);
+    });    
 
     const phone = user.phone;
     console.log('Redux user.phone:', user.phone);
@@ -79,7 +78,7 @@ const EditProfile: React.FC<Props> = ({ close }) => {
         setFirstName('');
         setLastName('');
         setNumberPhone({
-            countryCode: 0,
+            countryCode: 0 ,
             phoneNumber: '',
 
         });

@@ -1,4 +1,4 @@
-import { FC, useState, useEffect, useRef } from 'react';
+import { FC, useState, useEffect, useRef, useMemo } from 'react';
 import { useAppSelector } from '../hook/redux';
 import {Link, useParams} from 'react-router-dom';
 import {Item} from '../types/index';
@@ -17,53 +17,10 @@ import Card from '../components/Products/Card';
 import SortPopup from '../components/Products/SortPopup';
 import Pagination from '../components/Products/Pagination';
 import Subscribe from '../components/Subscribe';
-
+import { filterItems } from '../components/Products/filter-sort/filteredItems';
+import { sortItems } from '../components/Products/filter-sort/sortedItems';
 import styles from "../css_modules/products.module.css";
 
-const filterItems = (items: Item[], categoryItems: Array<string>, priceItem: { valueFrom: number, valueTo: number},
-     brandItem: Array<string>, searchQuery: string, gender: string) : Item[] => {
-  return items
-  .filter(p => p.gender?.toUpperCase() === gender.toUpperCase())
-  .filter(p => {
-    console.log('filteredItems length before categoryItems filter', categoryItems.length);
-      if (categoryItems.includes('All')) {
-        console.log('brandItem length', brandItem.length);
-          return true;
-      }  return categoryItems.includes(p.category!);     
-  })
-  .filter(p => p.price < priceItem.valueTo)
-  .filter(p => p.price >= priceItem.valueFrom && p.price <= priceItem.valueTo)
-  .filter(p => p.price > priceItem.valueFrom) 
-  .filter(p => {
-    if (brandItem.length === 0 || brandItem.includes('')) {
-        return true;
-    }
-    console.log('brandItem includes', brandItem.includes(p.brand!)); 
-    console.log('p.brand', p.brand); 
-    console.log('brandItem', brandItem);  
-        return brandItem.includes(p.brand!);     
-  })
-  .filter(p => p.name?.toLowerCase().includes(searchQuery.toLowerCase()));  
-}
-
-const sortItems = (items: Item[], sort: string): Item[] => {
-  if (sort === 'Price up') {
-    console.log('Sorting by Price up');
-    return items.sort((a, b) => a.price - b.price);
-  } else if (sort === 'Price down') {
-    console.log('Sorting by Price down');
-    return items.sort((a, b) => b.price - a.price);
-  } else if (sort === 'By discount') {
-    console.log('Sorting by Discount');
-    return items.sort((a, b) => b.discount - a.discount);
-  } else if (sort === 'By rating') {
-    console.log('Sorting by Rating');
-    return items.sort((a, b) => b.rating - a.rating);
-  } else {
-    console.log('No sorting applied');
-    return items;
-  }
-}
 
 const ProductsPage: FC = () => {
   const {menu} = useParams();   //позволяет получить параметры маршрута в функциональном компоненте React.
@@ -78,6 +35,20 @@ const ProductsPage: FC = () => {
     setMenuActive(!menuActive);
   }
 
+  const filteredItems = useMemo(() => {
+    return filterItems(items, categoryItems, priceItem, brandItem, searchQuery, gender);
+  }, [items, categoryItems, priceItem, brandItem, searchQuery, gender]);
+
+  console.log("ОТФИЛЬТРОВАННЫЕ ТОВАРЫ:", filteredItems);
+  
+  const sortedItems = useMemo(() => {
+    return sortItems(filteredItems, sort);
+  }, [filteredItems, sort]);
+
+  const paginatedItems = useMemo(() => {
+    return sortedItems.slice((currentPage - 1) * 9, currentPage * 9);
+  }, [sortedItems, currentPage]);
+  
   const isMounted = useRef(false); //позволяет сохранить значение переменной между рендерами компонента, чтобы можно было проверить, находится ли компонент на странице (не был ли он удален из DOM), перед тем как обновлять его состояние
 
   useEffect (() => {
@@ -89,11 +60,10 @@ const ProductsPage: FC = () => {
         console.log('Fetching data...');
         const response = await fetch(`https://63fe336d370fe830d9d040e7.mockapi.io/Items`);
         const fetchedItems = await response.json();
-        const filteredItems = filterItems(fetchedItems, categoryItems, priceItem, brandItem, searchQuery, gender);
-        const sortedItems = sortItems(filteredItems, sort);
-        if (isMounted.current) {
-          setItems(sortedItems.slice((currentPage - 1) * 9, currentPage * 9));
-          setIsLoading(false);
+        
+        if (isMounted.current) {          
+          setItems(fetchedItems);
+          setIsLoading(false);        
         }
       } catch (error) {
         console.error(error);
@@ -107,7 +77,7 @@ const ProductsPage: FC = () => {
     return () => {
       isMounted.current = false;//component delets from DOM
     }
-  }, [categoryItems, priceItem, brandItem, sort, currentPage, searchQuery, gender]);
+  }, []);
 
   return (
     <>
@@ -170,8 +140,13 @@ const ProductsPage: FC = () => {
         </div>
         <div className={styles.cards}>
           {isLoading
-            ? [...new Array(9)].map((_, index) => <Skeleton key={index} />)
-            : items.map((item, index) => <Card item={item} key={index} />)}
+            ? ([...new Array(9)].map((_, index) => <Skeleton key={index} />))
+            : paginatedItems.length > 0 ? (
+              paginatedItems.map((item, index) => <Card item={item} key={index} />)
+            ) : (
+              <p>No products found</p>
+            )
+            }
         </div>
         <div className={styles.paginations}>
           <Pagination />
@@ -185,28 +160,3 @@ const ProductsPage: FC = () => {
 
 export default ProductsPage;
 
-//   useEffect(() => {
-//     dispatch(setCategoryItem('All'));
-//     dispatch(setPriceItem({ valueFrom: 0, valueTo: Infinity }));
-//     dispatch(setSort(''));
-//     dispatch(setGender(''));
-//   }, [dispatch]);
-
-
-
-//.filter((p) => {
-    //     if (brandItem.length === 0) {
-    //       return true;
-    //     }
-    //     return brandItem.includes(p.brand);
-    //   })
-
-    // .filter(p => {
-    //     if (brandItem.length === 0) {
-    //       return true;
-    //     }
-    //     console.log('brandItem includes', brandItem.includes(p.brand! || "")); 
-    //     console.log('p.brand', p.brand); 
-    //     console.log('brandItem', brandItem);  
-    //         return brandItem.includes(p.brand! || "");     
-    //   })

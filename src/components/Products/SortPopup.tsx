@@ -60,8 +60,8 @@ export default function SortPopup() {
           label="Sort by"
           onChange={handleChange}
         >
-          <MenuItem value={'Price up'}>Price from down to up</MenuItem>
-          <MenuItem value={'Price down'}>Price from up to down</MenuItem>
+          <MenuItem value={'Price: Low-High'}>Price: Low-High</MenuItem>
+          <MenuItem value={'Price: High-Low'}>Price: High-Low</MenuItem>
           <MenuItem value={'By discont'}>By discount</MenuItem>
           <MenuItem value={'By rating'}>By rating</MenuItem>
         </Select>

@@ -1,16 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface PriceItem {
+    Label: string,
     valueFrom: number,
     valueTo: number,
 }
 
 type FilterState = {
     categoryItems: Array<string>,
-    priceItem: {
+    priceItem: Array<{
+        Label: string,
         valueFrom: number,
         valueTo: number,
-    },
+    }>,
     brandItem: Array<string>,
     gender: string,
     sort: string,
@@ -21,10 +23,11 @@ type FilterState = {
 
 const initialState: FilterState = {
     categoryItems: ['All'],
-    priceItem: {
+    priceItem: [{
+        Label: '',
         valueFrom: 0,
         valueTo: Infinity,
-    },
+    }],
     brandItem: [''],
     gender: '',
     sort: '',
@@ -53,20 +56,25 @@ const filterSlice = createSlice({
                 state.categoryItems.push(action.payload);
             }
         },
-        setPriceItem(state, action: PayloadAction<PriceItem>) {
-            const { valueFrom, valueTo } = action.payload;
+        setPriceItem(state, action: PayloadAction<PriceItem[]>) {            
             console.log('action', action);
+            // Если пользователь не выбрал ни одного диапазона, оставляем "по умолчанию"
+            state.priceItem = action.payload.length > 0 
+            ? action.payload.filter(p => p.valueTo !== Infinity) // Убираем "бесконечность"
+            : [{ Label: '', valueFrom: 0, valueTo: Infinity }];
+            //-------------------------------
+            // const isFilterActive = state.priceItem.valueFrom === valueFrom && state.priceItem.valueTo === valueTo;
 
-            const isFilterActive = state.priceItem.valueFrom === valueFrom && state.priceItem.valueTo === valueTo;
-
-            if (isFilterActive) {
-                state.priceItem = {
-                    valueFrom: 0,
-                    valueTo: Infinity
-                };
-            } else {
-                state.priceItem = action.payload;
-            }
+            // if (isFilterActive) {
+            //     state.priceItem = {
+            //         Label: '',
+            //         valueFrom: 0,
+            //         valueTo: Infinity
+            //     };
+            // } else {
+            //     state.priceItem = action.payload;
+            // }
+   
         },
         setBrandItem(state, action: PayloadAction<Array<string>>) {
             const selectedBrands = action.payload.filter(brand => brand !== '');
