@@ -1,10 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
-interface PriceItem {
-    Label: string,
-    valueFrom: number,
-    valueTo: number,
-}
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type FilterState = {
     categoryItems: Array<string>,
@@ -41,6 +35,21 @@ const filterSlice = createSlice({
     initialState,
     reducers: {      
         setCategoryItem(state, action: PayloadAction<string>) {
+            // if (action.payload.includes('All')) { // Проверяем наличие "All" в массиве
+            //     state.categoryItems = ['All'];
+            // } else if (state.categoryItems.some(item => action.payload.includes(item))) {
+            //     state.categoryItems = state.categoryItems.filter(item => !action.payload.includes(item));
+            //      // Если категория была выбрана(диселект) и она не 'All', удаляем ее из списка
+            //      if (state.categoryItems.length === 0) {
+            //         state.categoryItems.push('All');
+            //         // Если список категорий пуст, возвращаем 'All'
+            //     }
+            // } else {
+            //     state.categoryItems = [...state.categoryItems.filter(item => item !== 'All'), ...action.payload];
+            //     // Если другая категория выбрана, снимаем выбор с 'All' и добавляем выбранные категории 
+                
+            // }
+            //-----------------------
             if (action.payload === 'All') {
                 state.categoryItems = ['All'];
             } else if (state.categoryItems.includes(action.payload)) {
@@ -56,7 +65,7 @@ const filterSlice = createSlice({
                 state.categoryItems.push(action.payload);
             }
         },
-        setPriceItem(state, action: PayloadAction<PriceItem[]>) {            
+        setPriceItem(state, action: PayloadAction<Array<{ Label: string; valueFrom: number; valueTo: number }>>) {            
             console.log('action', action);
             // Если пользователь не выбрал ни одного диапазона, оставляем "по умолчанию"
             state.priceItem = action.payload.length > 0 

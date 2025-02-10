@@ -1,5 +1,6 @@
 import {Item} from '../../../types/index';
 
+
 export const filterItems = (
   items: Item[],
   categoryItems: Array<string>,

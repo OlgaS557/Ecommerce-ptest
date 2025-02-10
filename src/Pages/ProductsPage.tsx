@@ -1,7 +1,9 @@
 import { FC, useState, useEffect, useRef, useMemo } from 'react';
-import { useAppSelector } from '../hook/redux';
+import { useAppDispatch, useAppSelector } from '../hook/redux';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import {Link, useParams} from 'react-router-dom';
 import {Item} from '../types/index';
+import { setGender, setCurrentPage } from '../redux/slices/filterSlice';
 import { Box, IconButton, Drawer, List } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import Category from '../components/Products/SideBar/Category';
@@ -17,13 +19,15 @@ import Card from '../components/Products/Card';
 import SortPopup from '../components/Products/SortPopup';
 import Pagination from '../components/Products/Pagination';
 import Subscribe from '../components/Subscribe';
+
 import { filterItems } from '../components/Products/filter-sort/filteredItems';
 import { sortItems } from '../components/Products/filter-sort/sortedItems';
 import styles from "../css_modules/products.module.css";
 
-
 const ProductsPage: FC = () => {
-  const {menu} = useParams();   //позволяет получить параметры маршрута в функциональном компоненте React.
+  const {menu} = useParams();   //позволяет получить параметры маршрута. Получаем gender из URL
+  
+  const dispatch = useAppDispatch();
   const {categoryItems, priceItem, brandItem, sort, currentPage, searchQuery, gender} = useAppSelector((state) => 
   state.filterReducer);
 
@@ -35,31 +39,60 @@ const ProductsPage: FC = () => {
     setMenuActive(!menuActive);
   }
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const pageFromUrl = Number(searchParams.get('page')) || 1; // Получаем страницу из URL (по умолчанию 1)
+ // Устанавливаем ?page=1, если параметра нет в URL
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    if(!searchParams.get("page")) {
+      searchParams.set("page", "1");
+      navigate(`${location.pathname}?${searchParams.toString()}`, {replace: true});
+    }
+  }, [location, navigate]);
+
+  useEffect(() => {
+    if( currentPage !== pageFromUrl) {
+      dispatch(setCurrentPage(pageFromUrl)); // Устанавливаем текущую страницу из URL в Redux             
+    }       
+  }, [pageFromUrl]);
+    
+  useEffect(() => {
+    if (menu) {
+      dispatch(setGender(menu)); // Устанавливаем гендер в Redux
+    }
+  }, [menu]);
+
   const filteredItems = useMemo(() => {
     return filterItems(items, categoryItems, priceItem, brandItem, searchQuery, gender);
   }, [items, categoryItems, priceItem, brandItem, searchQuery, gender]);
 
   console.log("ОТФИЛЬТРОВАННЫЕ ТОВАРЫ:", filteredItems);
-  
+
   const sortedItems = useMemo(() => {
     return sortItems(filteredItems, sort);
   }, [filteredItems, sort]);
 
   const paginatedItems = useMemo(() => {
     return sortedItems.slice((currentPage - 1) * 9, currentPage * 9);
-  }, [sortedItems, currentPage]);
-  
+  }, [sortedItems, currentPage, gender]);
+
   const isMounted = useRef(false); //позволяет сохранить значение переменной между рендерами компонента, чтобы можно было проверить, находится ли компонент на странице (не был ли он удален из DOM), перед тем как обновлять его состояние
 
   useEffect (() => {
+    // Ждем, пока gender не будет установлен
+    if (!gender) return;
+
     isMounted.current = true;//component on the page
     setIsLoading(true);
-
+    
     const fetchData = async () => {
       try {
         console.log('Fetching data...');
         const response = await fetch(`https://63fe336d370fe830d9d040e7.mockapi.io/Items`);
         const fetchedItems = await response.json();
+        console.log('Fetched Items: ',fetchedItems);
         
         if (isMounted.current) {          
           setItems(fetchedItems);
@@ -77,7 +110,7 @@ const ProductsPage: FC = () => {
     return () => {
       isMounted.current = false;//component delets from DOM
     }
-  }, []);
+  }, [gender]);
 
   return (
     <>

@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { routes } from './routes';
 import { useAppDispatch, useAppSelector } from './hook/redux';
 import { refreshTokens } from './redux/slices/userSlice';
-import { routes } from './routes';
 //import { AuthContext } from './context';
-
 import NavBar from './components/NavBar/NavBar';
 import Footer from './components/Footer/Footer';
-
 import './scss/styles.scss';
 
 
