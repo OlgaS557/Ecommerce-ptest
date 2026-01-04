@@ -1,6 +1,6 @@
 import cl from 'classnames';
-import { IconName, ComponentProps } from "../types/types";
 import styles from '../../../css_modules/gallery/icon.module.css';
+import { ComponentProps, IconName } from "../types/types";
 
 
 interface IconProps extends ComponentProps {

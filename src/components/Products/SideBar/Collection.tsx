@@ -1,18 +1,15 @@
 import { useState } from 'react';
-import { useAppDispatch } from '../../../hook/redux';
 // import { setCollectionItem } from '../../../redux/slices/filterSlice';
+import { List, ListItemButton, Typography } from '@mui/material';
+import Collapse from '@mui/material/Collapse';
+import IconAngleDown from '../../../Assets/Icons/Navigation/angle-down.svg';
+import IconAngleUp from '../../../Assets/Icons/Navigation/angle-up.svg';
+import Line from '../../../Assets/img/Line.jpg';
 import { menuProducts } from '../../../Utils/Data';
 import styles from "../../../css_modules/sidebar.module.css";
-import { List, ListItemButton, Typography } from '@mui/material';
 import CheckboxMui from '../../Btn/CheckboxMui';
-import Collapse from '@mui/material/Collapse';
-import Line from '../../../Assets/img/Line.jpg';
-import IconAngleUp from '../../../Assets/Icons/Navigation/angle-up.svg';
-import IconAngleDown from '../../../Assets/Icons/Navigation/angle-down.svg';
 
 const Collection = () => {
-
-    const dispatch = useAppDispatch();
     
     const [isCollectionOpen, setIsCollectionOpen] = useState(false);
 

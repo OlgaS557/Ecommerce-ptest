@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import { FC } from 'react';
 import Subscribe from '../components/Subscribe';
 import Banner from '../components/gallery/Banner';
 

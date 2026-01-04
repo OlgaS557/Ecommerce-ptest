@@ -1,8 +1,7 @@
-import React from 'react';
-import { useAppDispatch, useAppSelector } from '../../../hook/redux';
-import { setLogout } from '../../../redux/slices/userSlice';
 import { Link } from 'react-router-dom';
 import styles from '../../../css_modules/auth/profile.module.css';
+import { useAppDispatch, useAppSelector } from '../../../hook/redux';
+import { setLogout } from '../../../redux/slices/userSlice';
 
 const Profile = () => {
     const dispatch = useAppDispatch();

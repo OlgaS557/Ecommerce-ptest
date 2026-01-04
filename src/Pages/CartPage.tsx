@@ -1,8 +1,7 @@
-import React from 'react';
-import { useAppSelector } from '../hook/redux';
-import styles from '../css_modules/cart1.module.css';
 import CartItem from '../components/Cart/CartItem';
 import EmptyCart from '../components/Cart/EmptyCart';
+import styles from '../css_modules/cart1.module.css';
+import { useAppSelector } from '../hook/redux';
 
 const CartPage = () => {
   

@@ -1,4 +1,4 @@
-import {Item} from '../../../types/index'; 
+import { Item } from '../../../types/index';
 
 export const ADD_ITEM = 'ADD_ITEM';
 

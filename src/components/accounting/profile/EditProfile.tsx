@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../hook/redux';
-import { UserAddress, UserPhone } from '../../../types';
-import { updateUser } from '../../../redux/slices/userSlice';
 import styles from '../../../css_modules/auth/input.module.css';
+import { useAppDispatch, useAppSelector } from '../../../hook/redux';
+import { updateUser } from '../../../redux/slices/userSlice';
+import { UserAddress, UserPhone } from '../../../types';
 
 interface Props {
     close: () => void;

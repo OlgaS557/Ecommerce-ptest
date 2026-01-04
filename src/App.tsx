@@ -19,7 +19,7 @@ function App() {
     if (jwtToken) {
       dispatch(refreshTokens())
     }  
-  }, [])
+  }, [dispatch, jwtToken])
 
   // if (!jwtToken) {
   //   navigate('/login');

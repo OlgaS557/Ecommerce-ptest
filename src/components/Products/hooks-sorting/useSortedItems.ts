@@ -1,5 +1,5 @@
-import { Item } from './../../../types/index';
 import { useMemo } from "react";
+import { Item } from './../../../types/index';
 
 interface SortParams {
     items: Item[];

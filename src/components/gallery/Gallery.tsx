@@ -1,11 +1,9 @@
-import { useRef, useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from '../../css_modules/gallery/gallery.module.css';
-import gradient1 from '../../Assets/img/homePage/gallery/gradient/Vector1.png';
-import gradient2 from '../../Assets/img/homePage/gallery/gradient/Vector2.png';
+import { useKeyEvents } from '../../hook/useKeyEvents';
+import { useUpdateActiveIndex } from '../../hook/useUpdateActiveIndex';
 import Button from './button';
 import Counter from './counter';
-import { useUpdateActiveIndex } from '../../hook/useUpdateActiveIndex';
-import { useKeyEvents } from '../../hook/useKeyEvents';
 
 // type GalleryProps = {
 //     url: string;
@@ -21,7 +19,6 @@ interface GalleryProps {
 const increaseIndex = (index: number, size: number) => Math.min(index + 1, size - 1);
 const decreaseIndex = (index: number) => Math.max(0, index - 1);
 
-// const Gallery: React.FC<{images:GalleryProps[]}> = ({images}) => {
 const Gallery = ({images}: GalleryProps) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const conteinerRef = useRef<HTMLDivElement>(null);

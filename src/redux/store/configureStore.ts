@@ -1,10 +1,8 @@
-import { configureStore, Middleware } from '@reduxjs/toolkit';
-import cartReducer  from '../slices/cartSlice';
+import { configureStore } from '@reduxjs/toolkit';
+import cartReducer from '../slices/cartSlice';
 import filterReducer from '../slices/filterSlice';
 import userReducer from '../slices/userSlice';
 //import tokenRefreshMiddleware from './middleware';
-
-
 
 export const store = configureStore ({
     reducer:{

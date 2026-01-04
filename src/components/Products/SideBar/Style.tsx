@@ -1,18 +1,14 @@
 import { useState } from 'react';
-import { useAppDispatch } from '../../../hook/redux';
 // import { setStyleItem } from '../../../redux/slices/filterSlice';
+import { FormControl, FormControlLabel, List, ListItemButton, Radio, RadioGroup, Typography } from '@mui/material';
+import Collapse from '@mui/material/Collapse';
+import IconAngleDown from '../../../Assets/Icons/Navigation/angle-down.svg';
+import IconAngleUp from '../../../Assets/Icons/Navigation/angle-up.svg';
+import Line from '../../../Assets/img/Line.jpg';
 import { menuProducts } from '../../../Utils/Data';
 import styles from "../../../css_modules/sidebar.module.css";
-import { List, ListItemButton, Typography } from '@mui/material';
-import Collapse from '@mui/material/Collapse';
-import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
-import Line from '../../../Assets/img/Line.jpg';
-import IconAngleUp from '../../../Assets/Icons/Navigation/angle-up.svg';
-import IconAngleDown from '../../../Assets/Icons/Navigation/angle-down.svg';
 
 const Style = () => {
-
-    const dispatch = useAppDispatch();
     
     const [isStyleOpen, setIsStyleOpen] = useState(false);
 

@@ -1,5 +1,4 @@
-import {Item} from '../../../types/index';
-
+import { Item } from '../../../types/index';
 
 export const filterItems = (
   items: Item[],

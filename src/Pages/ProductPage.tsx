@@ -1,11 +1,6 @@
-import {FC} from 'react';
-
-
+import { FC } from 'react';
 
 const ProductPage:FC = () => {
-
-
-
     return (
         <div>
             ProductPage

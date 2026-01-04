@@ -1,5 +1,5 @@
 import React from 'react';
-import { menuMen, menuWomen, menuKids } from '../../Utils/Data';
+import { menuKids, menuMen, menuWomen } from '../../Utils/Data';
 
 interface MenuItem {
   label: string;

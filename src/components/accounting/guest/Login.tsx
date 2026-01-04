@@ -1,13 +1,11 @@
-import React, {useContext} from 'react';
 import { useForm } from 'react-hook-form';
-import { useAppDispatch, useAppSelector } from '../../../hook/redux';
-import { loginUser, setLogout,refreshTokens } from '../../../redux/slices/userSlice';
-import { useNavigate, NavLink } from 'react-router-dom';
-import { AuthContext } from '../../../context';
+import { useNavigate } from 'react-router-dom';
 import styles from '../../../css_modules/auth/input.module.css';
+import { useAppDispatch, useAppSelector } from '../../../hook/redux';
+import { loginUser } from '../../../redux/slices/userSlice';
 
 
-interface Login {
+interface LoginI {
     email: string,
     password: string
 }
@@ -16,13 +14,13 @@ const Login = () => {
   //  const {isAuth, setIsAuth} = useContext(AuthContext);
   const dispatch = useAppDispatch();
   const user = useAppSelector(state => state.userReducer);
-  const { isError, error, status } = useAppSelector(state => state.userReducer);
+
   const navigate = useNavigate();
 
   const { register,
     formState: { errors, isValid },
     handleSubmit,
-    reset } = useForm({
+    } = useForm({
       defaultValues: {
         email: "",
         password: "",
@@ -30,7 +28,7 @@ const Login = () => {
       mode: 'onBlur'
     })
 
-  const handleClickLogin = async (userData: Login) => {
+  const handleClickLogin = async (userData: LoginI) => {
     try{
       await dispatch(loginUser(userData)).unwrap();
       navigate('/');

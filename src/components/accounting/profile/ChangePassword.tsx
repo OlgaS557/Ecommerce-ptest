@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../hook/redux';
-import { changePassword } from '../../../redux/slices/userSlice';
 import styles from '../../../css_modules/auth/input.module.css';
+import { useAppDispatch } from '../../../hook/redux';
+import { changePassword } from '../../../redux/slices/userSlice';
 
 interface Props {
     close: () => void;
@@ -9,7 +9,6 @@ interface Props {
 
 const ChangePassword: React.FC<Props> = ({close}) => {
     const dispatch = useAppDispatch();
-    const {isError, error, status} = useAppSelector(state => state.userReducer);
 
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('')

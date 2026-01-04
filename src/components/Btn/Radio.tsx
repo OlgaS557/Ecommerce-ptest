@@ -1,27 +1,28 @@
-import { FC, useState} from 'react';
+import { FC, useState } from 'react';
 
 type Props = {
-    children: React.ReactNode;
-   
+    children: React.ReactNode;   
 }
 
-const Radio: FC<Props> = ({children}) => {
-   const [value, setValue] = useState<boolean>(false);
-   
+const Radio: FC<Props> = ({ children }) => {
+  const [value, setValue] = useState<string>('');
 
-   
-   function changeValue(event: any) {
+  function changeValue(event: React.ChangeEvent<HTMLInputElement>) {
     setValue(event.target.value);
-   }
+  }
 
-   return (
-   <label>
-      <input type="radio" value="{children}" name="{children}" 
-      checked={value == ({children} ? true : false)}
-      onChange={changeValue} />
-
-   </label>
-   )
-}
+  return (
+    <label>
+      <input
+        type="radio"
+        value={String(children)}
+        name="radioGroup"
+        checked={value === String(children)}
+        onChange={changeValue}
+      />
+      {children}
+    </label>
+  );
+};
 
 export default Radio;

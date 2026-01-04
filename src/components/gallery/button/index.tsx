@@ -1,7 +1,7 @@
 import cl from 'classnames';
-import { IconName, ComponentProps } from '../types/types';
-import styles from '../../../css_modules/gallery/button.module.css'
+import styles from '../../../css_modules/gallery/button.module.css';
 import Icon from '../icon';
+import { ComponentProps, IconName } from '../types/types';
 
 interface ButtonProps extends ComponentProps {
     onClick: () => void;

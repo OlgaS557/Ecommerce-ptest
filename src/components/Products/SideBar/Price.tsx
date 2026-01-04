@@ -1,16 +1,15 @@
+import { Box, Checkbox, FormControlLabel, Typography } from '@mui/material';
+import Collapse from '@mui/material/Collapse';
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
 import { useState } from 'react';
+import IconAngleDown from '../../../Assets/Icons/Navigation/angle-down.svg';
+import IconAngleUp from '../../../Assets/Icons/Navigation/angle-up.svg';
+import Line from '../../../Assets/img/Line.jpg';
+import styles from "../../../css_modules/sidebar.module.css";
 import { useAppDispatch, useAppSelector } from '../../../hook/redux';
 import { setPriceItem } from '../../../redux/slices/filterSlice';
 import { menuProducts } from '../../../Utils/Data';
-import styles from "../../../css_modules/sidebar.module.css";
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import { Typography } from '@mui/material';
-import Collapse from '@mui/material/Collapse';
-import { Box, FormControlLabel, Checkbox } from '@mui/material';
-import Line from '../../../Assets/img/Line.jpg';
-import IconAngleUp from '../../../Assets/Icons/Navigation/angle-up.svg';
-import IconAngleDown from '../../../Assets/Icons/Navigation/angle-down.svg';
 
 interface PriceItem {
     Label: string;

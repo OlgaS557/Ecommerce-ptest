@@ -1,7 +1,6 @@
-import * as React from 'react';
-import { useAppSelector, useAppDispatch } from '../../hook/redux';
-import {setSort} from '../../redux/slices/filterSlice';
-import { Box, InputLabel, MenuItem, FormControl, Select, SelectChangeEvent } from '@mui/material';
+import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { useAppDispatch, useAppSelector } from '../../hook/redux';
+import { setSort } from '../../redux/slices/filterSlice';
 
 
 export default function SortSizePopup() {

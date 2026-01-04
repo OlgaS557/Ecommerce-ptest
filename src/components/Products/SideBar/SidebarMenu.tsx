@@ -1,12 +1,11 @@
-import Category from './Category';
-import Price from './Price';
-import Size from './Size';
-import Collection from './Collection';
-import Brand from './Brand';
-import Style from './Style';
-import Season from './Season';
 import { List } from '@mui/material';
-import styles from '../../../css_modules/sidebar.module.css'
+import Brand from './Brand';
+import Category from './Category';
+import Collection from './Collection';
+import Price from './Price';
+import Season from './Season';
+import Size from './Size';
+import Style from './Style';
 
 const SidebarMenu = () => {
 
@@ -120,7 +119,7 @@ export default SidebarMenu;
 
 // } ${menuActive ? styles.sideBarActive : ''}`}
 
-{/* <div className={styles.blockSidebar}>
+/* <div className={styles.blockSidebar}>
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}
                 
             >
@@ -153,4 +152,4 @@ export default SidebarMenu;
                 <Style />
                 <Season />
             </List >
-        </div> */}
+        </div> */

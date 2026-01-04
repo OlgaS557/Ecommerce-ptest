@@ -1,13 +1,13 @@
+import { Box, Checkbox, FormControlLabel, List, ListItemButton, Typography } from '@mui/material';
+import Collapse from '@mui/material/Collapse';
 import { useState } from 'react';
-import { useAppSelector,useAppDispatch } from '../../../hook/redux';
+import IconAngleDown from '../../../Assets/Icons/Navigation/angle-down.svg';
+import IconAngleUp from '../../../Assets/Icons/Navigation/angle-up.svg';
+import Line from '../../../Assets/img/Line.jpg';
+import styles from "../../../css_modules/sidebar.module.css";
+import { useAppDispatch, useAppSelector } from '../../../hook/redux';
 import { setBrandItem } from '../../../redux/slices/filterSlice';
 import { menuProducts } from '../../../Utils/Data';
-import styles from "../../../css_modules/sidebar.module.css";
-import { List, ListItemButton, Typography, Box, FormControlLabel, Checkbox } from '@mui/material';
-import Collapse from '@mui/material/Collapse';
-import Line from '../../../Assets/img/Line.jpg';
-import IconAngleUp from '../../../Assets/Icons/Navigation/angle-up.svg';
-import IconAngleDown from '../../../Assets/Icons/Navigation/angle-down.svg';
 
 const Brand = () => {
 

@@ -1,5 +1,5 @@
+import { Box, Checkbox, FormControlLabel } from '@mui/material';
 import { FC, useState } from 'react';
-import { Box, FormControlLabel, Checkbox } from '@mui/material'
 
 type Props = {
     children: React.ReactNode;

@@ -1,10 +1,10 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import {jwtDecode} from "jwt-decode";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { jwtDecode } from "jwt-decode";
+import { ThunkDispatch } from 'redux-thunk';
 import { UserAddress, UserPhone } from '../../types/index';
-import { RootState } from "../store/configureStore";
 import { base_url } from "../../Utils/Data";
 import { handleTokenRefresh } from '../../Utils/refreshTokens';
-import { ThunkDispatch } from 'redux-thunk';
+import { RootState } from "../store/configureStore";
 
 type UserState = {
   firstName: string,

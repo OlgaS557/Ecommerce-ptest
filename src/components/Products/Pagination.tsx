@@ -1,15 +1,15 @@
-import * as React from 'react';
-import { useAppSelector, useAppDispatch } from '../../hook/redux';
-import { useSearchParams } from 'react-router-dom';
-import {setCurrentPage} from '../../redux/slices/filterSlice';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import * as React from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hook/redux';
+import { setCurrentPage } from '../../redux/slices/filterSlice';
 
 export default function PaginationRounded() {
   const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams(); // Получаем параметры из URL
   const currentPage = useAppSelector((state) => state.filterReducer.currentPage);// Читаем номер страницы из URL или из стэйта
-  
+  console.log('searchParams', searchParams);
   console.log('currentPage', currentPage);
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, newPage: number) => {

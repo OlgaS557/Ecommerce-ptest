@@ -1,8 +1,7 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import Profile from '../components/accounting/profile/Profile';
 import UpdateUser from '../components/accounting/profile/UpdateUser';
-import styles from '../css_modules/auth/profilePage.module.css'
+import styles from '../css_modules/auth/profilePage.module.css';
 
 const ProfilePage = () => {
     

@@ -1,16 +1,16 @@
-import HomePage from '../Pages/HomePage';
-import ProductsPage from '../Pages/ProductsPage';
-import ProductPageId from '../Pages/ProductPageId';
+import AddProduct from '../Pages/AddProduct';
+import BlogPage from '../Pages/BlogPage';
+import BlogsPage from '../Pages/BlogsPage';
 import CartPage from '../Pages/CartPage';
 import CheckoutPage from '../Pages/CheckoutPage';
-import ProfilePage from '../Pages/ProfilePage';
+import HomePage from '../Pages/HomePage';
 import LogInPage from '../Pages/LogInPage';
-import RegisterPage from '../Pages/RegisterPage';
-import BlogsPage from '../Pages/BlogsPage';
-import BlogPage from '../Pages/BlogPage';
-import ReturnOfGoods from '../Pages/ReturnOfGoods';
-import AddProduct from '../Pages/AddProduct';
 import NotFoundPage from '../Pages/NotFoundPage';
+import ProductPageId from '../Pages/ProductPageId';
+import ProductsPage from '../Pages/ProductsPage';
+import ProfilePage from '../Pages/ProfilePage';
+import RegisterPage from '../Pages/RegisterPage';
+import ReturnOfGoods from '../Pages/ReturnOfGoods';
 
 export const routes = [
     {path:"/", element:<HomePage />},

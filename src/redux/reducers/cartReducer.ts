@@ -1,4 +1,4 @@
-import { Action, Item } from '../../types/index'; 
+import { Action, Item } from '../../types/index';
 import { ADD_ITEM } from '../cart/actions/cartActions';
 
 const cartItems: any = [];

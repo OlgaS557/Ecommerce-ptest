@@ -1,6 +1,6 @@
-import cl from 'classnames'
-import { ComponentProps } from '../types/types'
-import styles from '../../../css_modules/gallery/counter.module.css'
+import cl from 'classnames';
+import styles from '../../../css_modules/gallery/counter.module.css';
+import { ComponentProps } from '../types/types';
 
 interface CounterProps extends ComponentProps {
     activeIndex: number;

@@ -1,24 +1,23 @@
-import { FC, useState, useEffect, useRef, useMemo } from 'react';
-import { useAppDispatch, useAppSelector } from '../hook/redux';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import {Link, useParams} from 'react-router-dom';
-import {Item} from '../types/index';
-import { setGender, setCurrentPage } from '../redux/slices/filterSlice';
-import { Box, IconButton, Drawer, List } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import Category from '../components/Products/SideBar/Category';
-import Price from '../components/Products/SideBar/Price';
-import Size from '../components/Products/SideBar/Size';
-import Collection from '../components/Products/SideBar/Collection';
+import { Box, Drawer, IconButton, List } from '@mui/material';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
+import { Link, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import Card from '../components/Products/Card';
+import Pagination from '../components/Products/Pagination';
 import Brand from '../components/Products/SideBar/Brand';
-import Style from '../components/Products/SideBar/Style';
+import Category from '../components/Products/SideBar/Category';
+import Collection from '../components/Products/SideBar/Collection';
+import Price from '../components/Products/SideBar/Price';
 import Season from '../components/Products/SideBar/Season';
 import SidebarMenu from '../components/Products/SideBar/SidebarMenu';
+import Size from '../components/Products/SideBar/Size';
+import Style from '../components/Products/SideBar/Style';
 import Skeleton from '../components/Products/Skeleton';
-import Card from '../components/Products/Card';
 import SortPopup from '../components/Products/SortPopup';
-import Pagination from '../components/Products/Pagination';
 import Subscribe from '../components/Subscribe';
+import { useAppDispatch, useAppSelector } from '../hook/redux';
+import { setCurrentPage, setGender } from '../redux/slices/filterSlice';
+import { Item } from '../types/index';
 
 import { filterItems } from '../components/Products/filter-sort/filteredItems';
 import { sortItems } from '../components/Products/filter-sort/sortedItems';
@@ -39,7 +38,7 @@ const ProductsPage: FC = () => {
     setMenuActive(!menuActive);
   }
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const location = useLocation();
   const navigate = useNavigate();
   const pageFromUrl = Number(searchParams.get('page')) || 1; // Получаем страницу из URL (по умолчанию 1)
@@ -56,13 +55,13 @@ const ProductsPage: FC = () => {
     if( currentPage !== pageFromUrl) {
       dispatch(setCurrentPage(pageFromUrl)); // Устанавливаем текущую страницу из URL в Redux             
     }       
-  }, [pageFromUrl]);
+  }, [pageFromUrl, dispatch, currentPage]);
     
   useEffect(() => {
     if (menu) {
       dispatch(setGender(menu)); // Устанавливаем гендер в Redux
     }
-  }, [menu]);
+  }, [menu, dispatch]);
 
   const filteredItems = useMemo(() => {
     return filterItems(items, categoryItems, priceItem, brandItem, searchQuery, gender);
@@ -74,9 +73,10 @@ const ProductsPage: FC = () => {
     return sortItems(filteredItems, sort);
   }, [filteredItems, sort]);
 
+
   const paginatedItems = useMemo(() => {
     return sortedItems.slice((currentPage - 1) * 9, currentPage * 9);
-  }, [sortedItems, currentPage, gender]);
+  }, [sortedItems, currentPage]);
 
   const isMounted = useRef(false); //позволяет сохранить значение переменной между рендерами компонента, чтобы можно было проверить, находится ли компонент на странице (не был ли он удален из DOM), перед тем как обновлять его состояние
 

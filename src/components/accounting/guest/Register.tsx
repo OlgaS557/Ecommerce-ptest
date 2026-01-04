@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useAppDispatch, useAppSelector } from '../../../hook/redux';
 import { useNavigate } from 'react-router-dom';
+import styles from '../../../css_modules/auth/input.module.css';
+import { useAppDispatch, useAppSelector } from '../../../hook/redux';
 import { registerUser } from '../../../redux/slices/userSlice';
 import { UserRegister } from '../../../types/index';
-import styles from '../../../css_modules/auth/input.module.css';
 
 
 const Register = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const { isError, error } = useAppSelector(state => state.userReducer);
+    // const { isError, error } = useAppSelector(state => state.userReducer);
     const user = useAppSelector(state => state.userReducer);
 
     const {
@@ -18,7 +17,7 @@ const Register = () => {
         watch,
         formState: { errors, isValid },
         handleSubmit,
-        reset
+        // reset
     } = useForm({
         defaultValues: {
             firstName: '',

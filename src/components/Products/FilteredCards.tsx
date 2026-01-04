@@ -1,5 +1,4 @@
-import React from 'react';
-import { useAppSelector } from '../../hook/redux'
+import { useAppSelector } from '../../hook/redux';
 import { Item } from '../../types';
 import Card from './Card';
 

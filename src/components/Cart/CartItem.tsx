@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hook/redux';
+import { useEffect } from 'react';
 import styles from '../../css_modules/cartItem.module.css';
-import { plusItem, minusItem, removeItems } from '../../redux/slices/cartSlice';
+import { useAppDispatch, useAppSelector } from '../../hook/redux';
+import { minusItem, plusItem, removeItems } from '../../redux/slices/cartSlice';
 
 import { Item } from '../../types';
 

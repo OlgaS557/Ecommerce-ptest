@@ -1,6 +1,4 @@
-import {FC} from 'react';
-import {Link} from 'react-router-dom';
-
+import { FC } from 'react';
 
 export const data = {
     'Products': ['Men', 'Women', 'Kids', 'Sale', 'Collections'],

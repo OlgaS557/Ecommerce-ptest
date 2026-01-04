@@ -1,10 +1,10 @@
-import {FC, useState, useEffect} from 'react';
+import { FC, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import styles from "../../css_modules/card.module.css";
 import { useAppDispatch, useAppSelector } from '../../hook/redux';
 import { addItems } from '../../redux/slices/cartSlice';
-import styles from "../../css_modules/card.module.css";
-import {useNavigate, useParams} from 'react-router-dom';
-import {Item} from '../../types/index';
-import Raiting from './Rating'
+import { Item } from '../../types/index';
+import Raiting from './Rating';
 
 interface ProductItem {
   item: Item;
@@ -24,7 +24,7 @@ const Card: FC<ProductItem> = ({ item }: ProductItem) => {
     if (cartColor) {
       setColorCart(cartColor);
     }
-  }, []);
+  }, [item.id]);
   
   const { items } = useAppSelector(state => state.cartReducer);
   

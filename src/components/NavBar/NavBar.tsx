@@ -1,43 +1,42 @@
-import { FC, useEffect, useState, useRef } from 'react';
-import {Link, NavLink, useMatch} from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from '../../hook/redux'; 
-import { setSearchQuery, setGender, setCategoryItem } from '../../redux/slices/filterSlice';
-import {ReactComponent as User} from '../../Assets/Icons/Base/user.svg';
-import {ReactComponent as Search} from '../../Assets/Icons/Base/search.svg';
-import {ReactComponent as ShoppingBag} from '../../Assets/Icons/Base/shopping-bag.svg';
+import { FC, useState } from 'react';
+import { Link, NavLink, useMatch } from 'react-router-dom';
+import { ReactComponent as Search } from '../../Assets/Icons/Base/search.svg';
+import { ReactComponent as ShoppingBag } from '../../Assets/Icons/Base/shopping-bag.svg';
+import { ReactComponent as User } from '../../Assets/Icons/Base/user.svg';
+import { useAppDispatch, useAppSelector } from '../../hook/redux';
+import { setGender, setSearchQuery } from '../../redux/slices/filterSlice';
 import { navMenu } from '../../Utils/Data';
 import BarMenu from './BarMenu';
 import style from './navBar.module.scss';
 
 const NavBar: FC = () => {
-    
+
     const [isBarMenuOpen, setIsBarMenuOpen] = useState<boolean>(false);
-    const [currentMenu, setCurrentMenu] = useState<string | null>(null); 
+    const [currentMenu, setCurrentMenu] = useState<string | null>(null);
     const dispatch = useAppDispatch();
-    const {items} = useAppSelector(state => state.cartReducer);
+    const { items } = useAppSelector(state => state.cartReducer);
     const user = useAppSelector(state => state.userReducer);
-    const match = useMatch('/'); 
-   
+    const match = useMatch('/');
+
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         const searchQuery = event.target.value;
         dispatch(setSearchQuery(searchQuery));
     }
-    
-    const handleBarMenuMouseEnter = (item: {name: string}) => {
+
+    const handleBarMenuMouseEnter = (item: { name: string }) => {
         setCurrentMenu(item.name);
         setIsBarMenuOpen(true);
-      };
-    
-      const handleBarMenuMouseLeave = () => {
+    };
+
+    const handleBarMenuMouseLeave = () => {
         setIsBarMenuOpen(false);
         setCurrentMenu(null);
-      };
-   
-    const handleBarMenuOnClick = (item: {name: string; url: string}) => {
+    };
+
+    const handleBarMenuOnClick = (item: { name: string; url: string }) => {
         dispatch(setGender(item.name));
-        // dispatch(setCategoryItem('All'));
-       }
-    
+    }
+
     return (
         <>
             <div className={style.navbar} style={{ backgroundColor: match ? '#17181f' : 'white' }}>
@@ -48,7 +47,7 @@ const NavBar: FC = () => {
                             {navMenu.map((item) => (
                                 <NavLink to={item.url} key={item.name}
                                     className={match ? style.navbar__container_itemWhite : style.navbar__container_itemBlack}
-                                    style={({ isActive }) => ({ fontWeight: isActive ? "bold" : "" })} 
+                                    style={({ isActive }) => ({ fontWeight: isActive ? "bold" : "" })}
                                     onMouseEnter={() => handleBarMenuMouseEnter(item)}
                                     onClick={() => handleBarMenuOnClick(item)}
                                 >
@@ -78,9 +77,7 @@ const NavBar: FC = () => {
                         >
                             <User fill={match ? 'white' : 'black'} />
                         </NavLink>
-                        {/* <Link to='/login' className={style['navbar__container-search-login']} >
-                            <User fill={match ? 'white' : 'black'} />
-                        </Link> */}
+
                     </div>
                 </div>
             </div>
@@ -140,7 +137,7 @@ export default NavBar;
 // )
 
 
-                        {/* <div className='navbar__container_block' onClick={(event) => hiddenBlock(event)}>
+                        /* <div className='navbar__container_block' onClick={(event) => hiddenBlock(event)}>
                         <div className='navbar__container-item'>Men</div>
                         <div className='navbar__container-item'>Women</div>
                         <div className='navbar__container-item'>Kids</div>
@@ -148,7 +145,7 @@ export default NavBar;
                     
                     <div className='navbar__container-item'>Sale</div>
                     <div className='navbar__container-item'>Collections</div>
-                    <div className='navbar__container-item'>Blog</div> */}
+                    <div className='navbar__container-item'>Blog</div> */
 
                     
     // useEffect(()=>{

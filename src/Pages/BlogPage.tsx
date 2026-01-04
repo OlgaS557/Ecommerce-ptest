@@ -1,11 +1,6 @@
-import {FC} from 'react';
-
-
-
+import { FC } from 'react';
 
 const BlogPage:FC = () => {
-
-
 
     return (
         <div>
@@ -13,6 +8,5 @@ const BlogPage:FC = () => {
         </div>
     )
 }
-
 
 export default BlogPage;

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import styles from '../../../css_modules/auth/input.module.css';
 import ChangePassword from './ChangePassword';
 import EditProfile from './EditProfile';
-import styles from '../../../css_modules/auth/input.module.css';
 
 const UpdateUser = () => {
     const [updateActive, setUpdateActive] = useState('');
