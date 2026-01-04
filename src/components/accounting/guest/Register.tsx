@@ -1,64 +1,46 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../../hook/redux';
 import { useNavigate } from 'react-router-dom';
 import { registerUser } from '../../../redux/slices/userSlice';
-import {UserRegister} from '../../../types/index';
+import { UserRegister } from '../../../types/index';
 import styles from '../../../css_modules/auth/input.module.css';
 
 
 const Register = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const {isError, error} = useAppSelector(state => state.userReducer);
+    const { isError, error } = useAppSelector(state => state.userReducer);
     const user = useAppSelector(state => state.userReducer);
 
-const { 
-    register,
-    watch,
-    formState: { errors, isValid },
-     handleSubmit,
-    reset
-} = useForm({
-    defaultValues: {
-        firstName: '',
-        lastName: '',
-        email: "",
-        password: "",
-        confirmPassword: ''
-    }, 
-   mode: 'onBlur'
-})
+    const {
+        register,
+        watch,
+        formState: { errors, isValid },
+        handleSubmit,
+        reset
+    } = useForm({
+        defaultValues: {
+            firstName: '',
+            lastName: '',
+            email: "",
+            password: "",
+            confirmPassword: ''
+        },
+        mode: 'onBlur'
+    })
 
-    const handleClickRegister = async(userData: UserRegister) => {
-       
+    const handleClickRegister = async (userData: UserRegister) => {
+
         console.log('Before dispatching registerUser', userData);
         try {
             await dispatch(registerUser(userData)).unwrap();
             navigate('/profile');
         } catch (error) {
-                // Обработка ошибок
-                console.error('Registration error:', error);
+            console.error('Registration error:', error);
         }
-        //-------------------------
-        // await dispatch(registerUser(userData))
-        // .unwrap()
-        // .then((resultAction) => {
-        //     // Проверяем, нет ли ошибок в регистрации
-        //     console.log('Проверка перед переходом в случае успеха',isError);
-        //     if (registerUser.fulfilled.match(resultAction)) {
-        //         navigate('/profile'); 
-        //     } else {
-        //         console.error('Registration error:', error);
-        //         alert('Failed to register');
-        //     }
-        // })
-        // .catch((error) => {
-        //     console.error('Unhandled error:', error);
-        // });
-        // reset();
     }
-   
+
     return (
         <div>
             <form className={styles.form} onSubmit={handleSubmit(handleClickRegister)}>
@@ -84,7 +66,7 @@ const {
                     {errors?.firstName && <p role="alert">{errors?.firstName?.message || 'Error!'}</p>}
                 </div>
                 <label className={styles.data}>LastName:
-                    <input className={styles.field} {...register("lastName", 
+                    <input className={styles.field} {...register("lastName",
                         {
                             required: 'Last name is required',
                             minLength: {
@@ -105,15 +87,15 @@ const {
                     {errors?.lastName && <p role="alert">{errors?.lastName?.message || 'Error!'}</p>}
                 </div>
                 <label className={styles.data}>Email:
-                    <input className={styles.field} {...register("email", 
+                    <input className={styles.field} {...register("email",
                         {
                             required: 'Email is required',
                             pattern: {
-                               value: /\S+@\S+\.\S+/,
-                               message: 'email is not valid'
+                                value: /\S+@\S+\.\S+/,
+                                message: 'email is not valid'
                             }
-                        })} 
-                        aria-invalid={errors.email ? "true" : "false"} 
+                        })}
+                        aria-invalid={errors.email ? "true" : "false"}
                         placeholder='email' required
                     />
                 </label>
@@ -121,14 +103,14 @@ const {
                     {errors?.email && <p role="alert">{errors?.email?.message || 'Error!'}</p>}
                 </div>
                 <label className={styles.data}>Password:
-                    <input className={styles.field} {...register("password", 
+                    <input className={styles.field} {...register("password",
                         {
                             required: 'Password is required',
                             pattern: {
-                               value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{4,}$/,
-                               message: 'must have minimum length of at least 4 characters: at least one upper case letter, one lower case letter,one number, and one special character'
+                                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{4,}$/,
+                                message: 'must have minimum length of at least 4 characters: at least one upper case letter, one lower case letter,one number, and one special character'
                             }
-                        })} 
+                        })}
                         aria-invalid={errors.password ? "true" : "false"}
                         placeholder='password' required
                     />
@@ -152,12 +134,15 @@ const {
                     {errors?.confirmPassword && <p role="alert">{errors?.confirmPassword?.message || 'Error!'}</p>}
                 </div>
                 <button className={styles.button} type='submit' disabled={!isValid}>Sign up</button>
-                
+
                 {/* {user.status === 'pending' && <h2>Loading...</h2>} */}
-                {user.error && <h2>An error occerd: {error}</h2>}
+                {user.error && <h2 style={{ color: 'red' }}>
+                    Error: {typeof user.error === 'string' ? user.error : JSON.stringify(user.error)}
+                </h2>}
+
             </form>
         </div>
-  )
+    )
 }
 
 export default Register;

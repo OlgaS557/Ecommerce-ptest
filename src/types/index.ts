@@ -1,7 +1,7 @@
 //Products
 export interface Item {
     index?: number;
-    name?: string;
+    name: string;
     img?: string;
     url:string;
     gender?: string;

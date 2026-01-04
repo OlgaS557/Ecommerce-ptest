@@ -176,10 +176,11 @@ const ProductsPage: FC = () => {
             ? ([...new Array(9)].map((_, index) => <Skeleton key={index} />))
             : paginatedItems.length > 0 ? (
               paginatedItems.map((item, index) => <Card item={item} key={index} />)
+            
             ) : (
               <p>No products found</p>
             )
-            }
+          }
         </div>
         <div className={styles.paginations}>
           <Pagination />

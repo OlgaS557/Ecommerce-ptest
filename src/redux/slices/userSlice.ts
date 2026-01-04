@@ -54,26 +54,30 @@ export const registerUser = createAsyncThunk<
   // Тип успешного ответа от сервера
   UserState,
   // Тип входных данных (userData)
-  { firstName: string, lastName: string, email: string },
+  { firstName: string, lastName: string, email: string, password: string },
   // Тип возможной ошибки
   { rejectValue: string }
 >(
   'user/register',
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${base_url}/profile/signup`, {
+      // const response = await fetch(`${base_url}/profile/signup`, {
+      const response = await fetch(`/api/signup`, {
         method: 'POST',
         body: JSON.stringify(userData),
         headers: {
           'Content-Type': 'application/json'
         }
       });
-
+      
       if (!response.ok) {
-        throw new Error(`Status: ${response.status}`);
+        const text = await response.text().catch(()=>null);
+        console.error('registerUser: non-ok response', response.status, text);
+        throw new Error(`Status: ${response.status} ${text || ''}`);
       }
 
       const data = await response.json();
+      localStorage.setItem('jwtToken', data.jwtToken);//added for local mock-server test !!!
       localStorage.setItem('refreshToken', data.jwtRefreshToken);
       return data;
 
@@ -85,11 +89,13 @@ export const registerUser = createAsyncThunk<
 
 export const loginUser = createAsyncThunk<UserState,
   { email: string, password: string }, { rejectValue: string }
->(
+>
+(
   'user/login',
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${base_url}/profile/signin`, {
+      // const response = await fetch(`${base_url}/profile/signin`, {
+      const response = await fetch(`/api/signin`, {
         method: 'POST',
         body: JSON.stringify(userData),
         headers: {
@@ -101,6 +107,7 @@ export const loginUser = createAsyncThunk<UserState,
       }
 
       const data = await response.json();
+      localStorage.setItem('jwtToken', data.jwtToken);//added for local mock-server test !!!
       localStorage.setItem('refreshToken', data.jwtRefreshToken);
       console.log('refreshToken', data.jwtRefreshToken);
 
@@ -298,6 +305,7 @@ const userSlice = createSlice({
       // state.firstName = '';
       // state.lastName = '';
       // state.email = '';
+      localStorage.removeItem('jwtToken');//for mock-server test
       localStorage.removeItem('refreshToken');
       return initialState;
     }, 
@@ -314,8 +322,7 @@ const userSlice = createSlice({
     builder.addCase(registerUser.pending, (state) => {
       state.isLoading = true;
       state.status = 'pending';
-    });
-    // Обработка успешного ответа от регистрации
+    });    
     builder.addCase(registerUser.fulfilled, (state, action) => {
       // const {jwtToken} = action.payload;
       const updatedUserData = action.payload;

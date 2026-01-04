@@ -1,46 +1,135 @@
-# Getting Started with Create React App
+🛒 E-commerce Frontend Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Frontend e-commerce application built with React and TypeScript.
+The project demonstrates authentication flow, state management with Redux Toolkit, filtering logic, and shopping cart persistence.
+Authentication is implemented using a mock API, while product data is loaded from mockapi.io.
 
-## Available Scripts
+🚀 Tech Stack
 
-In the project directory, you can run:
+React
+TypeScript
+Redux Toolkit
+React Router
+React Hook Form
+CSS Modules
+Express (mock server for auth)
+mockapi.io (products data)
 
-### `npm start`
+✨ Features
+🔐 Authentication
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+User registration and login
+JWT-based authentication
+Refresh token handling logic
+Logout with token cleanup
+Prepared architecture for real backend integration
+Authentication requests are handled via a local mock Express server, which simulates real backend responses.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+🛍 Products & Filtering
 
-### `npm test`
+Products fetched from mockapi.io
+Category filtering (multi-select with “All” logic)
+Price range filtering
+Brand filtering
+Gender filtering
+Search by name
+Sorting and pagination
+All filter state is stored globally in Redux.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+🔍 Navigation & Product Filtering
 
-### `npm run build`
+The application includes a navigation bar (navbar) with menu items for Men, Women, and Kids.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Each menu item:
+Navigates to the products page
+Automatically applies a gender-based filter
+Updates the Redux filter state accordingly
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This allows users to quickly browse products by category directly from the navbar, demonstrating:
+Client-side routing
+Global state management with Redux Toolkit
+Dynamic product filtering based on user navigation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+🛒 Shopping Cart
 
-### `npm run eject`
+Add / remove products
+Increase / decrease quantity
+Discount price calculation
+Cart persistence using localStorage
+Total price calculation
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+🧠 State Management (Redux Toolkit)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The application uses Redux Toolkit with three main slices:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+👤 userSlice
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Handles:
 
-## Learn More
+Registration and login
+JWT token storage
+Refresh token logic
+User profile update
+Password change
+Authentication state (loading, errors)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The slice is designed to work with a real backend API and already includes refresh-token retry logic.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+🔎 filterSlice
+
+Handles:
+
+Categories
+Price ranges
+Brands
+Gender
+Sorting
+Pagination
+Search query
+
+Keeps filtering logic centralized and predictable.
+
+🛒 cartSlice
+
+Handles:
+
+Cart items
+Quantity changes
+Discount calculations
+Persistent storage in localStorage
+
+🧪 Mock API
+Authentication (Express mock server)
+
+POST /api/signup — user registration
+POST /api/signin — user login
+
+The mock server returns JWT-like tokens to simulate real authentication flow.
+
+Products:
+Loaded from mockapi.io
+Used for frontend development before backend implementation
+
+🔄 Ready for Real Backend
+
+The project is architected so that:
+Mock API endpoints can be replaced with real backend URLs
+Token refresh logic already exists
+Protected requests support retry after token refresh
+Minimal refactoring is required to connect a production backend
+
+▶️ Getting Started
+# install dependencies
+npm install
+
+# start frontend
+npm start
+
+# start mock auth server
+node server/index.js
+
+Frontend runs on:
+http://localhost:3000
+
+Mock auth server runs on:
+http://localhost:5000

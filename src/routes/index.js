@@ -10,6 +10,7 @@ import BlogsPage from '../Pages/BlogsPage';
 import BlogPage from '../Pages/BlogPage';
 import ReturnOfGoods from '../Pages/ReturnOfGoods';
 import AddProduct from '../Pages/AddProduct';
+import NotFoundPage from '../Pages/NotFoundPage';
 
 export const routes = [
     {path:"/", element:<HomePage />},
@@ -24,6 +25,8 @@ export const routes = [
     {path:"/login", element:<LogInPage />},
     {path:"/signup", element:<RegisterPage />},
     {path:"/profile", element:<ProfilePage />},
+    {path:"*", element: <NotFoundPage />},
+
 ]
 
 // export const privateRoutes = [
