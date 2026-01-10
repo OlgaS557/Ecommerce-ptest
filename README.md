@@ -1,8 +1,16 @@
 🛒 E-commerce Frontend Application
 
 Frontend e-commerce application built with React and TypeScript.
-The project demonstrates authentication flow, state management with Redux Toolkit, filtering logic, and shopping cart persistence.
-Authentication is implemented using a mock API, while product data is loaded from mockapi.io.
+The project demonstrates a complete frontend architecture including authentication flow, global state management with Redux Toolkit, advanced product filtering & sorting, and shopping cart persistence.
+
+The application has two working modes:
+Local development mode (with mock backend)
+Production demo on Netlify (using Netlify Functions)
+
+🌍 Live Demo
+
+👉 Netlify demo:
+https://ecommerce-ptest.netlify.app/
 
 🚀 Tech Stack
 
@@ -11,30 +19,45 @@ TypeScript
 Redux Toolkit
 React Router
 React Hook Form
+Material UI (MUI)
 CSS Modules
-Express (mock server for auth)
+Netlify Functions
 mockapi.io (products data)
 
 ✨ Features
 🔐 Authentication
 
 User registration and login
-JWT-based authentication
+JWT-based authentication (mocked)
 Refresh token handling logic
 Logout with token cleanup
-Prepared architecture for real backend integration
-Authentication requests are handled via a local mock Express server, which simulates real backend responses.
+Architecture prepared for real backend integration
+
+Authentication implementation:
+
+Local: mock Express server
+Netlify demo: Netlify Functions (signup, signin)
+
+⚠️ Authentication Note
+
+Authentication is implemented using a mock backend (Netlify Functions).
+User credentials are not persisted in a database.
+
+The login endpoint accepts any credentials and returns a mock JWT token.
+This approach is used to demonstrate frontend authentication flow,
+token handling, and protected requests without a real backend.
 
 🛍 Products & Filtering
 
 Products fetched from mockapi.io
-Category filtering (multi-select with “All” logic)
+Category filtering (multi-select with “All” logic, T-shirts, Tops, Trousers)
 Price range filtering
-Brand filtering
+Brand filtering (Levi's, Jungmaven)
 Gender filtering
 Search by name
 Sorting and pagination
-All filter state is stored globally in Redux.
+
+All filter and sort state is stored globally in Redux.
 
 🔍 Navigation & Product Filtering
 
@@ -65,7 +88,6 @@ The application uses Redux Toolkit with three main slices:
 👤 userSlice
 
 Handles:
-
 Registration and login
 JWT token storage
 Refresh token logic
@@ -78,7 +100,6 @@ The slice is designed to work with a real backend API and already includes refre
 🔎 filterSlice
 
 Handles:
-
 Categories
 Price ranges
 Brands
@@ -92,23 +113,25 @@ Keeps filtering logic centralized and predictable.
 🛒 cartSlice
 
 Handles:
-
 Cart items
 Quantity changes
 Discount calculations
 Persistent storage in localStorage
 
-🧪 Mock API
-Authentication (Express mock server)
-
-POST /api/signup — user registration
-POST /api/signin — user login
-
-The mock server returns JWT-like tokens to simulate real authentication flow.
-
+🧪 Mock API & Data Sources 
 Products:
 Loaded from mockapi.io
-Used for frontend development before backend implementation
+Used both locally and in Netlify demo for frontend development before backend implementation
+
+Authentication:
+Local mode: Express mock server
+Production demo: Netlify Functions
+
+Endpoints:
+POST /signup — user registration
+POST /signin — user login
+
+Mock endpoints return JWT-like tokens to simulate real authentication flow.
 
 🔄 Ready for Real Backend
 
@@ -118,7 +141,8 @@ Token refresh logic already exists
 Protected requests support retry after token refresh
 Minimal refactoring is required to connect a production backend
 
-▶️ Getting Started
+🔄 Local vs Netlify Demo
+Local Development:
 # install dependencies
 npm install
 
@@ -133,3 +157,16 @@ http://localhost:3000
 
 Mock auth server runs on:
 http://localhost:5000
+
+🌐 Netlify Production Demo:
+
+Authentication handled via Netlify Functions
+No local server required
+Same frontend codebase
+Same Redux logic
+Same token handling flow
+
+This setup demonstrates how the frontend can work with:
+Serverless backend
+Real production deployment
+Minimal changes between environments

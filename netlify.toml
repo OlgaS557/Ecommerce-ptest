@@ -5,6 +5,15 @@
   node_version = "20.x"
   npm_version = "10.x"
 
+[build.environment]
+  NODE_VERSION = "20"
+  NPM_VERSION = "10"
+  CI = "false"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

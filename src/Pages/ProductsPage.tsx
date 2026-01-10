@@ -90,7 +90,8 @@ const ProductsPage: FC = () => {
     const fetchData = async () => {
       try {
         console.log('Fetching data...');
-        const response = await fetch(`https://63fe336d370fe830d9d040e7.mockapi.io/Items`);
+        // const response = await fetch(`https://63fe336d370fe830d9d040e7.mockapi.io/Items`);
+        const response = await fetch(`/.netlify/functions/products`);
         const fetchedItems = await response.json();
         console.log('Fetched Items: ',fetchedItems);
         

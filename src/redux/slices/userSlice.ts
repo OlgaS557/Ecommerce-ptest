@@ -61,8 +61,9 @@ export const registerUser = createAsyncThunk<
   'user/register',
   async (userData, { rejectWithValue }) => {
     try {
-      // const response = await fetch(`${base_url}/profile/signup`, {
-      const response = await fetch(`/api/signup`, {
+      // const response = await fetch(`${base_url}/profile/signup`, { 
+      // const response = await fetch(`/api/signup`, { // for local test mock server
+      const response = await fetch("/.netlify/functions/signup", {
         method: 'POST',
         body: JSON.stringify(userData),
         headers: {
@@ -77,7 +78,7 @@ export const registerUser = createAsyncThunk<
       }
 
       const data = await response.json();
-      localStorage.setItem('jwtToken', data.jwtToken);//added for local mock-server test !!!
+      // localStorage.setItem('jwtToken', data.jwtToken);//added for local mock-server test !!!
       localStorage.setItem('refreshToken', data.jwtRefreshToken);
       return data;
 
@@ -95,7 +96,8 @@ export const loginUser = createAsyncThunk<UserState,
   async (userData, { rejectWithValue }) => {
     try {
       // const response = await fetch(`${base_url}/profile/signin`, {
-      const response = await fetch(`/api/signin`, {
+      // const response = await fetch(`/api/signin`, { //for local test mock server
+      const response = await fetch("/.netlify/functions/signin", {
         method: 'POST',
         body: JSON.stringify(userData),
         headers: {
@@ -107,7 +109,7 @@ export const loginUser = createAsyncThunk<UserState,
       }
 
       const data = await response.json();
-      localStorage.setItem('jwtToken', data.jwtToken);//added for local mock-server test !!!
+      // localStorage.setItem('jwtToken', data.jwtToken);//added for local mock-server test !!!
       localStorage.setItem('refreshToken', data.jwtRefreshToken);
       console.log('refreshToken', data.jwtRefreshToken);
 
@@ -305,7 +307,7 @@ const userSlice = createSlice({
       // state.firstName = '';
       // state.lastName = '';
       // state.email = '';
-      localStorage.removeItem('jwtToken');//for mock-server test
+      // localStorage.removeItem('jwtToken');//for mock-server test
       localStorage.removeItem('refreshToken');
       return initialState;
     }, 
